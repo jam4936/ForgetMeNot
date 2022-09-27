@@ -13,9 +13,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-      <AmplifyProvider>
-          <App/>
-      </AmplifyProvider>
-  </React.StrictMode>
+    <AmplifyProvider>
+        <App/>
+    </AmplifyProvider>
 );
