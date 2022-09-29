@@ -1,7 +1,6 @@
 import React from 'react';
 import './styles.css'
 import * as faceapi from 'face-api.js'
-import { isWithFaceDetection } from 'face-api.js/build/commonjs/factories';
 class Vision extends React.Component {
     videoElement: any;
     canvasElement: any;
@@ -21,39 +20,44 @@ class Vision extends React.Component {
         return new faceapi.TinyFaceDetectorOptions({ inputSize, scoreThreshold })
     }
 
-    onPlay(): any {
-      const videoEl = this.videoElement.current;
+    
+    async onPlay(this:any){
+        
+        const videoEl = this.videoElement.current;
+        if(!videoEl){
+            return setTimeout(() => this.onPlay())
+        }
+        if(videoEl.paused || videoEl.ended){
+            return setTimeout(() => this.onPlay())
+        }
+        console.log('FUCK')
+        const options = this.getFaceDetectorOptions()
 
-      if(videoEl.paused || videoEl.ended){
-        return setTimeout(() => this.onPlay())
-      }
+        const ts = Date.now()
 
-      const options = this.getFaceDetectorOptions()
-
-      const ts = Date.now()
-
-      const result = faceapi.detectSingleFace(videoEl, options)
-      console.log(result)
-      
-
+        const result = await faceapi.detectSingleFace(videoEl, options)
+        
+        if (result) {
+            const canvas = this.canvasElement.current;
+            const dims = faceapi.matchDimensions(canvas, videoEl, true)
+            faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+            }
+    
+            setTimeout(() => this.onPlay())
+        
+        
       
     }
 
-    async run(){
-      // load face detection model
-      
-      let cvModel = faceapi.nets.tinyFaceDetector
-    
-      // try to access users webcam and stream the images
-      // to the video element
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = this.videoElement.current;
-      videoEl.srcObject = stream
-    
+    run(this:any){
+        this.onPlay(this)
     }
 
-    componentDidMount(): void {
-        this.run()
+    async componentDidMount(){
+        let cvModel = faceapi.nets.tinyFaceDetector
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+        const videoEl = this.videoElement.current;
+        videoEl.srcObject = stream
     }
 
     
@@ -71,7 +75,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video ref={this.videoElement} onLoadedMetadata={this.onPlay} id="inputVideo" autoPlay muted playsInline></video>
+                        <video ref={this.videoElement} onLoadedMetadata={this.run()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
