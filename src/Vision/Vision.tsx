@@ -4,7 +4,7 @@ import * as faceapi from 'face-api.js'
 class Vision extends React.Component {
     videoElement: any;
     canvasElement: any;
-
+    cvModel: any
  
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -27,7 +27,8 @@ class Vision extends React.Component {
         if(!videoEl){
             return setTimeout(() => this.onPlay())
         }
-        if(videoEl.paused || videoEl.ended){
+        if(videoEl.paused || videoEl.ended || !this.cvModel.isLoaded){
+            console.log(this.cvModel)
             return setTimeout(() => this.onPlay())
         }
         console.log('FUCK')
@@ -49,12 +50,11 @@ class Vision extends React.Component {
       
     }
 
-    run(this:any){
-        this.onPlay(this)
-    }
 
     async componentDidMount(){
-        let cvModel = faceapi.nets.tinyFaceDetector
+        console.log('loading model')
+        this.cvModel = await faceapi.nets.tinyFaceDetector.load('/')
+        console.log('Model loaded')
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
@@ -75,7 +75,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video ref={this.videoElement} onLoadedMetadata={this.run()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
