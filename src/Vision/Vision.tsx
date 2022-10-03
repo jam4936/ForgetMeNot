@@ -27,11 +27,11 @@ class Vision extends React.Component {
         if(!videoEl){
             return setTimeout(() => this.onPlay())
         }
-        if(videoEl.paused || videoEl.ended || !this.cvModel.isLoaded){
+        if(videoEl.paused || videoEl.ended || !faceapi.nets.tinyFaceDetector.isLoaded){
             console.log(this.cvModel)
             return setTimeout(() => this.onPlay())
         }
-        console.log('FUCK')
+        
         const options = this.getFaceDetectorOptions()
 
         const ts = Date.now()
@@ -53,8 +53,8 @@ class Vision extends React.Component {
 
     async componentDidMount(){
         console.log('loading model')
-        this.cvModel = await faceapi.nets.tinyFaceDetector.load('/models')
-        console.log('Model loaded')
+        await faceapi.nets.tinyFaceDetector.load('/models')
+        console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
