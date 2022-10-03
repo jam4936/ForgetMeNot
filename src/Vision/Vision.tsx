@@ -53,7 +53,7 @@ class Vision extends React.Component {
 
     async componentDidMount(){
         console.log('loading model')
-        this.cvModel = await faceapi.nets.tinyFaceDetector.load('/')
+        this.cvModel = await faceapi.nets.tinyFaceDetector.load('/models')
         console.log('Model loaded')
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         const videoEl = this.videoElement.current;
