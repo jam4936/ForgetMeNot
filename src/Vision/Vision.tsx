@@ -18,7 +18,7 @@ class Vision extends React.Component {
         // TinyFaceDetectorOptions
         const inputSize = 128
         const scoreThreshold = 0.5
-        return new faceapi.TinyFaceDetectorOptions({ inputSize, scoreThreshold })
+        return new faceapi.SsdMobilenetv1Options({ minConfidence })
     }
 
     
@@ -28,7 +28,7 @@ class Vision extends React.Component {
         if(!videoEl){
             return setTimeout(() => this.onPlay())
         }
-        if(videoEl.paused || videoEl.ended || !faceapi.nets.tinyFaceDetector.isLoaded){
+        if(videoEl.paused || videoEl.ended || !faceapi.nets.ssdMobilenetv1.isLoaded){
             console.log(this.cvModel)
             return setTimeout(() => this.onPlay())
         }
@@ -37,14 +37,19 @@ class Vision extends React.Component {
 
         const ts = Date.now()
 
-        const result = await faceapi.detectSingleFace(videoEl, options)
+        const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
         
         if (result) {
             console.log(result)
             const canvas = this.canvasElement.current;
             const dims = faceapi.matchDimensions(canvas, videoEl, true)
-            faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
-            this.outputElement.current.value = result.score>.6
+            const resizedResult = faceapi.resizeResults(result, dims)
+
+            if (true) {
+            faceapi.draw.drawDetections(canvas, resizedResult)
+            }
+            faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+            //this.outputElement.current.value = result.score>.6
             }
     
             setTimeout(() => this.onPlay())
@@ -56,7 +61,8 @@ class Vision extends React.Component {
 
     async componentDidMount(){
         console.log('loading model')
-        await faceapi.nets.tinyFaceDetector.load('/models')
+        await faceapi.nets.ssdMobilenetv1.load('/models')
+        await faceapi.loadFaceLandmarkModel('/models')
         console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         const videoEl = this.videoElement.current;
