@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting Initialized
+
+For getting started, you can run these three commands in administrative mode:
+
+### `npm install -g @aws-amplify/cli`
+### `amplify pull --appId d28at31u3ld582 --envName staging`
+### `npmi start`
+
 ## Available Scripts
 
 In the project directory, you can run:
