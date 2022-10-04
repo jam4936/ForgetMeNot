@@ -29,7 +29,7 @@ class Vision extends React.Component {
             return setTimeout(() => this.onPlay())
         }
         if(videoEl.paused || videoEl.ended || !faceapi.nets.ssdMobilenetv1.isLoaded){
-            console.log(this.cvModel)
+            console.log(videoEl.paused , videoEl.ended , !faceapi.nets.ssdMobilenetv1.isLoaded)
             return setTimeout(() => this.onPlay())
         }
         
@@ -44,6 +44,13 @@ class Vision extends React.Component {
             const canvas = this.canvasElement.current;
             const dims = faceapi.matchDimensions(canvas, videoEl, true)
             const resizedResult = faceapi.resizeResults(result, dims)
+            const landmarks = result.landmarks.positions;
+            const pointA = landmarks[9]
+            const pointB = landmarks[28]
+            const pointC = landmarks[31]
+            const pointD = landmarks[30]
+            const pointE = landmarks[29]
+            //28-31
 
             if (true) {
             faceapi.draw.drawDetections(canvas, resizedResult)
@@ -54,8 +61,6 @@ class Vision extends React.Component {
     
             setTimeout(() => this.onPlay())
         
-        
-      
     }
 
 
@@ -68,9 +73,6 @@ class Vision extends React.Component {
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
     }
-
-    
-    
     
     render() {
 
@@ -84,7 +86,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video style={{display: 'block'}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
