@@ -57,6 +57,8 @@ class Vision extends React.Component {
             const landmarksFromResults = result.landmarks.positions;
             let xMax = 0
             let yMax = 0
+            let xMin = 0
+            let yMin = 0
             let normalizedPoints: any[] = []
             landmarksFromResults.forEach(e=>{
                 
@@ -66,12 +68,18 @@ class Vision extends React.Component {
                 if(e.y>yMax){
                     yMax  = e.y
                 }
+                if(e.x<xMin){
+                    xMin  = e.x
+                }
+                if(e.y<yMin){
+                    yMin  = e.y
+                }
             })
             let count = 0
             landmarksFromResults.forEach(e=>{
                 let normal = {x : 0, y: 0, count:count}
-                normal.x  = e.x/xMax
-                normal.y = e.y/yMax
+                normal.x  = (e.x-xMin)/(xMax-xMin)
+                normal.y = (e.y-yMin)/(yMax-yMin)
                 count++;
                 normalizedPoints.push(normal)
                 
@@ -95,7 +103,7 @@ class Vision extends React.Component {
 
             });
             console.log(runningSum)
-            if(.5>runningSum && runningSum>.1){
+            if(.2>=runningSum){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
