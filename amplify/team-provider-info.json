@@ -10,6 +10,11 @@
       "StackName": "amplify-forgetmenot-staging-45825",
       "StackId": "arn:aws:cloudformation:us-east-2:782732216892:stack/amplify-forgetmenot-staging-45825/30ec77a0-3a33-11ed-8581-022163efa3ae",
       "AmplifyAppId": "d28at31u3ld582"
+    },
+    "categories": {
+      "auth": {
+        "Forgetmenot": {}
+      }
     }
   }
 }
