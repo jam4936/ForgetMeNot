@@ -7,6 +7,7 @@ class Vision extends React.Component {
     cvModel: any;
     outputElement: any;
     textElement: any;
+    inputElement: any;
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
 
     constructor(props: {} | Readonly<{}>){
@@ -15,6 +16,7 @@ class Vision extends React.Component {
         this.canvasElement = React.createRef();
         this.outputElement = React.createRef();
         this.textElement = React.createRef();
+        this.inputElement = React.createRef();
     }
     getFaceDetectorOptions() {
         const minConfidence = 0.5
@@ -34,6 +36,11 @@ class Vision extends React.Component {
     getLeft(landmarks:any){
         return [landmarks[1],landmarks[2]]
     }
+
+    getNthPoint(leftB: number,rightB: number,parts: number){
+        const topMidpointX  = ((rightB - leftB)/parts) + leftB
+    }
+
     async onPlay(this:any){
         
         const videoEl = this.videoElement.current;
@@ -89,6 +96,7 @@ class Vision extends React.Component {
                 
             })
             const box = result.alignedRect.box
+            //const topMidpointX = this.getNthPoint(box.topLeft.x,box.topRight.x,2)
             const topMidpointX  = ((box.topRight.x - box.topLeft.x)/2) + box.topLeft.x
             console.log(topMidpointX)
             let nonLeftPoints = 0
@@ -105,7 +113,7 @@ class Vision extends React.Component {
 
     
             //console.log(runningSum)
-            if(Math.abs(nonLeftPoints-34)<10){
+            if(Math.abs(nonLeftPoints-34)<19){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
@@ -155,15 +163,19 @@ class Vision extends React.Component {
                     <div className="row side-by-side">
                         <div id="fps_meter" className="row side-by-side">
                             <div>
-                                <label>Time:</label>
+                                <label>Glance scoreThreshold: </label>
+                                <input ref={this.inputElement} value="" id="in" type="number" className="bold"/>
+                                <label>Landmarks in the subbox:</label>
                                 <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
-                                    <label>Is Face There?: </label>
-                                    <input ref={this.outputElement} disabled value="-" id="fps" type="text" className="bold"/>
-                                    </div>
-                            </div>
+                                <label>Is Face There?: </label>
+                                <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                
 
+                            </div>
                         </div>
+
                     </div>
+                </div>
                     
             </body>);
     }
