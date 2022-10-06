@@ -50,7 +50,7 @@ class Vision extends React.Component {
         const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
         
         if (result) {
-            //console.log(result)
+            console.log(result)
             const canvas = this.canvasElement.current;
             const dims = faceapi.matchDimensions(canvas, videoEl, true)
             const resizedResult = faceapi.resizeResults(result, dims)
@@ -60,6 +60,7 @@ class Vision extends React.Component {
             let xMin = 0
             let yMin = 0
             let normalizedPoints: any[] = []
+            let area = result.alignedRect.relativeBox.area/.18;
             landmarksFromResults.forEach(e=>{
                 
                 if(e.x>xMax){
@@ -102,8 +103,8 @@ class Vision extends React.Component {
              
 
             });
-            console.log(runningSum)
-            if(.2>=runningSum){
+            //console.log(runningSum)
+            if(.2>=runningSum*area){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
