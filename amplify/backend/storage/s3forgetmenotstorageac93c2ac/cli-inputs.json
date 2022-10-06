@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3forgetmenotstorageac93c2ac",
+  "bucketName": "forget-me-not-storage-ac93c2ac",
+  "policyUUID": "d3976a6d",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
