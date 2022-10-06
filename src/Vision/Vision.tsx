@@ -9,6 +9,8 @@ class Vision extends React.Component {
     textElement: any;
     inputElement: any;
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
+    glanceScore: number;
+
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -17,6 +19,7 @@ class Vision extends React.Component {
         this.outputElement = React.createRef();
         this.textElement = React.createRef();
         this.inputElement = React.createRef();
+        this.glanceScore = 5;
     }
     getFaceDetectorOptions() {
         const minConfidence = 0.5
@@ -108,20 +111,31 @@ class Vision extends React.Component {
 
                 }
             })
-             const ctx = this.canvasElement.current.getContext("2d");
 
-
-    
-            //console.log(runningSum)
             if(Math.abs(nonLeftPoints-34)<19){
-                this.outputElement.current.style.backgroundColor="#00B1E1"
+                this.glanceScore ++;
+                if(this.glanceScore>10){
+                    this.glanceScore = 10;
+                }
+                //this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
 
+                this.glanceScore --;
+                if(this.glanceScore<0){
+                    this.glanceScore = 0;
+                }
+            }
+
+            if(this.glanceScore>2){
+                this.outputElement.current.style.backgroundColor="#00B1E1"
+            }
+            else{
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
-            this.textElement.current.value = nonLeftPoints;
 
+            this.textElement.current.value = nonLeftPoints;
+            this.inputElement.current.value = this.glanceScore
             if (true) {
             faceapi.draw.drawDetections(canvas, resizedResult)
             }
@@ -129,7 +143,7 @@ class Vision extends React.Component {
             
             }
     
-            setTimeout(() => this.onPlay())
+            setTimeout(() => this.onPlay(), 750)
         
     }
 
@@ -163,8 +177,8 @@ class Vision extends React.Component {
                     <div className="row side-by-side">
                         <div id="fps_meter" className="row side-by-side">
                             <div>
-                                <label>Glance scoreThreshold: </label>
-                                <input ref={this.inputElement} value="" id="in" type="number" className="bold"/>
+                                <label>Glance score: </label>
+                                <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
                                 <label>Landmarks in the subbox:</label>
                                 <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
                                 <label>Is Face There?: </label>
