@@ -30,20 +30,6 @@ class Vision extends React.Component {
         return new faceapi.SsdMobilenetv1Options({ minConfidence })
     }
 
-    getNose(landmarks:any){
-        return [landmarks[28],landmarks[29],landmarks[30],landmarks[31]]
-    }
-    getRight(landmarks:any){
-        return [landmarks[17],landmarks[16]]
-    }
-    getLeft(landmarks:any){
-        return [landmarks[1],landmarks[2]]
-    }
-
-    getNthPoint(leftB: number,rightB: number,parts: number){
-        const topMidpointX  = ((rightB - leftB)/parts) + leftB
-    }
-
     async onPlay(this:any){
         
         const videoEl = this.videoElement.current;
