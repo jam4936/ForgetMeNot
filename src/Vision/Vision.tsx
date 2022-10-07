@@ -10,7 +10,7 @@ class Vision extends React.Component {
     inputElement: any;
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
     glanceScore: number;
-
+    debug = false
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -133,13 +133,15 @@ class Vision extends React.Component {
             else{
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
-
+            this.outputElement.current.value = Math.abs(nonLeftPoints-34)
             this.textElement.current.value = nonLeftPoints;
             this.inputElement.current.value = this.glanceScore
-            if (true) {
-            faceapi.draw.drawDetections(canvas, resizedResult)
+            
+            if (this.debug) {
+                faceapi.draw.drawDetections(canvas, resizedResult)
+                faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
             }
-            faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+           
             
             }
     
@@ -170,7 +172,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video style={{display: 'block'}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video style={{height: "0px",width:"0px"}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
