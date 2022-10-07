@@ -7,7 +7,10 @@ class Vision extends React.Component {
     cvModel: any;
     outputElement: any;
     textElement: any;
+    inputElement: any;
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
+    glanceScore: number;
+    debug = false
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -15,6 +18,8 @@ class Vision extends React.Component {
         this.canvasElement = React.createRef();
         this.outputElement = React.createRef();
         this.textElement = React.createRef();
+        this.inputElement = React.createRef();
+        this.glanceScore = 5;
     }
     getFaceDetectorOptions() {
         const minConfidence = 0.5
@@ -34,6 +39,11 @@ class Vision extends React.Component {
     getLeft(landmarks:any){
         return [landmarks[1],landmarks[2]]
     }
+
+    getNthPoint(leftB: number,rightB: number,parts: number){
+        const topMidpointX  = ((rightB - leftB)/parts) + leftB
+    }
+
     async onPlay(this:any){
         
         const videoEl = this.videoElement.current;
@@ -89,6 +99,7 @@ class Vision extends React.Component {
                 
             })
             const box = result.alignedRect.box
+            //const topMidpointX = this.getNthPoint(box.topLeft.x,box.topRight.x,2)
             const topMidpointX  = ((box.topRight.x - box.topLeft.x)/2) + box.topLeft.x
             console.log(topMidpointX)
             let nonLeftPoints = 0
@@ -100,28 +111,41 @@ class Vision extends React.Component {
 
                 }
             })
-             const ctx = this.canvasElement.current.getContext("2d");
 
-
-    
-            //console.log(runningSum)
-            if(Math.abs(nonLeftPoints-34)<10){
-                this.outputElement.current.style.backgroundColor="#00B1E1"
+            if(Math.abs(nonLeftPoints-34)<19){
+                this.glanceScore ++;
+                if(this.glanceScore>10){
+                    this.glanceScore = 10;
+                }
+                //this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
 
+                this.glanceScore --;
+                if(this.glanceScore<0){
+                    this.glanceScore = 0;
+                }
+            }
+
+            if(this.glanceScore>2){
+                this.outputElement.current.style.backgroundColor="#00B1E1"
+            }
+            else{
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
+            this.outputElement.current.value = Math.abs(nonLeftPoints-34)
             this.textElement.current.value = nonLeftPoints;
-
-            if (true) {
-            faceapi.draw.drawDetections(canvas, resizedResult)
+            this.inputElement.current.value = this.glanceScore
+            
+            if (this.debug) {
+                faceapi.draw.drawDetections(canvas, resizedResult)
+                faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
             }
-            faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+           
             
             }
     
-            setTimeout(() => this.onPlay())
+            setTimeout(() => this.onPlay(), 750)
         
     }
 
@@ -148,22 +172,26 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video style={{display: 'block'}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video style={{height: "0px",width:"0px"}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
                     <div className="row side-by-side">
                         <div id="fps_meter" className="row side-by-side">
                             <div>
-                                <label>Time:</label>
+                                <label>Glance score: </label>
+                                <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
+                                <label>Landmarks in the subbox:</label>
                                 <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
-                                    <label>Is Face There?: </label>
-                                    <input ref={this.outputElement} disabled value="-" id="fps" type="text" className="bold"/>
-                                    </div>
-                            </div>
+                                <label>Is Face There?: </label>
+                                <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                
 
+                            </div>
                         </div>
+
                     </div>
+                </div>
                     
             </body>);
     }
