@@ -1,0 +1,39 @@
+/*For Computer View*/
+@media screen and (min-width: 1024px) {
+    div#oneLineResponse {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+        align-items: baseline;
+    }
+    label{
+        display:inline-block;
+        font-size: 1rem;
+        padding-right: 1em;
+    }
+    input[type=text]{
+        display: inline-block;
+        font-size: 1rem;
+        height: 2rem;
+        border-radius: 5px;
+        width: 50rem;
+    }
+}
+/*For Tablet View*/
+@media screen and (min-width: 400px) and (max-width: 1024px) {
+    div#oneLineResponse{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;    
+           
+    }
+    label{
+        font-size: 1rem;
+    }
+    input[type=text]{
+        font-size: 2rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        height: 2rem;
+    }
+}
