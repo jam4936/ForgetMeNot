@@ -6,13 +6,22 @@ class Vision extends React.Component {
     canvasElement: any;
     cvModel: any;
     outputElement: any;
+    textElement: any;
+    inputElement: any;
+    frameElement: any;
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
+    glanceScore: number;
+    debug = false
 
     constructor(props: {} | Readonly<{}>){
         super(props)
         this.videoElement = React.createRef();
         this.canvasElement = React.createRef();
         this.outputElement = React.createRef();
+        this.textElement = React.createRef();
+        this.inputElement = React.createRef();
+        this.frameElement = React.createRef();
+        this.glanceScore = 5;
     }
     getFaceDetectorOptions() {
         const minConfidence = 0.5
@@ -21,17 +30,8 @@ class Vision extends React.Component {
         const inputSize = 128
         const scoreThreshold = 0.5
         return new faceapi.SsdMobilenetv1Options({ minConfidence })
-    }
+    }   
 
-    getNose(landmarks:any){
-        return [landmarks[28],landmarks[29],landmarks[30],landmarks[31]]
-    }
-    getRight(landmarks:any){
-        return [landmarks[17],landmarks[16]]
-    }
-    getLeft(landmarks:any){
-        return [landmarks[1],landmarks[2]]
-    }
     async onPlay(this:any){
         
         const videoEl = this.videoElement.current;
@@ -50,7 +50,7 @@ class Vision extends React.Component {
         const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
         
         if (result) {
-            console.log(result)
+            
             const canvas = this.canvasElement.current;
             const dims = faceapi.matchDimensions(canvas, videoEl, true)
             const resizedResult = faceapi.resizeResults(result, dims)
@@ -85,42 +85,54 @@ class Vision extends React.Component {
                 normalizedPoints.push(normal)
                 
             })
-            //console.log(normalizedPoints)
-            let runningSum = 0;
-            this.distancePairings.forEach((element: any[]) => {
-                //console.log(element)
-                let leftP = normalizedPoints[element[0]]
-                let midP = normalizedPoints[element[1]]
-                let rightP = normalizedPoints[element[2]]
-                const leftDist =  Math.sqrt(((leftP.x-midP.x)*(leftP.x-midP.x))+((leftP.y-midP.y)*((leftP.y-midP.y))))
-                const rightDist =  Math.sqrt(((rightP.x-midP.x)*(rightP.x-midP.x))+((rightP.y-midP.y)*((rightP.y-midP.y))))  
-                if(0==runningSum){
-                    runningSum =Math.abs(leftDist-rightDist)
+            const box = result.alignedRect.box
+            
+            const topMidpointX  = ((box.topRight.x - box.topLeft.x)/2) + box.topLeft.x
+          
+            let nonLeftPoints = 0
+            landmarksFromResults.forEach(e=>{
+                if(e.x >= topMidpointX){
+                    nonLeftPoints++;
                 }
                 else{
-                    runningSum =  runningSum + Math.abs(leftDist-rightDist)
-                }
-             
 
-            });
-            //console.log(runningSum)
-            if(.2>=runningSum*area){
+                }
+            })
+
+            if(Math.abs(nonLeftPoints-34)<19){
+                this.glanceScore ++;
+                if(this.glanceScore>10){
+                    this.glanceScore = 10;
+                }
+            }
+            else{
+
+                this.glanceScore --;
+                if(this.glanceScore<0){
+                    this.glanceScore = 0;
+                }
+            }
+
+            if(this.glanceScore>2){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
-                
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
-            
-
-            if (true) {
-            faceapi.draw.drawDetections(canvas, resizedResult)
+            this.outputElement.current.value = Math.abs(nonLeftPoints-34)
+            this.textElement.current.value = nonLeftPoints;
+            this.inputElement.current.value = this.glanceScore
+            const frameTime = Math.round((Date.now()-ts) * 100) / 100
+            this.frameElement.current.value = frameTime;
+            if (this.debug) {
+                faceapi.draw.drawDetections(canvas, resizedResult)
+                faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
             }
-            faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+           
             
             }
     
-            setTimeout(() => this.onPlay())
+            setTimeout(() => this.onPlay(), 750)
         
     }
 
@@ -147,22 +159,28 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video style={{display: 'block'}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video  style = {{height:"0px",width:"0px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
 
                     <div className="row side-by-side">
                         <div id="fps_meter" className="row side-by-side">
                             <div>
-                                <label>Time:</label>
-                                <input disabled value="-" id="time" type="text" className="bold"/>
-                                    <label>Is Face There?: </label>
-                                    <input ref={this.outputElement} disabled value="-" id="fps" type="text" className="bold"/>
-                                    </div>
-                            </div>
+                                <label>Glance score: </label>
+                                <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
+                                <label>Processing time is (ms): </label>
+                                <input ref={this.frameElement} value="" id="in" type="text" className="bold"/>
+                                <label>Landmarks in the subbox:</label>
+                                <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
+                                <label>Is Face There?: </label>
+                                <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                
 
+                            </div>
                         </div>
+
                     </div>
+                </div>
                     
             </body>);
     }
