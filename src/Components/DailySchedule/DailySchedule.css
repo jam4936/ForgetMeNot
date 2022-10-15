@@ -1,0 +1,83 @@
+/*For Computer View*/
+@media screen and (min-width: 1024px) {
+    div#oneLineResponse {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+        align-items: baseline;
+    }
+    div#multiLineResponse {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        align-items: baseline;
+    }
+    div#multiLineQuestion {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        align-items: baseline;
+    }
+    div#RoutineSections {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+    }
+    label{
+        display:inline-block;
+        font-size: 1rem;
+        padding-right: 1em;
+    }
+    input[type=text]{
+        display: inline-block;
+        font-size: 1rem;
+        height: 2rem;
+        border-radius: 5px;
+        width: 30%;
+    }
+    textarea{
+        display: inline-block;
+        font-size: 1rem;
+        border-radius: 5px;
+        width: 50%;
+        height: 10rem;
+    }
+}
+/*For Tablet View*/
+@media screen and (min-width: 400px) and (max-width: 1024px) {
+    div#oneLineResponse{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    div#multiLineResponse {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+    }
+    div#multiLineQuestion {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+    }
+    div#RoutineSections {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+    }
+    label{
+        font-size: 1rem;
+    }
+    input[type=text]{
+        border-radius: 5px;
+        font-size: 1rem;
+        height: 2rem;
+        width: 70%;
+    }
+    textarea{
+        font-size: 1rem;
+        border-radius: 5px;
+        width: 70%;
+        height: 7rem;
+    }
+}
