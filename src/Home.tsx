@@ -7,11 +7,11 @@ function Home() {
             <br></br>
             Try accessing one of the following:
             <br></br>
-            - "/project"
+                <a href="http://localhost:3000/project">- "/project</a>
             <br></br>
-            - "/visionConcept"
+                <a href="http://localhost:3000/visionConcept">- "/visionConcept</a>
             <br></br>
-            - "/dailySchedule"
+                <a href="http://localhost:3000/dailySchedule">- "/dailySchedule</a>
             <br></br>
         </h1>
 );

@@ -1,8 +1,8 @@
 import React from "react";
-import './DailyActivities.css';
-import '../DailySchedule.css';
+import './BedTimeRoutine.css';
+import '../../DailySchedule.css';
 
-class DailyActivities extends React.Component {
+class BedTimeRoutine extends React.Component {
     
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -13,10 +13,10 @@ class DailyActivities extends React.Component {
         return (
             <>
                 <div id="multiLineQuestion">
-                    <label htmlFor="DailyActivities" id="question">How do you like to spend your day?</label>
+                    <label htmlFor="BedTimeRoutine" id="question">Bedtime:</label>
                 </div>
                 <div id="multiLineResponse">
-                    <textarea name="DailyActivities" id={"response"}>
+                    <textarea name="BedTimeRoutine" id={"response"}>
                     </textarea>
                 </div>
             </>
@@ -24,4 +24,4 @@ class DailyActivities extends React.Component {
     }
 }
 
-export default DailyActivities;
+export default BedTimeRoutine;

@@ -11,10 +11,15 @@ class RoutineHabits extends React.Component {
     
     render() {
         return (
-            <div id="oneLineResponse">
-                <label htmlFor="RoutineHabits" id="question">Are there any habits, routines, or rituals that would be important to incorporate into your daily schedule?</label>
-                <input type="text" name="RoutineHabits" id="response"/>
-            </div>
+            <>
+                <div id="multiLineQuestion">
+                    <label htmlFor="RoutineHabits" id="question">Are there any habits, routines, or rituals that would be important to incorporate into your daily schedule?</label>
+                </div>
+                <div id="multiLineResponse">
+                    <textarea name="RoutineHabits" id={"response"}>
+                    </textarea>
+                </div>
+            </>
         )
     }
 }
