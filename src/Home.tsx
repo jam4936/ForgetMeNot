@@ -13,6 +13,8 @@ function Home() {
             <br></br>
                 <a href="http://localhost:3000/dailySchedule">- "/dailySchedule</a>
             <br></br>
+                <a href="http://localhost:3000/login">- "/login</a>
+            <br></br>
         </h1>
 );
 }
