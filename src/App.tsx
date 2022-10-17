@@ -5,6 +5,7 @@ import Project from "./Project";
 import Vision from "./Vision/Vision"
 import DailySchedule from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Login/Login"
+import AboutYou from './Components/AboutYou/AboutYou';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Route path={'/project'} element={<Project/>}/>
           <Route path={'/visionConcept'} element={<Vision/>}/>
           <Route path={'/dailySchedule'} element={<DailySchedule/>}/>
-            <Route path={'/login'} element={<Login/>}/>
+          <Route path={'/login'} element={<Login/>}/>
+          <Route path={'/aboutYou'} element={<AboutYou/>}/>
         </Routes>
       </Router>
   );
