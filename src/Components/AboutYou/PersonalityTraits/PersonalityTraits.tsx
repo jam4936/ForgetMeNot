@@ -7,9 +7,17 @@ class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
 
     constructor(props: {} | Readonly<{}>){
         super(props)
-        this.state = {
-            isTablet: false
+        if(window.innerWidth > 1024){
+            this.state = {
+                isTablet: false
+            }
         }
+        else{
+            this.state = {
+                isTablet: true
+            }
+        }
+        
     }
     
     componentDidMount(): void {

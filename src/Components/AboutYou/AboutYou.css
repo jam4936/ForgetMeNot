@@ -1,15 +1,31 @@
+#aboutYou{
+    margin-left: 1rem;
+}
+#multilineResponse{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+#multilineResponseInput{
+    height: 5rem;
+    font-size: 0.75rem;
+
+}
+textarea{
+    width: 90%;
+}
 /*For Computer View*/
 @media screen and (min-width: 1024px) {
     div#oneLineResponse {
         display: flex;
         flex-direction: row;
-        padding: 1rem;
         align-items: baseline;
     }
     label{
         display:inline-block;
         font-size: 1rem;
         padding-right: 1em;
+        font-weight: normal;
     }
     input[type=text]{
         display: inline-block;
@@ -25,12 +41,14 @@
         display: flex;
         flex-direction: column;
         padding: 1rem;    
-           
     }
     label{
         font-size: 1rem;
+        padding-right: 1rem;
+        font-weight: normal;
     }
     input[type=text]{
+        font-weight:lighter;
         font-size: 2rem;
         border-radius: 5px;
         font-size: 1rem;
