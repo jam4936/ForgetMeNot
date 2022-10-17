@@ -4,6 +4,7 @@ import Home from "./Home";
 import Project from "./Project";
 import Vision from "./Vision/Vision"
 import DailySchedule from "./Components/DailySchedule/DailySchedule"
+import Login from "./Components/Login/Login"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path={'/project'} element={<Project/>}/>
           <Route path={'/visionConcept'} element={<Vision/>}/>
           <Route path={'/dailySchedule'} element={<DailySchedule/>}/>
+            <Route path={'/login'} element={<Login/>}/>
         </Routes>
       </Router>
   );
