@@ -1,4 +1,4 @@
-.Auth-form-container {
+.AuthFormContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     height: 100vh;
 }
 
-.Auth-form {
+.AuthForm {
     width: 420px;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     padding-top: 30px;
@@ -15,21 +15,29 @@
     background-color: white;
 }
 
-.Auth-form-content {
+.AuthFormContent {
     padding-left: 12%;
     padding-right: 12%;
 }
 
-.Auth-form-title {
+.AuthFormTitle {
     text-align: left;
     margin-bottom: 1em;
-    font-size: 24px;
+    font-size: 2rem;
     color: rgb(34, 34, 34);
     font-weight: 800;
 }
 
+p#createAccount {
+    font-size: 1rem;
+    color: rgb(34, 34, 34);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 label {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
     color: rgb(34, 34, 34);
 }

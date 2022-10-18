@@ -1,33 +1,42 @@
 import React from 'react';
+import "./Login.css"
 import Email from "./Email/Email";
 import Password from "./Password/Password";
+import LineSeparator from "./LineSeparator/LineSeparator";
+import GoogleSignIn from "./GoogleSignIn/GoogleSignIn"
 
-function Login() {
-    return (
-        <div className="Auth-form-container">
-            <form className="Auth-form">
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Login</h3>
-                    <div className="form-group mt-3">
-                        <label>Email address</label>
+
+class Login extends React.Component{
+    constructor(props: {} | Readonly<{}>) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="AuthFormContainer">
+                <form className="AuthForm">
+                    <div className="AuthFormContent">
+                        <h3 className="AuthFormTitle">
+                            Sign In
+                        </h3>
                         <Email></Email>
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Password</label>
                         <Password></Password>
-                    </div>
-                    <div>
-                        <button type="submit">
+                        <button type="submit" className="btn btn-primary btn-block">
                             Submit
                         </button>
+                        <p className="forgot-password text-right">
+                            Forgot <a href="#">password?</a>
+                        </p>
+                        <LineSeparator></LineSeparator>
+                        <GoogleSignIn></GoogleSignIn>
+                        <p id="createAccount">
+                            Not registered yet? <a href="#">Create Account</a>
+                        </p>
                     </div>
-                    <p className="forgot-password text-right mt-2">
-                        Forgot <a href="#">password?</a>
-                    </p>
-                </div>
-            </form>
-        </div>
-    );
+                </form>
+            </div>
+        );
+    }
 }
 
 export default Login;
