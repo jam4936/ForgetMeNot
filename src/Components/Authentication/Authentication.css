@@ -36,6 +36,19 @@ p#createAccount {
     align-items: center;
 }
 
+div#signUpOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button#spacing{
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 label {
     font-size: 1rem;
     font-weight: 600;

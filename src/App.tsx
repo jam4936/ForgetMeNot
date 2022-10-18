@@ -4,7 +4,8 @@ import Home from "./Home";
 import Project from "./Project";
 import Vision from "./Vision/Vision"
 import DailySchedule from "./Components/DailySchedule/DailySchedule"
-import Login from "./Components/Login/Login"
+import Login from "./Components/Authentication/Login"
+import CreateAccount from "./Components/Authentication/CreateAccount"
 import AboutYou from './Components/AboutYou/AboutYou';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path={'/dailySchedule'} element={<DailySchedule/>}/>
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/aboutYou'} element={<AboutYou/>}/>
+          <Route path={'/createAccount'} element={<CreateAccount/>}/>
         </Routes>
       </Router>
   );

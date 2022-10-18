@@ -2,12 +2,7 @@ import React from "react";
 import './GoogleSignIn.css';
 import googleLogo from "../../../Images/googleLogo.png";
 
-class GoogleSignIn extends React.Component {
-
-    constructor(props: {} | Readonly<{}>){
-        super(props)
-    }
-
+class GoogleSignIn extends React.Component <{text: string}, {}>{
 
     render() {
         return (
@@ -15,7 +10,7 @@ class GoogleSignIn extends React.Component {
                 <button type="button" className="btn btn-link">
                     <img src={googleLogo}  alt={"GoogleLogo"}/>
                     <p>
-                        Google
+                        {this.props.text}
                     </p>
                 </button>
             </div>

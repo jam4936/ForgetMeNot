@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Login.css"
+import "./Authentication.css"
 import Email from "./Email/Email";
 import Password from "./Password/Password";
 import LineSeparator from "./LineSeparator/LineSeparator";
@@ -27,10 +27,10 @@ class Login extends React.Component{
                         <p className="forgot-password text-right">
                             Forgot <a href="#">password?</a>
                         </p>
-                        <LineSeparator></LineSeparator>
-                        <GoogleSignIn></GoogleSignIn>
+                        <LineSeparator text="Or Continue With"></LineSeparator>
+                        <GoogleSignIn text="Google"></GoogleSignIn>
                         <p id="createAccount">
-                            Not registered yet? <a href="#">Create Account</a>
+                            Not registered yet? <a href="createAccount">Create Account</a>
                         </p>
                     </div>
                 </form>
