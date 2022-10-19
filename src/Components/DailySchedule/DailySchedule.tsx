@@ -1,4 +1,5 @@
 import React from 'react';
+import "./DailySchedule.css"
 import DailyActivities from "./DailyActivities/DailyActivities";
 import BedTime from "./BedTime/BedTime";
 import RoutineHabits from "./RoutineHabits/RoutineHabits";
@@ -11,16 +12,16 @@ import BedTimeRoutine from "./RoutineSections/BedTimeRoutine/BedTimeRoutine";
 function DailySchedule() {
     return (
         <>
-            <h1>
-                Daily Schedule
-            </h1>
-            <div>
+            <div id="DailySchedule">
+                <h1>
+                    Daily Schedule
+                </h1>
                 <DailyActivities></DailyActivities>
                 <BedTime></BedTime>
                 <RoutineHabits></RoutineHabits>
                 <MorningBeverage></MorningBeverage>
                 <div id="RoutineSections">
-                    <label id="RoutineSections">Routine:</label>
+                    <label id="RoutineSections">Routines:</label>
                     <MorningRoutine></MorningRoutine>
                     <AfternoonRoutine></AfternoonRoutine>
                     <EveningRoutine></EveningRoutine>
