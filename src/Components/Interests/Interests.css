@@ -1,6 +1,6 @@
 /*For Computer View*/
 @media screen and (min-width: 1024px) {
-    div#DailySchedule {
+    div#Interests {
         background-color: #e0e0e0;
     }
     div#oneLineResponse {
@@ -15,6 +15,7 @@
         padding-left: 1rem;
         padding-right: 1rem;
         align-items: baseline;
+        padding-bottom: 1rem;
     }
     div#multiLineQuestion {
         display: flex;
@@ -23,7 +24,14 @@
         padding-right: 1rem;
         align-items: baseline;
     }
-    div#RoutineSections {
+    div#oneLineSelect{
+        display: inline-flex;
+        flex-direction: row;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        align-items: baseline;
+    }
+    div#DoYouEnjoy {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
@@ -36,7 +44,7 @@
         padding-top: 1rem;
         font-weight: 600;
     }
-    label#RoutineSections{
+    label#DoYouEnjoy{
         display:inline-block;
         font-size: 1rem;
         padding-right: 1em;
@@ -60,7 +68,7 @@
 }
 /*For Tablet View*/
 @media screen and (min-width: 400px) and (max-width: 1024px) {
-    div#DailySchedule {
+    div#Interests {
         background-color: #e0e0e0;
     }
     div#oneLineResponse{
@@ -68,22 +76,30 @@
         flex-direction: column;
         padding: 1rem;
     }
+    div#oneLineSelect{
+        display: inline-flex;
+        flex-direction: row;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        align-items: baseline;
+        padding-bottom: 1rem;
+    }
     div#multiLineResponse {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
         padding-right: 1rem;
+        padding-bottom: 1rem;
     }
     div#multiLineQuestion {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
     }
-    div#RoutineSections {
+    div#DoYouEnjoy {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
-        padding-bottom: 1rem;
     }
     label#question{
         font-size: 1rem;
@@ -91,7 +107,7 @@
         font-weight: 600;
         padding-right: 1rem;
     }
-    label#RoutineSections{
+    label#DoYouEnjoy{
         display:inline-block;
         font-size: 1rem;
         padding-right: 1em;

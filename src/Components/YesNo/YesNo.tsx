@@ -5,8 +5,8 @@ class YesNo extends React.Component <{}, {isTablet: boolean}>{
     render(){
         return (
             <div>
-                <select>
-                    <option value="">---Select One---</option>
+                <select defaultValue={"none"}>
+                    <option value="none" disabled hidden>Select an Option</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>

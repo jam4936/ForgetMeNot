@@ -4,21 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="added daily schedule starting fragments, and added onto the home page">
-      <change afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/MorningRoutine/MorningRoutine.tsx" afterDir="false" />
+    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="added Interests component and fixed Yes/No to have default unselectable value">
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/AvidTraveler/AvidTraveler.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/AvidTraveler/AvidTraveler.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/AttendingConcerts/AttendingConcerts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/AttendingConcerts/AttendingConcerts.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/GardeningYardwork/GardeningYardwork.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/GardeningYardwork/GardeningYardwork.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Housework/Housework.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Housework/Housework.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/MassageTherapy/MassageTherapy.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/MassageTherapy/MassageTherapy.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Meditation/Meditation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Meditation/Meditation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/PhysicalActivity/PhysicalActivity.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/PhysicalActivity/PhysicalActivity.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Reading/Reading.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Reading/Reading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Yoga/Yoga.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/DoYouEnjoy/Yoga/Yoga.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/FavoriteTravel/FavoriteTravel.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/FavoriteTravel/FavoriteTravel.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/HasArt/HasArt.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/HasArt/HasArt.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/Interests.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/Interests.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/KindOfMusic/KindOfMusic.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/KindOfMusic/KindOfMusic.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/KindOfPhysicalActivity/KindOfPhysicalActivity.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/KindOfPhysicalActivity/KindOfPhysicalActivity.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/PersonalTrainer/PersonalTrainer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/PersonalTrainer/PersonalTrainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/PlayInstruments/PlayInstruments.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Interests/PlayInstruments/PlayInstruments.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/DailyActivities/DailyActivities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/DailyActivities/DailyActivities.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineHabits/RoutineHabits.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineHabits/RoutineHabits.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Afternoon/Afternoon.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/AfternoonRoutine/AfternoonRoutine.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Afternoon/Afternoon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/AfternoonRoutine/AfternoonRoutine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/BedTime/BedTime.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/BedTimeRoutine/BedTimeRoutine.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/BedTime/BedTime.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/BedTimeRoutine/BedTimeRoutine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Evening/Evening.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/EveningRoutine/EveningRoutine.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Evening/Evening.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/EveningRoutine/EveningRoutine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Morning/Morning.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/MorningRoutine/MorningRoutine.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/RoutineSections/Morning/Morning.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/YesNo/YesNo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/YesNo/YesNo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,23 +83,23 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Kyle McCoy/WebstormProjects/ForgetMeNot/src/Components/DailySchedule",
+    "last_opened_file_path": "C:/Users/Kyle McCoy/Documents/WebStorm/ForgetMeNot/src/Components/Interests/PersonalTrainer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\Kyle McCoy\\WebstormProjects\\ForgetMeNot\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\Kyle McCoy\\Documents\\WebStorm\\ForgetMeNot\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule" />
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule\RoutineSections\Morning" />
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule\RoutineSections\Evening" />
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule\RoutineSections\BedTime" />
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule\RoutineSections\Afternoon" />
+      <recent name="C:\Users\Kyle McCoy\Documents\WebStorm\ForgetMeNot\src\Components\Interests\PersonalTrainer" />
+      <recent name="C:\Users\Kyle McCoy\Documents\WebStorm\ForgetMeNot\src\Components\Interests\HasArt" />
+      <recent name="C:\Users\Kyle McCoy\Documents\WebStorm\ForgetMeNot\src\Components\Interests\PhysicalActivity" />
+      <recent name="C:\Users\Kyle McCoy\Documents\WebStorm\ForgetMeNot\src\Components\Interests\FavoriteTravel" />
+      <recent name="C:\Users\Kyle McCoy\Documents\WebStorm\ForgetMeNot\src\Components\Interests\AvidTraveler" />
     </key>
   </component>
   <component name="RunManager">
@@ -105,6 +126,9 @@
       <workItem from="1664920495290" duration="87000" />
       <workItem from="1665067797677" duration="1091000" />
       <workItem from="1665858635691" duration="6699000" />
+      <workItem from="1666191829685" duration="3358000" />
+      <workItem from="1666198544260" duration="2426000" />
+      <workItem from="1666233182346" duration="4966000" />
     </task>
     <task id="LOCAL-00001" summary="added daily schedule starting fragments, and added onto the home page">
       <created>1665861229885</created>
@@ -113,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665861229885</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed styling of dailySchedule section">
+      <created>1666199114155</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666199114155</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +163,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added daily schedule starting fragments, and added onto the home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added daily schedule starting fragments, and added onto the home page" />
+    <MESSAGE value="fixed styling of dailySchedule section" />
+    <MESSAGE value="added Interests component and fixed Yes/No to have default unselectable value" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Interests component and fixed Yes/No to have default unselectable value" />
   </component>
 </project>
