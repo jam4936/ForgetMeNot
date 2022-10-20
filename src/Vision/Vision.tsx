@@ -139,8 +139,8 @@ class Vision extends React.Component {
 
     async componentDidMount(){
         console.log('loading model')
-        await faceapi.nets.ssdMobilenetv1.load('s3://forget-me-not-storage-ac93c2ac45825-staging/models/')
-        await faceapi.loadFaceLandmarkModel('s3://forget-me-not-storage-ac93c2ac45825-staging/models/')
+        await faceapi.nets.ssdMobilenetv1.load(process.env.PUBLIC_URL + '/models/')
+        await faceapi.loadFaceLandmarkModel(process.env.PUBLIC_URL + '/models/')
         console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         const videoEl = this.videoElement.current;
