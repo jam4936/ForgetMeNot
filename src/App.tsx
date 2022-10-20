@@ -7,6 +7,8 @@ import DailySchedule from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Authentication/Login"
 import CreateAccount from "./Components/Authentication/CreateAccount"
 import AboutYou from './Components/AboutYou/AboutYou';
+import Interests from './Components/Interests/Interests';
+import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 
 function App() {
   return (
