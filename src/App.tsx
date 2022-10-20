@@ -6,6 +6,7 @@ import Vision from "./Vision/Vision"
 import DailySchedule from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Login/Login"
 import AboutYou from './Components/AboutYou/AboutYou';
+import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path={'/dailySchedule'} element={<DailySchedule/>}/>
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/aboutYou'} element={<AboutYou/>}/>
+          <Route path={'/aboutYourLife'} element={<AboutYourLife/>}/>
         </Routes>
       </Router>
   );

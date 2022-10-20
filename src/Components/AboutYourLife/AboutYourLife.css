@@ -1,0 +1,10 @@
+#singleLineResponse #singleLineResponseInput{
+    padding-left: 2rem;
+}
+#question{
+    display: flex;
+    flex-direction: row;
+}
+#aboutYourLife{
+    padding-right: 1rem;
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import './Birthplace.css';
-import '../AboutYou.css';
 
 class Birthplace extends React.Component {
     

@@ -1,6 +1,5 @@
 import React from "react";
 import './Language.css';
-import '../AboutYou.css';
 class Language extends React.Component {
     
     constructor(props: {} | Readonly<{}>){

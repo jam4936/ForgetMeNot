@@ -17,6 +17,8 @@ function Home() {
             <br></br>
                 <a href="http://localhost:3000/aboutYou">- "/aboutYou</a>
             <br></br>
+                <a href="http://localhost:3000/aboutYourLife">- "/aboutYourLife</a>
+            <br></br>
         </h1>
 );
 }
