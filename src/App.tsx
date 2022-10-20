@@ -7,6 +7,7 @@ import DailySchedule from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Authentication/Login"
 import CreateAccount from "./Components/Authentication/CreateAccount"
 import AboutYou from './Components/AboutYou/AboutYou';
+import Interests from "./Components/Interests/Interests";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/aboutYou'} element={<AboutYou/>}/>
           <Route path={'/createAccount'} element={<CreateAccount/>}/>
+          <Route path={'/interests'} element={<Interests/>}/>
         </Routes>
       </Router>
   );
