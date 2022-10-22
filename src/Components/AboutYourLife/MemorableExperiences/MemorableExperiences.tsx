@@ -1,4 +1,6 @@
-import { TextField } from "@mui/material";
+import { InputLabel, TextField } from "@mui/material";
+import './MemorableExperiences.css';
+import '../AboutYourLife.css';
 import React from "react";
 
 
@@ -7,7 +9,7 @@ class MemorableExperiences extends React.Component <{}, {isTablet: boolean}>{
     render(){
         return (
             <div>
-                <TextField id="test" label={this.label} variant="outlined"></TextField>
+                <TextField className="multiLineTexts" name="memorable" label={this.label} variant="outlined" rows={4}  multiline></TextField>
             </div>
         );
     }

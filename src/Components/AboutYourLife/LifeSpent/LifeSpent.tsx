@@ -1,45 +1,28 @@
 import { createStyles, InputLabel, makeStyles, TextField, withStyles } from "@mui/material";
-
 import React from "react";
 import './LifeSpent.css';
 
-const useStyles = createStyles({
-    root: {backgroundColor: "black"}
-})
 
 function LifeSpent(){
+    const smallOneLineText = {
+        width: "50%",
+        marginTop: "1rem",
+        height: "1rem",
+        fontSize: "1rem"
 
-    const classes = useStyles;
+    }
     const childhood = "Childhood?";
-    const adult = "Adult";
+    const adult = "Adult?";
     return(
-        <div>
+        <div id="lifeSpent">
             <InputLabel id="lifeSpent">Where was your life spent?</InputLabel>
-            <TextField id="smallOneLineText" className={classes['root']} label={childhood} variant="outlined"/>
-            <TextField id="smallOneLineText" label={adult} variant="outlined"/>
+            <div id="subQuestions">
+                <TextField label={childhood} className='smallOneLineText'variant="outlined" size="small"/>
+                <TextField helperText={adult}className="smallOneLineText"variant="outlined" size="small"/>
+            </div>
+
         </div>
     )
 }
-
-
-// class LifeSpent extends React.Component {
-    
-//     constructor(props: {} | Readonly<{}>){
-//         super(props)
-//     }
-   
-//     render() {
-//         const classes = useStyles;
-//         var childhood = "Childhood?";
-//         var adult = "Adult";
-//         return (
-//             <div id="singleLineResponse">
-//                 <InputLabel id="lifeSpent">Where was your life spent?</InputLabel>
-//                 <TextField id="smallOneLineText" label={childhood} variant="outlined"/>
-//                 <TextField id="smallOneLineText" label={adult} variant="outlined"/>
-//             </div>
-//         )
-//     }
-// }
 
  export default (LifeSpent);

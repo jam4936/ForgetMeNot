@@ -1,17 +1,14 @@
+#lifeSpent{
+    display: flex;
+    flex-direction: column;
+}
 
-div#question{
-    width: 90%;
+#subQuestions, #subQuestions.vertical{
+    display: flex;
+    flex-direction: column;
     margin-left: 1rem;
 }
-#singleLineResponse #question{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
-}
-#singleLineResponse{
-    width: 100%;
-}
 
-#singleLineResponse #question #singleLineResponseInput{
-    height: 2rem;
+.smallOneLineText{
+    width: 50%;
 }

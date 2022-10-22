@@ -1,3 +1,4 @@
+import { InputLabel, TextField } from "@mui/material";
 import React from "react";
 import './SignificantPlaces.css';
 class SignificantPlaces extends React.Component {
@@ -7,10 +8,10 @@ class SignificantPlaces extends React.Component {
     }
 
     render() {
+        var label = "Are there any significant places in your life?"
         return (
             <div id="multilineResponse">
-                {/* <label htmlFor="significantPlaces">Are there any significant places in your life?</label>
-                <textarea name="significantPlaces" id="multilineResponseInput"></textarea> */}
+                <TextField label={label} className='multiLineText' variant="outlined" size="small" name="significant" />
             </div>
         )
     }

@@ -1,5 +1,20 @@
 #aboutYourLife{
-    margin-left: 1rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
+    background-color: #EFF1FB;
+}
+
+.MuiFormControl-root, .MuiTextField-root, .MuiInputBase-root, .MuiInputLabel-root{
+    margin: 1rem;
+    font-size: 1rem;
+    
+}
+
+.MuiFormHelperText-root.MuiFormHelperText-sizeSmall{
+    margin-top: 3px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root, .MuiInputBase-root.MuiFilledInput-root{
+    background-color: white;
 }

@@ -4,6 +4,11 @@ import SignificantPlaces from "./SignificantPlaces/SignificantPlaces";
 import './AboutYourLife.css';
 import MemorableExperiences from "./MemorableExperiences/MemorableExperiences";
 import { InputLabel, TextField } from "@mui/material";
+import Marraige from "./Marraige/Marraige";
+import Comfort from "./Comfort/Comfort";
+import SignificantEvents from "./SignificantEvents/SignificantEvents";
+import Religion from "./Religion/Religion";
+import Church from "./Church/Church";
 
 class AboutYourLife extends React.Component <{}, {isTablet: boolean}>{
 
@@ -24,9 +29,15 @@ class AboutYourLife extends React.Component <{}, {isTablet: boolean}>{
         return (
             <div id="aboutYourLife">
                 <h1>About Your Life</h1>
-                <LifeSpent></LifeSpent>
-
-                {/* <TextField id="oneLineText" label={this.memorableExperiences} variant="outlined"></TextField>
+                <LifeSpent/>
+                <SignificantPlaces/>
+                <MemorableExperiences/>
+                <Marraige/>
+                <Comfort/>
+                <SignificantEvents/>
+                <Religion/>
+                <Church/>
+                { /* <TextField id="oneLineText" label={this.memorableExperiences} variant="outlined"></TextField>
                 <TextField id="oneLineText" label={this.memorableExperiences} variant="outlined"></TextField>
                 <TextField id="oneLineText" label={this.memorableExperiences} variant="outlined"></TextField>
                 <TextField id="oneLineText" label={this.memorableExperiences} variant="outlined"></TextField>
