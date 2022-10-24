@@ -21,7 +21,9 @@ function Home() {
             <br></br>
                 <a href="http://localhost:3000/aboutYourLife">- "/aboutYourLife</a>
             <br></br>
-            <a href="http://localhost:3000/familyForm">- "/familyForm</a>
+                <a href="http://localhost:3000/mediaUpload">- "/mediaUpload</a>
+            <br></br>
+                <a href="http://localhost:3000/familyForm">- "/familyForm</a>
             <br></br>
         </h1>
 );

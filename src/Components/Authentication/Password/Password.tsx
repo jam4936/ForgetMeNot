@@ -36,7 +36,8 @@ class Password extends React.Component <any,any>{
                             className="form-control rounded-right"
                             value={this.state.password}
                             placeholder="Password"
-                            onChange={this.handlePasswordChange}/>
+                            onChange={this.handlePasswordChange}
+                        />
                         <div className="input-group-addon">
                             <i className="bi bi-eye-slash" id="togglePassword" onClick={this.toggleShow}></i>
                         </div>

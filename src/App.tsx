@@ -10,6 +10,7 @@ import AboutYou from './Components/AboutYou/AboutYou';
 import Interests from './Components/Interests/Interests';
 import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
+import MediaUpload from './Components/MediaUpload/MediaUpload'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path={'/createAccount'} element={<CreateAccount/>}/>
           <Route path={'/interests'} element={<Interests/>}/>
           <Route path={'/aboutYourLife'} element={<AboutYourLife/>}/>
+          <Route path={'/mediaUpload'} element={<MediaUpload/>}/>
           <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
         </Routes>
       </Router>
