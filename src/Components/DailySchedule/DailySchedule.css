@@ -4,6 +4,7 @@
         background-color: #EFF1FB;
         padding-left: 1rem;
         padding-top: 1rem;
+        border-radius: 25px;
     }
     div#DailyScheduleOneLineResponse {
         display: flex;
@@ -68,6 +69,7 @@
         background-color: #EFF1FB;
         padding-left: 1rem;
         padding-top: 1rem;
+        border-radius: 25px;
     }
     div#DailyScheduleOneLineResponse{
         display: flex;
