@@ -12,11 +12,11 @@ class KindOfPhysicalActivity extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="KindOfPhysicalActivity" id="question">What kinds of physical activity do you enjoy?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="KindOfPhysicalActivity" id="InterestsQuestion">What kinds of physical activity do you enjoy?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="KindOfPhysicalActivity" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="KindOfPhysicalActivity" id="InterestsResponse">
                     </textarea>
                 </div>
             </>

@@ -1,7 +1,6 @@
 import React from "react";
 import './Yoga.css';
 import '../../Interests.css';
-import YesNo from "../../../YesNo/YesNo";
 
 class Yoga extends React.Component {
     
@@ -12,9 +11,16 @@ class Yoga extends React.Component {
     
     render() {
         return (
-            <div id="oneLineSelect">
-                <label htmlFor="Yoga" id="question">Yoga?</label>
-                <YesNo/>
+            <div id="InterestsOneLineSelect">
+                <label htmlFor="Yoga" id="InterestsQuestion">Yoga?</label>
+                <div>
+                    <select name="YogaResponse" id="YesNo" defaultValue={"none"}>
+                        <option value="none" disabled hidden>Select an Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="indifferent">Indifferent</option>
+                    </select>
+                </div>
             </div>
         )
     }

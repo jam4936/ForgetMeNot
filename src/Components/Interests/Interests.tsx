@@ -21,7 +21,7 @@ function Interests() {
         <>
             <div id="Interests">
                 <h1>
-                    Interests
+                    3. Interests
                 </h1>
                 <div id="DoYouEnjoy">
                     <label id="DoYouEnjoy">Do you enjoy...</label>

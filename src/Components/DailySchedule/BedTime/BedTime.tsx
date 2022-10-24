@@ -11,9 +11,9 @@ class BedTime extends React.Component {
     
     render() {
         return (
-            <div id="oneLineResponse">
-                <label htmlFor="bedtime" id="question">What time do you normally go to bed?</label>
-                <input type="text" name="bedtime" id="response"/>
+            <div id="DailyScheduleOneLineResponse">
+                <label htmlFor="bedtime" id="DailyScheduleQuestion">What time do you normally go to bed?</label>
+                <input type="text" name="bedtime" id="DailyScheduleResponse"/>
             </div>
         )
     }

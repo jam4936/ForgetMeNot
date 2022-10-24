@@ -12,11 +12,11 @@ class MorningRoutine extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="MorningRoutine" id="question">Morning:</label>
+                <div id="DailyScheduleMultiLineQuestion">
+                    <label htmlFor="MorningRoutine" id="DailyScheduleQuestion">Morning:</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="MorningRoutine" id={"response"}>
+                <div id="DailyScheduleMultiLineResponse">
+                    <textarea name="MorningRoutine" id={"DailyScheduleResponse"}>
                     </textarea>
                 </div>
             </>

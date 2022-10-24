@@ -12,11 +12,11 @@ class PlayInstruments extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="PlayInstruments" id="question">Do you play any instruments?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="PlayInstruments" id="InterestsQuestion">Do you play any instruments?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="PlayInstruments" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="PlayInstruments" id="InterestsResponse">
                     </textarea>
                 </div>
             </>

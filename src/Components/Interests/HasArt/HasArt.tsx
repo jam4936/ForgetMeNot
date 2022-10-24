@@ -12,11 +12,11 @@ class HasArt extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="HasArt" id="question">Has art played a role in your life?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="HasArt" id="InterestsQuestion">Has art played a role in your life?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="HasArt" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="HasArt" id="InterestsResponse">
                     </textarea>
                 </div>
             </>

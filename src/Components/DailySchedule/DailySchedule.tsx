@@ -14,7 +14,7 @@ function DailySchedule() {
         <>
             <div id="DailySchedule">
                 <h1>
-                    Daily Schedule
+                    4. Daily Schedule
                 </h1>
                 <DailyActivities></DailyActivities>
                 <BedTime></BedTime>

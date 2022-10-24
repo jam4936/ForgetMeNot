@@ -12,11 +12,11 @@ class FavoriteTravel extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="FavoriteTravel" id="question">What is your favorite travel destination?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="FavoriteTravel" id="InterestsQuestion">What is your favorite travel destination?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="FavoriteTravel" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="FavoriteTravel" id="InterestsResponse">
                     </textarea>
                 </div>
             </>

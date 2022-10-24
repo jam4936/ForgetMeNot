@@ -12,11 +12,11 @@ class PersonalTrainer extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="PersonalTrainer" id="question">Have you ever worked with a personal trainer?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="PersonalTrainer" id="InterestsQuestion">Have you ever worked with a personal trainer?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="PersonalTrainer" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="PersonalTrainer" id="InterestsResponse">
                     </textarea>
                 </div>
             </>

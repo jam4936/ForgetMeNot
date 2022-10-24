@@ -11,9 +11,9 @@ class MorningBeverage extends React.Component {
     
     render() {
         return (
-            <div id="oneLineResponse">
-                <label htmlFor="MorningBeverage" id="question">Do you have a morning beverage of choice?</label>
-                <input type="text" name="MorningBeverage" id="response"/>
+            <div id="DailyScheduleOneLineResponse">
+                <label htmlFor="MorningBeverage" id="DailyScheduleQuestion">Do you have a morning beverage of choice?</label>
+                <input type="text" name="MorningBeverage" id="DailyScheduleResponse"/>
             </div>
         )
     }

@@ -1,7 +1,6 @@
 import React from "react";
 import './Meditation.css';
 import '../../Interests.css';
-import YesNo from "../../../YesNo/YesNo";
 
 class Meditation extends React.Component {
     
@@ -12,9 +11,16 @@ class Meditation extends React.Component {
     
     render() {
         return (
-            <div id="oneLineSelect">
-                <label htmlFor="Meditation" id="question">Meditation?</label>
-                <YesNo/>
+            <div id="InterestsOneLineSelect">
+                <label htmlFor="Meditation" id="InterestsQuestion">Meditation?</label>
+                <div>
+                    <select name="MeditationResponse" id="YesNo" defaultValue={"none"}>
+                        <option value="none" disabled hidden>Select an Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="indifferent">Indifferent</option>
+                    </select>
+                </div>
             </div>
         )
     }

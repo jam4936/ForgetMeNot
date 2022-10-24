@@ -1,7 +1,6 @@
 import React from "react";
 import './MassageTherapy.css';
 import '../../Interests.css';
-import YesNo from "../../../YesNo/YesNo";
 
 class MassageTherapy extends React.Component {
     
@@ -12,9 +11,16 @@ class MassageTherapy extends React.Component {
     
     render() {
         return (
-            <div id="oneLineSelect">
-                <label htmlFor="MassageTherapy" id="question">Massage therapy?</label>
-                <YesNo/>
+            <div id="InterestsOneLineSelect">
+                <label htmlFor="MassageTherapy" id="InterestsQuestion">Massage therapy?</label>
+                <div>
+                    <select name="MassageTherapyResponse" id="YesNo" defaultValue={"none"}>
+                        <option value="none" disabled hidden>Select an Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="indifferent">Indifferent</option>
+                    </select>
+                </div>
             </div>
         )
     }

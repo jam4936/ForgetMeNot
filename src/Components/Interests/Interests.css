@@ -1,15 +1,17 @@
 /*For Computer View*/
 @media screen and (min-width: 1024px) {
     div#Interests {
-        background-color: #e0e0e0;
+        background-color: #EFF1FB;
+        padding-left: 1rem;
+        padding-top: 1rem;
     }
-    div#oneLineResponse {
+    div#InterestsOneLineResponse {
         display: flex;
         flex-direction: row;
         padding: 1rem;
         align-items: baseline;
     }
-    div#multiLineResponse {
+    div#InterestsMultiLineResponse {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
@@ -17,19 +19,21 @@
         align-items: baseline;
         padding-bottom: 1rem;
     }
-    div#multiLineQuestion {
+    div#InterestsMultiLineQuestion {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
         padding-right: 1rem;
         align-items: baseline;
     }
-    div#oneLineSelect{
+    div#InterestsOneLineSelect{
         display: inline-flex;
         flex-direction: row;
         padding-left: 1rem;
         padding-right: 1rem;
-        align-items: baseline;
+        align-items: center;
+        padding-bottom: 1rem;
+        justify-content: flex-start;
     }
     div#DoYouEnjoy {
         display: flex;
@@ -37,61 +41,67 @@
         padding-left: 1rem;
         padding-bottom: 1rem;
     }
-    label#question{
+    label#InterestsQuestion{
         display:inline-block;
         font-size: 1rem;
         padding-right: 1em;
         padding-top: 1rem;
-        font-weight: 600;
+        font-weight: 450;
     }
     label#DoYouEnjoy{
         display:inline-block;
         font-size: 1rem;
         padding-right: 1em;
         padding-top: 1rem;
-        font-weight: 600;
+        font-weight: 500;
     }
-    input[type=text]#response{
+    input[type=text]#InterestsResponse{
         display: inline-block;
         font-size: 1rem;
         height: 2rem;
         border-radius: 5px;
         width: 50rem;
     }
-    textarea#response{
+    textarea#InterestsResponse{
         display: inline-block;
         font-size: 1rem;
         border-radius: 5px;
         width: 100%;
         height: 10rem;
     }
+    select#YesNo {
+        font-weight: 350;
+    }
 }
 /*For Tablet View*/
-@media screen and (min-width: 400px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     div#Interests {
-        background-color: #e0e0e0;
+        background-color: #EFF1FB;
+        padding-left: 1rem;
+        padding-top: 1rem;
     }
-    div#oneLineResponse{
+    div#InterestsOneLineResponse{
         display: flex;
         flex-direction: column;
         padding: 1rem;
     }
-    div#oneLineSelect{
+    div#InterestsOneLineSelect{
         display: inline-flex;
         flex-direction: row;
         padding-left: 1rem;
         padding-right: 1rem;
-        align-items: baseline;
+        align-items: center;
         padding-bottom: 1rem;
+        justify-content: space-between;
     }
-    div#multiLineResponse {
+    div#InterestsMultiLineResponse {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 1rem;
     }
-    div#multiLineQuestion {
+    div#InterestsMultiLineQuestion {
         display: flex;
         flex-direction: column;
         padding-left: 1rem;
@@ -101,10 +111,10 @@
         flex-direction: column;
         padding-left: 1rem;
     }
-    label#question{
+    label#InterestsQuestion{
         font-size: 1rem;
         padding-top: 1rem;
-        font-weight: 600;
+        font-weight: 450;
         padding-right: 1rem;
     }
     label#DoYouEnjoy{
@@ -112,20 +122,23 @@
         font-size: 1rem;
         padding-right: 1em;
         padding-top: 1rem;
-        font-weight: 600;
+        font-weight: 500;
     }
-    input[type=text]#response{
+    input[type=text]#InterestsResponse{
         display: inline-block;
         font-size: 1rem;
         height: 2rem;
         border-radius: 5px;
         width: 100%;
     }
-    textarea#response{
+    textarea#InterestsResponse{
         display: inline-block;
         font-size: 1rem;
         border-radius: 5px;
         width: 100%;
         height: 10rem;
+    }
+    select#YesNo {
+        font-weight: 350;
     }
 }

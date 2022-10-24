@@ -12,11 +12,11 @@ class DailyActivities extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="DailyActivities" id="question">How do you like to spend your day?</label>
+                <div id="DailyScheduleMultiLineQuestion">
+                    <label htmlFor="DailyActivities" id="DailyScheduleQuestion">How do you like to spend your day?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="DailyActivities" id={"response"}>
+                <div id="DailyScheduleMultiLineResponse">
+                    <textarea name="DailyActivities" id={"DailyScheduleResponse"}>
                     </textarea>
                 </div>
             </>

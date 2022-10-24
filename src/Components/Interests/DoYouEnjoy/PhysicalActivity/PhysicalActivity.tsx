@@ -1,7 +1,6 @@
 import React from "react";
 import './PhysicalActivity.css';
 import '../../Interests.css';
-import YesNo from "../../../YesNo/YesNo";
 
 class PhysicalActivity extends React.Component {
     
@@ -12,9 +11,16 @@ class PhysicalActivity extends React.Component {
     
     render() {
         return (
-            <div id="oneLineSelect">
-                <label htmlFor="PhysicalActivity" id="question">Physical activity?</label>
-                <YesNo/>
+            <div id="InterestsOneLineSelect">
+                <label htmlFor="PhysicalActivity" id="InterestsQuestion">Physical activity?</label>
+                <div>
+                    <select name="PhysicalActivityResponse" id="YesNo" defaultValue={"none"}>
+                        <option value="none" disabled hidden>Select an Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="indifferent">Indifferent</option>
+                    </select>
+                </div>
             </div>
         )
     }

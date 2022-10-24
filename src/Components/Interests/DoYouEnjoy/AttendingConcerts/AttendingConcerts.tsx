@@ -1,7 +1,6 @@
 import React from "react";
 import './AttendingConcerts.css';
 import '../../Interests.css';
-import YesNo from "../../../YesNo/YesNo";
 
 class AttendingConcerts extends React.Component {
     
@@ -12,9 +11,16 @@ class AttendingConcerts extends React.Component {
     
     render() {
         return (
-            <div id="oneLineSelect">
-                <label htmlFor="AttendingConcerts" id="question">Attending concerts?</label>
-                <YesNo/>
+            <div id="InterestsOneLineSelect">
+                <label htmlFor="AttendingConcerts" id="InterestsQuestion">Attending concerts?</label>
+                <div>
+                    <select name="AttendingConcertsResponse" id="YesNo" defaultValue={"none"}>
+                        <option value="none" disabled hidden>Select an Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="indifferent">Indifferent</option>
+                    </select>
+                </div>
             </div>
         )
     }

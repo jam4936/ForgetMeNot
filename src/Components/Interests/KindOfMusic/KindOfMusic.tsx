@@ -12,11 +12,11 @@ class KindOfMusic extends React.Component {
     render() {
         return (
             <>
-                <div id="multiLineQuestion">
-                    <label htmlFor="KindOfMusic" id="question">What kinds of music do you enjoy?</label>
+                <div id="InterestsMultiLineQuestion">
+                    <label htmlFor="KindOfMusic" id="InterestsQuestion">What kinds of music do you enjoy?</label>
                 </div>
-                <div id="multiLineResponse">
-                    <textarea name="KindOfMusic" id={"response"}>
+                <div id="InterestsMultiLineResponse">
+                    <textarea name="KindOfMusic" id={"InterestsResponse"}>
                     </textarea>
                 </div>
             </>
