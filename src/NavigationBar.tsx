@@ -20,10 +20,10 @@ export default function NavigationBar() {
                     <Nav.Link href="project">Project</Nav.Link>
                     <Nav.Link href="visionConcept">Vision Concept</Nav.Link>
                     <NavDropdown title="Components" id="collapsible-nav-dropdown">
-                        <NavDropdown.Item href="dailySchedule">Daily Schedule</NavDropdown.Item>
                         <NavDropdown.Item href="aboutYou">About You</NavDropdown.Item>
-                        <NavDropdown.Item href="interests">Interests</NavDropdown.Item>
                         <NavDropdown.Item href="aboutYourLife">About Your Life</NavDropdown.Item>
+                        <NavDropdown.Item href="interests">Interests</NavDropdown.Item>
+                        <NavDropdown.Item href="dailySchedule">Daily Schedule</NavDropdown.Item>
                         <NavDropdown.Item href="uploadMedia">Upload Media</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="familyForm">
