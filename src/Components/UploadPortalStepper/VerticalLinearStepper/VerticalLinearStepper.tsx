@@ -11,7 +11,7 @@ import Interests from "../../Interests/Interests";
 import DailySchedule from "../../DailySchedule/DailySchedule";
 import AboutYourLife from "../../AboutYourLife/AboutYourLife";
 import AboutYou from "../../AboutYou/AboutYou";
-import MediaUpload from "../../MediaUpload/MediaUpload";
+import UploadMedia from "../../UploadMedia/UploadMedia";
 
 const steps = [
     {
@@ -32,7 +32,7 @@ const steps = [
     },
     {
         label: 'Upload Media',
-        component: <MediaUpload></MediaUpload>,
+        component: <UploadMedia></UploadMedia>,
     },
     {
         label: 'Finish',

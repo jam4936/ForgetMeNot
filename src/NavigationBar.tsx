@@ -24,7 +24,7 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="aboutYou">About You</NavDropdown.Item>
                         <NavDropdown.Item href="interests">Interests</NavDropdown.Item>
                         <NavDropdown.Item href="aboutYourLife">About Your Life</NavDropdown.Item>
-                        <NavDropdown.Item href="interests">Interests</NavDropdown.Item>
+                        <NavDropdown.Item href="uploadMedia">Upload Media</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="familyForm">
                             Family Form

@@ -1,9 +1,9 @@
 import React from "react";
-import './MediaUpload.css';
+import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
 import AddImage from "./AddImage/AddImage"
 
-class MediaUpload extends React.Component <{}, {isTablet: boolean}>{
+class UploadMedia extends React.Component <{}, {isTablet: boolean}>{
 
     render(){
         return (
@@ -26,4 +26,4 @@ class MediaUpload extends React.Component <{}, {isTablet: boolean}>{
     }
 }
 
-export default MediaUpload;
+export default UploadMedia;
