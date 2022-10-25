@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="added vertical linear stepper for family portal">
+    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="fixed stylings of glance detection and login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/Authentication.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/CreateAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/CreateAccount.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vision/Vision.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vision/Vision.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vision/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vision/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MediaUpload/Thumbnail/Thumbnail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MediaUpload/Thumbnail/Thumbnail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MediaUpload/Thumbnail/Thumbnail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MediaUpload/Thumbnail/Thumbnail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +93,7 @@
       <workItem from="1664920495290" duration="87000" />
       <workItem from="1665067797677" duration="1091000" />
       <workItem from="1665858635691" duration="6699000" />
-      <workItem from="1666726300789" duration="1349000" />
+      <workItem from="1666726300789" duration="2374000" />
     </task>
     <task id="LOCAL-00001" summary="added daily schedule starting fragments, and added onto the home page">
       <created>1665861229885</created>
@@ -119,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666636755256</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed stylings of glance detection and login">
+      <created>1666727737320</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666727737320</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +144,7 @@
     <MESSAGE value="added daily schedule starting fragments, and added onto the home page" />
     <MESSAGE value="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code" />
     <MESSAGE value="added vertical linear stepper for family portal" />
-    <option name="LAST_COMMIT_MESSAGE" value="added vertical linear stepper for family portal" />
+    <MESSAGE value="fixed stylings of glance detection and login" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed stylings of glance detection and login" />
   </component>
 </project>
