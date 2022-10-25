@@ -168,12 +168,16 @@ class Vision extends React.Component {
                             <div>
                                 <label>Glance score: </label>
                                 <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
+                                <br/>
                                 <label>Processing time is (ms): </label>
                                 <input ref={this.frameElement} value="" id="in" type="text" className="bold"/>
+                                <br/>
                                 <label>Landmarks in the subbox:</label>
                                 <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
+                                <br/>
                                 <label>Is Face There?: </label>
                                 <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                <br/>
                                 
 
                             </div>

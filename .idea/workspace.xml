@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code">
-      <change afterPath="$PROJECT_DIR$/src/Components/UploadPortalStepper/UploadPortalStepper.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/UploadPortalStepper/UploadPortalStepper.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/UploadPortalStepper/VerticalLinearStepper/VerticalLinearStepper.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/UploadPortalStepper/VerticalLinearStepper/VerticalLinearStepper.tsx" afterDir="false" />
+    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="added vertical linear stepper for family portal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DailySchedule/DailySchedule.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Interests/Interests.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Interests/Interests.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/Authentication.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/CreateAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/CreateAccount.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Authentication/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Authentication/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vision/Vision.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vision/Vision.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vision/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vision/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,22 +47,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Kyle McCoy/WebstormProjects/ForgetMeNot/src/Components/UploadPortalStepper/VerticalLinearStepper",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\Kyle McCoy\\WebstormProjects\\ForgetMeNot\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kyle McCoy/WebstormProjects/ForgetMeNot/src/Components/UploadPortalStepper/VerticalLinearStepper&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Kyle McCoy\\WebstormProjects\\ForgetMeNot\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\UploadPortalStepper\VerticalLinearStepper" />
@@ -99,6 +96,7 @@
       <workItem from="1664920495290" duration="87000" />
       <workItem from="1665067797677" duration="1091000" />
       <workItem from="1665858635691" duration="6699000" />
+      <workItem from="1666726300789" duration="1349000" />
     </task>
     <task id="LOCAL-00001" summary="added daily schedule starting fragments, and added onto the home page">
       <created>1665861229885</created>
@@ -114,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666633025683</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added vertical linear stepper for family portal">
+      <created>1666636755256</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666636755256</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +139,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added daily schedule starting fragments, and added onto the home page" />
     <MESSAGE value="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code" />
+    <MESSAGE value="added vertical linear stepper for family portal" />
+    <option name="LAST_COMMIT_MESSAGE" value="added vertical linear stepper for family portal" />
   </component>
 </project>

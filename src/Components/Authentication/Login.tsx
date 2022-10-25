@@ -28,10 +28,9 @@ class Login extends React.Component{
                             Forgot <a href="#">password?</a>
                         </p>
                         <LineSeparator text="Or Continue With"></LineSeparator>
-                        <GoogleSignIn text="Google"></GoogleSignIn>
-                        <p id="createAccount">
-                            Not registered yet? <a href="createAccount">Create Account</a>
-                        </p>
+                        <GoogleSignIn text="oogle"></GoogleSignIn>
+                        <p id="createAccount">Not registered yet? </p>
+                        <a id="createAccount" href="createAccount"> Create Account</a>
                     </div>
                 </form>
             </div>
