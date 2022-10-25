@@ -11,10 +11,12 @@ import Interests from './Components/Interests/Interests';
 import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
 import MediaUpload from './Components/MediaUpload/MediaUpload'
+import NavigationBar from './NavigationBar'
 
 function App() {
   return (
       <Router>
+        <NavigationBar></NavigationBar>
         <Routes>
           <Route path={'/'} element={<Home/>}/>
           <Route path={'/project'} element={<Project/>}/>
