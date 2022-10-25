@@ -25,7 +25,7 @@ class Thumbnail extends React.Component <any, any>{
                 <Modal show={this.state.show} onHide={()=>this.handleModal()}>
                     <Modal.Header closeButton>Edit Description</Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.image} height="200" alt="upload" />
+                        <img src={this.props.image} height="200" alt="upload" id="image" />
                         <form>
                             <div className="form-group">
                                 <label htmlFor="recipient-name" className="col-form-label">Is there anyone significant in this photo?</label>
