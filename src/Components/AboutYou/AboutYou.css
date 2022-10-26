@@ -1,5 +1,53 @@
 #aboutYou{
-    margin-left: 1rem;
+    margin: 1rem;
+}
+
+.multi-line-text, .single-line-text{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.MuiFormControl-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-root .MuiTextField-root{
+    width: 100%;
+}
+
+/* #aboutYou{
+    margin-right: 1rem;
+}
+
+.MuiFormControl-root, 
+    .MuiTextField-root, 
+    .MuiInputBase-root, 
+    .MuiInputLabel-root{
+    margin: 1rem;
+    font-size: 1rem;
+    
+}
+.singleLineText{
+    width: 100%;
+}
+.single-line-text{
+    width: 100%;
+}
+/*
+.MuiFormHelperText-root.MuiFormHelperText-sizeSmall{
+    margin-top: 3px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root, .MuiInputBase-root.MuiFilledInput-root{
+    background-color: white;
+} */
+
+
+
+/* #aboutYou{
+    margin: 1rem;
 }
 #multilineResponse{
     display: flex;
@@ -13,9 +61,9 @@
 }
 textarea{
     width: 90%;
-}
+} */
 /*For Computer View*/
-@media screen and (min-width: 1024px) {
+/* @media screen and (min-width: 1024px) {
     div#oneLineResponse {
         display: flex;
         flex-direction: row;
@@ -36,7 +84,7 @@ textarea{
     }
 }
 /*For Tablet View*/
-@media screen and (min-width: 400px) and (max-width: 1024px) {
+/* @media screen and (min-width: 400px) and (max-width: 1024px) {
     div#oneLineResponse{
         display: flex;
         flex-direction: column;
@@ -54,4 +102,4 @@ textarea{
         font-size: 1rem;
         height: 2rem;
     }
-}
+} */
