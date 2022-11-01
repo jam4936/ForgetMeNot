@@ -12,6 +12,8 @@ import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
 import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
+import PatientInfo from './Components/PatientInfo/PatientInfo'
+import PatientProfile from './Components/PatientInfo/PatientProfile'
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path={'/aboutYourLife'} element={<AboutYourLife/>}/>
           <Route path={'/uploadMedia'} element={<UploadMedia/>}/>
           <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
+          <Route path={'/patientInfo'} element={<PatientInfo/>}/>
+          <Route path={'/patientProfile'} element={<PatientProfile/>}/>
         </Routes>
       </Router>
   );
