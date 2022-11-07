@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import React from "react";
 class Occupation extends React.Component {
     
@@ -6,11 +7,15 @@ class Occupation extends React.Component {
     }
 
     render() {
+        const label="What is your occupation/work history?";
         return (
-            <div id="multilineResponse">
-                <label htmlFor="occupation">What is your occupation/work history?</label>
-                <textarea name="occupation" id="multilineResponseInput"></textarea>
+            <div>
+                <TextField label={label} className='singleLineText' variant="outlined" size="small" name="significant" />
             </div>
+            // <div id="multilineResponse">
+            //     <label htmlFor="occupation">What is your occupation/work history?</label>
+            //     <textarea name="occupation" id="multilineResponseInput"></textarea>
+            // </div>
         )
     }
 }

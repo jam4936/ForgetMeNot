@@ -1,5 +1,5 @@
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
-import YesNo from "../../YesNo/YesNo";
 import './Military.css';
 class Military extends React.Component {
     
@@ -10,18 +10,29 @@ class Military extends React.Component {
     render() {
         return (
             <div>
-                <div id="yesNoQuestion">
-                    <p>Where you in the military?</p>
-                    <YesNo/>
-                </div>
+            <FormControl variant="filled" className="military">
+                <InputLabel id="military">Were you in the military?</InputLabel>
+                    <Select labelId="military" id="military">
+                        <MenuItem value="yes">Yes</MenuItem>
+                        <MenuItem value="no">No</MenuItem>
+                    </Select>
+                
+            </FormControl>
+        </div>
+            
+            // <div>
+            //     <div id="yesNoQuestion">
+            //         <p>Where you in the military?</p>
+            //         <YesNo/>
+            //     </div>
                 
 
-                <div id="yesResponse">
-                    <label htmlFor="branch">Which branch?</label>
-                    <textarea name="branch" id="singleLineResponse"></textarea>
-                </div>
+            //     <div id="yesResponse">
+            //         <label htmlFor="branch">Which branch?</label>
+            //         <textarea name="branch" id="singleLineResponse"></textarea>
+            //     </div>
 
-            </div>
+            // </div>
         )
     }
 }

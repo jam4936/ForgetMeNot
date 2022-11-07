@@ -1,15 +1,6 @@
 
 import React from "react";
-import Birthplace from "./Birthplace/Birthplace";
-import Education from "./Education/Education";
-import Language from "./Language/Language";
-import Occupation from "./Occupation/Occupation";
-import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
 import './AboutYou.css';
-import Military from "./Military/Military";
-import Family from "./Family/Family";
-import FoodPreference from "./FoodPreference/FoodPreference";
-import Bathing from "./Bathing/Bathing";
 import Question from "../../Models/Question";
 import { TextField } from "@mui/material";
 
@@ -33,9 +24,19 @@ class AboutYou extends React.Component <{}, {isTablet: boolean}>{
             Size: "full",
             Id: "siblings",
             Type: "multi-line-text"
+        },
+        {
+            Question: "What is your occupation/work history?",
+            Size: "full",
+            Id: "work",
+            Type: "multi-line-text"
         }
 
     ] as Array<Question>;
+
+    getDropdownMenu(question: Question){
+        
+    }
     getSingleLineText(question: Question){
         return(
             <div id={question.Id} className={question.Type}>
@@ -53,7 +54,7 @@ class AboutYou extends React.Component <{}, {isTablet: boolean}>{
                 <label>
                     {question.Question}
                 </label>
-                <TextField className={question.Id} variant="outlined" rows={4} multiline/>
+                <TextField className={question.Id} variant="outlined"  rows={4} multiline/>
             </div>
         )
     }
