@@ -12,8 +12,8 @@ import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
 import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
-import PatientInfo from './Components/PatientInfo/PatientInfo'
-import PatientProfile from './Components/PatientInfo/PatientProfile'
+import PatientInfo from './MediaFeed/PatientInfo/PatientInfo'
+import PatientProfile from './MediaFeed/PatientInfo/PatientProfile'
 
 function App() {
   return (

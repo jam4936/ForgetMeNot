@@ -1,6 +1,7 @@
 import React from "react";
 import './PatientInfo.css';
-import VerticalLinearStepper from "../UploadPortalStepper/VerticalLinearStepper/VerticalLinearStepper";
+import VerticalLinearStepper from "../../Components/UploadPortalStepper/VerticalLinearStepper/VerticalLinearStepper";
+import MediaFeed from "../MediaFeed"
 import {red} from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import Accordion from '@mui/material/Accordion';
@@ -42,6 +43,7 @@ class PatientProfile extends React.Component <{}, {isTablet: boolean}>{
                             <VerticalLinearStepper></VerticalLinearStepper>
                         </AccordionDetails>
                     </Accordion>
+                    <MediaFeed></MediaFeed>
                 </div>
             </div>
         );
