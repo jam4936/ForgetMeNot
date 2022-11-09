@@ -183,7 +183,7 @@ class Vision extends React.Component {
                                 <label>Is Face There?: </label>
                                 <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
                                 
-
+                                <img src = {process.env.PUBLIC_URL+'/download.png'} alt="Hipster" />
                             </div>
                         </div>
 
