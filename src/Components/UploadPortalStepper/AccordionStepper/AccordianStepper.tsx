@@ -11,6 +11,9 @@ import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, makeSt
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AboutYou from '../../AboutYou/AboutYou';
 import { Theme } from '@aws-amplify/ui-react';
+import AboutYourLife from '../../AboutYourLife/AboutYourLife';
+import Interests from '../../Interests/Interests';
+import DailySchedule from '../../DailySchedule/DailySchedule';
 
 // const steps = [
 //     {
@@ -50,13 +53,29 @@ export default function AccordionStepper() {
         }
     });
 
+    const [expanded, setExpanded] = React.useState<string | false>('AboutYou')
+    const handleChange = (panel: string) =>(event: React.SyntheticEvent, newExpanded: boolean) =>{
+        setExpanded(newExpanded ? panel: false);
+    }
  return(
     <div className="accordion">
-        <Accordion sx={styles.main}>
+        <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
             <AccordionDetails>
                 <AboutYou></AboutYou>
             </AccordionDetails>
+        </Accordion>
+        <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>About Your Life</AccordionSummary>
+            <AccordionDetails><AboutYourLife/></AccordionDetails>
+        </Accordion>
+        <Accordion sx={styles.main} expanded={expanded==='Interests'} onChange={handleChange('Interests')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Interests</AccordionSummary>
+            <AccordionDetails><Interests/></AccordionDetails>
+        </Accordion>
+        <Accordion sx={styles.main} expanded={expanded==='DailySchedule'} onChange={handleChange('DailySchedule')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Daily Schedule</AccordionSummary>
+            <AccordionDetails><DailySchedule/></AccordionDetails>
         </Accordion>
     </div>
  )
