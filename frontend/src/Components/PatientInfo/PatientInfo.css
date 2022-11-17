@@ -1,0 +1,58 @@
+#patientInfo{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+#patientProfile{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+#cardWrap{
+    padding-bottom: 1rem;
+    display: flex;
+    width: 100%;
+}
+
+.infoContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.infoContainer span{
+    padding-left: 1rem;
+}
+
+#leftContainer{
+    display: flex;
+    align-items: center;
+}
+
+#rightContainer{
+    display: flex;
+    align-items: center;
+}
+
+#fullName{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#informationDropdown{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
