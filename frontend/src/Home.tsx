@@ -7,25 +7,25 @@ function Home() {
             <br></br>
             Try accessing one of the following:
             <br></br>
-                <a href="http://localhost:3000/project">- "/project</a>
+                <a href="%PUBLIC_URL%/project">- "/project</a>
             <br></br>
-                <a href="http://localhost:3000/visionConcept">- "/visionConcept</a>
+                <a href="%PUBLIC_URL%/visionConcept">- "/visionConcept</a>
             <br></br>
-                <a href="http://localhost:3000/dailySchedule">- "/dailySchedule</a>
+                <a href="%PUBLIC_URL%/dailySchedule">- "/dailySchedule</a>
             <br></br>
-                <a href="http://localhost:3000/login">- "/login</a>
+                <a href="%PUBLIC_URL%/login">- "/login</a>
             <br></br>
-                <a href="http://localhost:3000/aboutYou">- "/aboutYou</a>
+                <a href="%PUBLIC_URL%/aboutYou">- "/aboutYou</a>
             <br></br>
-                <a href="http://localhost:3000/interests">- "/interests</a>
+                <a href="%PUBLIC_URL%/interests">- "/interests</a>
             <br></br>
-                <a href="http://localhost:3000/aboutYourLife">- "/aboutYourLife</a>
+                <a href="%PUBLIC_URL%/aboutYourLife">- "/aboutYourLife</a>
             <br></br>
-                <a href="http://localhost:3000/uploadMedia">- "/uploadMedia</a>
+                <a href="%PUBLIC_URL%/uploadMedia">- "/uploadMedia</a>
             <br></br>
-                <a href="http://localhost:3000/familyForm">- "/familyForm</a>
+                <a href="%PUBLIC_URL%/familyForm">- "/familyForm</a>
             <br></br>
-                <a href="http://localhost:3000/patientInfo">- "/patientInfo</a>
+                <a href="%PUBLIC_URL%/patientInfo">- "/patientInfo</a>
             <br></br>
         </h1>
     );
