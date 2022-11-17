@@ -1,0 +1,22 @@
+#mediaUpload{
+    padding-left: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+.imageGrid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    padding: 2rem 0;
+}
+

@@ -1,0 +1,13 @@
+.googleButton{
+    display: flex;
+    align-items:  center;
+    justify-content: center;
+}
+
+.googleButton img{
+    float: left;
+}
+
+.googleButton p{
+    float: right;
+}

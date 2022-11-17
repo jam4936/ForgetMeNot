@@ -1,0 +1,14 @@
+.separator{
+    display: flex;
+    align-items: center;
+}
+
+.separator label{
+    padding: 0 1rem;
+}
+
+.separator .line{
+    flex: 1;
+    height: 1px;
+    background-color: #000;
+}

@@ -1,0 +1,36 @@
+.thumbnail {
+    margin: 1rem 0.5rem;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+.thumbnail #delete {
+    font-weight: bold;
+    color: #c00;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+}
+
+.thumbnail #buttonOverlay{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.thumbnail #delete:hover{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+img {
+    padding: 0;
+    margin: 0;
+}
+
+#image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
