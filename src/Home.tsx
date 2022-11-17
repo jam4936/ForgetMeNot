@@ -28,7 +28,7 @@ function Home() {
                 <a href="http://localhost:3000/patientInfo">- "/patientInfo</a>
             <br></br>
         </h1>
-);
+    );
 }
 
 export default Home;
