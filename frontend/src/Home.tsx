@@ -7,25 +7,25 @@ function Home() {
             <br></br>
             Try accessing one of the following:
             <br></br>
-                <a href="%PUBLIC_ULR%/project">- "/project</a>
+                <a href="/project">- "/project</a>
             <br></br>
-                <a href="%PUBLIC_ULR%0/visionConcept">- "/visionConcept</a>
+                <a href="/visionConcept">- "/visionConcept</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/dailySchedule">- "/dailySchedule</a>
+                <a href="/dailySchedule">- "/dailySchedule</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/login">- "/login</a>
+                <a href="/login">- "/login</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/aboutYou">- "/aboutYou</a>
+                <a href="/aboutYou">- "/aboutYou</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/interests">- "/interests</a>
+                <a href="/interests">- "/interests</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/aboutYourLife">- "/aboutYourLife</a>
+                <a href="/aboutYourLife">- "/aboutYourLife</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/uploadMedia">- "/uploadMedia</a>
+                <a href="/uploadMedia">- "/uploadMedia</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/familyForm">- "/familyForm</a>
+                <a href="/familyForm">- "/familyForm</a>
             <br></br>
-                <a href="%PUBLIC_ULR%/patientInfo">- "/patientInfo</a>
+                <a href="/patientInfo">- "/patientInfo</a>
             <br></br>
         </h1>
     );
