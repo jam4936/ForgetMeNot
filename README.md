@@ -6,8 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 For getting started, you can run these three commands in administrative mode:
 
-### `npm install -g @aws-amplify/cli`
-### `amplify pull --appId d28at31u3ld582 --envName staging`
+### `cd .\frontend\`
+### `npm install` 
 ### `npmi start`
 
 ## Available Scripts
