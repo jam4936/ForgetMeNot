@@ -1,7 +1,6 @@
 import React from 'react';
-import AccordionStepper from './AccordionStepper/AccordianStepper';
+import AccordionStepper from './AccordionStepper/AccordionStepper';
 import "./UploadPortalStepper.css"
-import VerticalLinearStepper from "./VerticalLinearStepper/VerticalLinearStepper";
 
 function UploadPortalStepper() {
     return (
@@ -10,7 +9,6 @@ function UploadPortalStepper() {
                 <h1>
                     Family Upload Portal
                 </h1>
-                <VerticalLinearStepper></VerticalLinearStepper>
                 <AccordionStepper></AccordionStepper>
             </div>
         </>
