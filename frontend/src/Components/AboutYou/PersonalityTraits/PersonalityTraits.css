@@ -1,0 +1,47 @@
+p{
+    font-size: 1rem;
+}
+div.trait{
+    text-align: left;
+    align-items: top;
+}
+.checkboxNum p{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    vertical-align: baseline;
+}
+label#traitLabel{
+    vertical-align: middle;
+}
+input[type=checkbox]{
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 1rem;
+}
+
+div.checkboxNum{
+    display: inline-flex;
+    flex-direction: row;
+    height: 1.5rem;
+}
+div.trait{
+    text-align: left;
+    align-items: top;
+}
+/*computer view*/
+@media screen and (min-width: 1024px){
+    div.allTraits{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        
+    }
+}
+
+/*Tablet view*/
+@media screen and (min-width: 400px) and (max-width: 1024px){
+    div.allTraits{
+        display: grid;
+        margin-left: 1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+}
