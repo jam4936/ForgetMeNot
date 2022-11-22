@@ -24,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="VisionPOC" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +55,9 @@
     "ts.external.directory.path": "C:\\Users\\Kyle McCoy\\WebstormProjects\\ForgetMeNot\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+
+}]]
+></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\frontend\src\Models" />
@@ -65,6 +67,8 @@
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule" />
     </key>
   </component>
+
+
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -88,92 +92,9 @@
       <workItem from="1664470611159" duration="705000" />
       <workItem from="1664920495290" duration="87000" />
       <workItem from="1665067797677" duration="1091000" />
-      <workItem from="1665858635691" duration="6699000" />
-      <workItem from="1666726300789" duration="2685000" />
-      <workItem from="1669072645001" duration="11359000" />
-    </task>
-    <task id="LOCAL-00001" summary="added daily schedule starting fragments, and added onto the home page">
-      <created>1665861229885</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1665861229885</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code">
-      <created>1666633025683</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1666633025683</updated>
-    </task>
-    <task id="LOCAL-00003" summary="added vertical linear stepper for family portal">
-      <created>1666636755256</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1666636755256</updated>
-    </task>
-    <task id="LOCAL-00004" summary="fixed stylings of glance detection and login">
-      <created>1666727737320</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1666727737320</updated>
-    </task>
-    <task id="LOCAL-00005" summary="centered thumbnails when in pop up">
-      <created>1666728777919</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1666728777919</updated>
-    </task>
-    <task id="LOCAL-00006" summary="removed old vertical stepper and replaced with AccordionStepper.tsx, renamed AccordianStepper.tsx to AccordionStepper.tsx and added Upload Media to AccordionStepper">
-      <created>1668898187599</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1668898187599</updated>
-    </task>
-    <task id="LOCAL-00007" summary="updated README.md">
-      <created>1668898405317</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1668898405317</updated>
-    </task>
-    <task id="LOCAL-00008" summary="removed hardcode, added in API fetch for questions on each section">
-      <created>1669083811892</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1669083811892</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="added daily schedule starting fragments, and added onto the home page" />
-    <MESSAGE value="fixed naming of YesNo questions in Interests component. No longer using the YesNo directory, possible dead code" />
-    <MESSAGE value="added vertical linear stepper for family portal" />
-    <MESSAGE value="fixed stylings of glance detection and login" />
-    <MESSAGE value="centered thumbnails when in pop up" />
-    <MESSAGE value="removed old vertical stepper and replaced with AccordionStepper.tsx, renamed AccordianStepper.tsx to AccordionStepper.tsx and added Upload Media to AccordionStepper" />
-    <MESSAGE value="updated README.md" />
-    <MESSAGE value="removed hardcode, added in API fetch for questions on each section" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed hardcode, added in API fetch for questions on each section" />
   </component>
 </project>
