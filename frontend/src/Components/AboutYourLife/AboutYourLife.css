@@ -1,20 +1,37 @@
 #aboutYourLife{
     margin: 1rem;
-    display: flex;
-    flex-direction: column;
     background-color: #EFF1FB;
 }
 
-.MuiFormControl-root, .MuiTextField-root, .MuiInputBase-root, .MuiInputLabel-root{
-    margin: 1rem;
-    font-size: 1rem;
-    
+.multiLine, .singleLine{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.MuiFormHelperText-root.MuiFormHelperText-sizeSmall{
-    margin-top: 3px;
+div.select{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 1rem;
 }
 
-.MuiInputBase-root.MuiOutlinedInput-root, .MuiInputBase-root.MuiFilledInput-root{
-    background-color: white;
+@media screen and (min-width: 1024px) {
+    select {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    select {
+        width: 70%;
+    }
+}
+
+
+
+.MuiFormControl-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-root .MuiTextField-root{
+    width: 100%;
 }

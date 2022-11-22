@@ -4,8 +4,92 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="removed old vertical stepper and replaced with AccordionStepper.tsx, renamed AccordianStepper.tsx to AccordionStepper.tsx and added Upload Media to AccordionStepper">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="1aa7ab70-73d4-44d7-a0c4-30afd7959a7e" name="Changes" comment="updated README.md">
+      <change afterPath="$PROJECT_DIR$/frontend/src/Models/DynamoResponse.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/AboutYou.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/AboutYou/AboutYou.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/AboutYou.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/AboutYou/AboutYou.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Bathing/Bathing.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Birthplace/Birthplace.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Birthplace/Birthplace.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Education/Education.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Education/Education.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Family/Family.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Family/Family.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/FoodPreference/FoodPreference.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/FoodPreference/FoodPreference.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Language/Language.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Language/Language.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Military/Military.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Military/Military.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYou/Occupation/Occupation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/AboutYourLife.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/AboutYourLife.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/AboutYourLife.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/AboutYourLife.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/Church/Church.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/Church/Church.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/Comfort/Comfort.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/LifeSpent/LifeSpent.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/LifeSpent/LifeSpent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/Marraige/Marraige.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/MemorableExperiences/MemorableExperiences.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/MemorableExperiences/MemorableExperiences.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/Religion/Religion.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/SignificantEvents/SignificantEvents.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/SignificantPlaces/SignificantPlaces.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/AboutYourLife/SignificantPlaces/SignificantPlaces.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/BedTime/BedTime.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/BedTime/BedTime.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailyActivities/DailyActivities.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailyActivities/DailyActivities.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailySchedule.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailySchedule.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailySchedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/DailySchedule.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/MorningBeverage/MorningBeverage.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/MorningBeverage/MorningBeverage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineHabits/RoutineHabits.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineHabits/RoutineHabits.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/AfternoonRoutine/AfternoonRoutine.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/AfternoonRoutine/AfternoonRoutine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/BedTimeRoutine/BedTimeRoutine.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/BedTimeRoutine/BedTimeRoutine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/EveningRoutine/EveningRoutine.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/EveningRoutine/EveningRoutine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/MorningRoutine/MorningRoutine.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/DailySchedule/RoutineSections/MorningRoutine/MorningRoutine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/AvidTraveler/AvidTraveler.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/AvidTraveler/AvidTraveler.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/AttendingConcerts/AttendingConcerts.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/AttendingConcerts/AttendingConcerts.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/GardeningYardwork/GardeningYardwork.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/GardeningYardwork/GardeningYardwork.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Housework/Housework.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Housework/Housework.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/MassageTherapy/MassageTherapy.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/MassageTherapy/MassageTherapy.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Meditation/Meditation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Meditation/Meditation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/PhysicalActivity/PhysicalActivity.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/PhysicalActivity/PhysicalActivity.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Reading/Reading.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Reading/Reading.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Yoga/Yoga.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/DoYouEnjoy/Yoga/Yoga.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/FavoriteTravel/FavoriteTravel.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/FavoriteTravel/FavoriteTravel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/HasArt/HasArt.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/HasArt/HasArt.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/Interests.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/Interests/Interests.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/Interests.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Components/Interests/Interests.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/KindOfMusic/KindOfMusic.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/KindOfMusic/KindOfMusic.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/KindOfPhysicalActivity/KindOfPhysicalActivity.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/KindOfPhysicalActivity/KindOfPhysicalActivity.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/PersonalTrainer/PersonalTrainer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/PersonalTrainer/PersonalTrainer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/PlayInstruments/PlayInstruments.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/Interests/PlayInstruments/PlayInstruments.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/YesNo/YesNo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Components/YesNo/YesNo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Models/Question.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Models/Question.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +132,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Kyle McCoy/WebstormProjects/ForgetMeNot/src/Components/UploadPortalStepper/VerticalLinearStepper",
+    "last_opened_file_path": "C:/Users/Kyle McCoy/WebstormProjects/ForgetMeNot/frontend/src/Models",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,11 +144,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\frontend\src\Models" />
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\UploadPortalStepper\VerticalLinearStepper" />
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\FormStepper" />
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\YesNo" />
       <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule" />
-      <recent name="C:\Users\Kyle McCoy\WebstormProjects\ForgetMeNot\src\Components\DailySchedule\RoutineSections\Morning" />
     </key>
   </component>
   <component name="RunManager">
@@ -92,6 +176,7 @@
       <workItem from="1665067797677" duration="1091000" />
       <workItem from="1665858635691" duration="6699000" />
       <workItem from="1666726300789" duration="2685000" />
+      <workItem from="1669072645001" duration="10998000" />
     </task>
     <task id="LOCAL-00001" summary="added daily schedule starting fragments, and added onto the home page">
       <created>1665861229885</created>
@@ -135,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668898187599</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="updated README.md">
+      <created>1668898405317</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668898405317</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +251,7 @@
     <MESSAGE value="fixed stylings of glance detection and login" />
     <MESSAGE value="centered thumbnails when in pop up" />
     <MESSAGE value="removed old vertical stepper and replaced with AccordionStepper.tsx, renamed AccordianStepper.tsx to AccordionStepper.tsx and added Upload Media to AccordionStepper" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed old vertical stepper and replaced with AccordionStepper.tsx, renamed AccordianStepper.tsx to AccordionStepper.tsx and added Upload Media to AccordionStepper" />
+    <MESSAGE value="updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README.md" />
   </component>
 </project>
