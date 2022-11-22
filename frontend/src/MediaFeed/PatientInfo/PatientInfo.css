@@ -46,6 +46,12 @@
     align-items: center;
 }
 
+#middleContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #fullName{
     display: flex;
     flex-direction: column;
@@ -55,4 +61,10 @@
 #informationDropdown{
     padding-top: 1rem;
     padding-bottom: 1rem;
+}
+
+div#feedOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

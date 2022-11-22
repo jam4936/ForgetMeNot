@@ -1,4 +1,5 @@
 import React from "react";
+import {Navigate, useNavigate} from 'react-router-dom';
 import './PatientInfo.css';
 import AccordionStepper from "../../Components/UploadPortalStepper/AccordionStepper/AccordionStepper";
 import MediaFeed from "../MediaFeed"
@@ -9,7 +10,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
     constructor(props: {} | Readonly<{}>) {
@@ -22,6 +27,7 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
         this.toggleShow = this.toggleShow.bind(this);
     }
 
+
     toggleShow() {
         this.setState({ showMediaFeed: !this.state.showMediaFeed });
     }
@@ -29,7 +35,24 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
     render(){
         if (this.state.showMediaFeed){
             return(
-                <MediaFeed></MediaFeed>
+                <div id="patientProfile">
+                    <div id="infoContainer">
+                        <div id="leftContainer">
+                            <IconButton onClick={this.toggleShow}>
+                                <ArrowBackIcon></ArrowBackIcon>
+                            </IconButton>
+                        </div>
+                    </div>
+                    <MediaFeed></MediaFeed>
+                    <div id="feedOptions">
+                        <IconButton size="large">
+                            <ArrowCircleLeftIcon fontSize="inherit"></ArrowCircleLeftIcon>
+                        </IconButton>
+                        <IconButton size="large">
+                            <ArrowCircleRightIcon fontSize="inherit"></ArrowCircleRightIcon>
+                        </IconButton>
+                    </div>
+                </div>
             );
         }
         else {

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { mediaFeedData } from "./MediaFeedData";
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import IconButton from '@mui/material/IconButton';
 import "./MediaFeed.css";
 
 export default function MediaFeed() {
@@ -24,6 +26,9 @@ export default function MediaFeed() {
 
     return (
         <div className="mediaFeed">
+            <IconButton size="large" id="enterFullscreen">
+                <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
+            </IconButton>
             {mediaFeedData.map((slide, index) => {
                 return (
                     <div className={index === currentSlide ? "slide current" : "slide"} key={index}>
