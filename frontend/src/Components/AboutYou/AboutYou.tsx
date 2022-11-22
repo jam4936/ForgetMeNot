@@ -18,7 +18,7 @@ class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Quest
 
     async initializeQuestions() {
         let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/AboutYou', {method: 'GET'}).then(result => result.json());
-        this.setState({questions: temp.Items})
+        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
     }
 
     getSelect(question: Question){
