@@ -1,5 +1,4 @@
 import React from "react";
-import {Navigate, useNavigate} from 'react-router-dom';
 import './PatientInfo.css';
 import AccordionStepper from "../../Components/UploadPortalStepper/AccordionStepper/AccordionStepper";
 import MediaFeed from "../MediaFeed"
@@ -13,8 +12,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
     constructor(props: {} | Readonly<{}>) {
@@ -44,14 +41,6 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
                         </div>
                     </div>
                     <MediaFeed></MediaFeed>
-                    <div id="feedOptions">
-                        <IconButton size="large">
-                            <ArrowCircleLeftIcon fontSize="inherit"></ArrowCircleLeftIcon>
-                        </IconButton>
-                        <IconButton size="large">
-                            <ArrowCircleRightIcon fontSize="inherit"></ArrowCircleRightIcon>
-                        </IconButton>
-                    </div>
                 </div>
             );
         }
