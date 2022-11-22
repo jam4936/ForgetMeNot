@@ -1,21 +1,45 @@
 #aboutYou{
     margin: 1rem;
-    /* background-color: #EFF1FB; */
+    background-color: #EFF1FB;
 }
 
-.multi-line-text, .single-line-text{
+.multiLine, .singleLine{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-
-
+.MuiInputBase-root.MuiOutlinedInput-root{
+    background-color: white;
+}
+.MuiSelect-select.MuiSelect-outlined{
+    margin-left: 4rem;
+    margin-top: 1rem;
+}
+div.select{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+@media screen and (min-width: 1024px) {
+    select {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    select {
+        width: 70%;
+    }
+}
 
 .MuiFormControl-root .MuiTextField-root{
     width: 100%;
 }
 .MuiInputBase-root .MuiTextField-root{
     width: 100%;
+}
+.MuiInputBase-input .MuiOutlinedInput-input{
+    background-color: white;
 }
 
 /* #aboutYou{
