@@ -17,7 +17,6 @@ export default function MediaFeed() {
 
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? feedLength - 1 : currentSlide - 1);
-        console.log("prev");
     };
 
     const nextSlide = () => {

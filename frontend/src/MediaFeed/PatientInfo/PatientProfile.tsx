@@ -2,12 +2,10 @@ import React from "react";
 import './PatientInfo.css';
 import AccordionStepper from "../../Components/UploadPortalStepper/AccordionStepper/AccordionStepper";
 import MediaFeed from "../MediaFeed"
-import {red} from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
@@ -35,8 +33,8 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
                 <div id="patientProfile">
                     <div id="infoContainer">
                         <div id="leftContainer">
-                            <IconButton onClick={this.toggleShow}>
-                                <ArrowBackIcon></ArrowBackIcon>
+                            <IconButton size="large" onClick={this.toggleShow}>
+                                <ArrowBackIcon fontSize="inherit"></ArrowBackIcon>
                             </IconButton>
                         </div>
                     </div>
@@ -49,12 +47,11 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
                 <div id="patientProfile">
                     <div className="infoContainer">
                         <div id="leftContainer">
-                            <Avatar sx={{bgcolor: red[500]}}>
+                            <Avatar sx={{bgcolor: "#"+((1<<24)*Math.random()|0).toString(16),height: '80px', width: '80px'}}>
                                 R
                             </Avatar>
                             <div id="fullName">
-                                <span>First Name: Lorem</span>
-                                <span>Last Name: Epsim</span>
+                                <span>Full Name</span>
                             </div>
                         </div>
                         <div id="rightContainer">
@@ -62,13 +59,9 @@ class PatientProfile extends React.Component <{}, {showMediaFeed: boolean}>{
                         </div>
                     </div>
                     <div id="informationDropdown">
-                        <Accordion sx={{bgcolor: '#EFF1FB'}}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon/>}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography>Detailed patient information</Typography>
+                        <Accordion sx={{bgcolor: '#EFF1FB'}} defaultExpanded={true}>
+                            <AccordionSummary sx={{fontWeight: 600}} expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content" id="panel1a-header">
+                                Detailed patient information
                             </AccordionSummary>
                             <AccordionDetails>
                                 <AccordionStepper></AccordionStepper>

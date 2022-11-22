@@ -26,6 +26,13 @@
     width: 100%;
 }
 
+#cardsContainer{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .infoContainer{
     display: flex;
     width: 100%;
@@ -33,7 +40,9 @@
 }
 
 .infoContainer span{
-    padding-left: 1rem;
+    padding-left: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 #leftContainer{

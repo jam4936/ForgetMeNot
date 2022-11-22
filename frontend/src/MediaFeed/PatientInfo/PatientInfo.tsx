@@ -7,15 +7,17 @@ class PatientInfo extends React.Component <{}, {isTablet: boolean}>{
     render(){
         return (
             <div id="patientInfo">
-                <h1>Select a Patient Profile:</h1>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
+                <h1>Select a Patient Profile</h1>
+                <div id="cardsContainer">
+                    <div id="cardWrap">
+                        <PatientCard></PatientCard>
+                    </div>
+                    <div id="cardWrap">
+                        <PatientCard></PatientCard>
+                    </div>
+                    <div id="cardWrap">
+                        <PatientCard></PatientCard>
+                    </div>
                 </div>
             </div>
         );
