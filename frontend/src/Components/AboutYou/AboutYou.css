@@ -33,6 +33,9 @@ div.select{
 .MuiInputBase-root .MuiTextField-root{
     width: 100%;
 }
+.MuiInputBase-input .MuiOutlinedInput-input{
+    background-color: white;
+}
 
 /* #aboutYou{
     margin-right: 1rem;

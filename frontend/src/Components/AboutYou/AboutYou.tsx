@@ -4,14 +4,16 @@ import './AboutYou.css';
 import Question from "../../Models/Question";
 import { TextField } from "@mui/material";
 import DynamoResponse from "../../Models/DynamoResponse";
+import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
 
 class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
 
+    personalityTraits : Question[] = [];
     constructor(props: any) {
         super(props);
         this.state = {
             isTablet: false,
-            questions: [],
+            questions: []
         }
         this.initializeQuestions()
     }
@@ -64,9 +66,10 @@ class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Quest
                 return this.getMultiLine(question);
             case "select":
                 return this.getSelect(question);
+            case "checkbox":
+                this.personalityTraits.push(question);
         }
     }
-
     render(): React.ReactNode {
         return(
             <div>
@@ -74,6 +77,7 @@ class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Quest
                     {this.state.questions.map(element =>{
                         return this.makeQuestionComponent(element)
                     })}
+                    <PersonalityTraits traits={this.personalityTraits}/>
                 </div>
             </div>
         )

@@ -1,15 +1,14 @@
 import React from "react";
+import { Question } from "../../../Models";
 import './PersonalityTraits.css';
 
-class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
-    //Traits given from the booklet
-    traits : Array<string>= ["Extrovert", "Friendly", "Happy", "Introvert", "Reserved", "Serious", "Timid", "Caring", "Emotional", "Outspoken", "Compassionate", "Playful", "Clean", "Clever", "Creative", "Curious", "Daring", "Adventurous", "Agreeable", "Courteous", "Perfectionist", "Romantic", "Sociable"];
-
-    constructor(props: {} | Readonly<{}>){
-        super(props)
+class PersonalityTraits extends React.Component <any, any>{
+    constructor(props: any){
+        super(props)        
+        
         if(window.innerWidth > 1024){
             this.state = {
-                isTablet: false
+                isTablet: false,
             }
         }
         else{
@@ -17,7 +16,6 @@ class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
                 isTablet: true
             }
         }
-        
     }
     
     componentDidMount(): void {
@@ -29,12 +27,12 @@ class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
         }, false);
     }
 
-    displayTrait(element: string){
+    displayTrait(element: Question){
         return (
-            <div className="trait" key={element}>
-                <input type="checkbox" id="personalityTrait" name={element.toLowerCase()} />
-                <input type="checkbox" id="personalityTrait" name={element.toLowerCase()} />
-                <label htmlFor="element" id="traitLabel">{element}</label>
+            <div className="trait" key={element.prompt}>
+                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase()} />
+                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase()} />
+                <label htmlFor="element" id="traitLabel">{element.prompt}</label>
             </div>
         );
         
@@ -42,6 +40,7 @@ class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
 
     render() {
         const optional = this.state.isTablet ? null : <div className="checkboxNum"><p>1</p><p>2</p></div>;
+        var personalityTraits = this.props.traits;
         return (
             <div id="container">
                 <p id="question">Personality Traits (Check box 1 for traits before illness. Check box 2 for traits after illness.):</p>
@@ -55,7 +54,7 @@ class PersonalityTraits extends React.Component <{}, {isTablet: boolean}>{
                         <p>2</p>
                     </div>
                     {optional}
-                    {this.traits.map(element => {
+                    {personalityTraits.map((element: Question) => {
                         return this.displayTrait(element)
                     })}
                 </div>
