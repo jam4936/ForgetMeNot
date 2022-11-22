@@ -1,7 +1,7 @@
 import React from "react";
 import './Interests.css';
 import Question from "../../Models/Question";
-import { TextField } from "@mui/material";
+import { TextField, Select, MenuItem } from "@mui/material";
 import DynamoResponse from "../../Models/DynamoResponse";
 
 class Interests extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
@@ -26,10 +26,10 @@ class Interests extends React.Component <{}, {isTablet: boolean, questions: Ques
                 <label>
                     {question.prompt}
                 </label>
-                <select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
-                    <option value="none" disabled hidden>Select an Option</option>
-                    {question.selectOptions?.map(element => { return <option value={element}>{element}</option> })}
-                </select>
+                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                    <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
+                    {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
+                </Select>
             </div>
         )
     }

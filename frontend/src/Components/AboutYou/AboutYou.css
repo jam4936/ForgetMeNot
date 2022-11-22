@@ -8,14 +8,19 @@
     display: flex;
     flex-direction: column;
 }
-
+.MuiInputBase-root.MuiOutlinedInput-root{
+    background-color: white;
+}
+.MuiSelect-select.MuiSelect-outlined{
+    margin-left: 4rem;
+    margin-top: 1rem;
+}
 div.select{
     display: flex;
     flex-direction: column;
     width: 100%;
     padding-bottom: 1rem;
 }
-
 @media screen and (min-width: 1024px) {
     select {
         width: 30%;

@@ -30,8 +30,8 @@ class PersonalityTraits extends React.Component <any, any>{
     displayTrait(element: Question){
         return (
             <div className="trait" key={element.prompt}>
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase()} />
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase()} />
+                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_pre"} />
+                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_post"} />
                 <label htmlFor="element" id="traitLabel">{element.prompt}</label>
             </div>
         );
