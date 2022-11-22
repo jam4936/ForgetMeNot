@@ -46,91 +46,116 @@ class Vision extends React.Component {
         const options = this.getFaceDetectorOptions()
 
         const ts = Date.now()
-
-        const result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
         
-        if (result) {
+        let promiseTimeout = new Promise((resolve,reject)=>{
+            let wait = setTimeout(()=>{
+                clearTimeout(wait);
+                resolve({slow:true})
+            },500)
+        })
+
+        
+        const race = Promise.race([faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(),promiseTimeout])
+        //console.log(typeof result)
+        race.then((res: any)=>{
             
-            const canvas = this.canvasElement.current;
-            const dims = faceapi.matchDimensions(canvas, videoEl, true)
-            const resizedResult = faceapi.resizeResults(result, dims)
-            const landmarksFromResults = result.landmarks.positions;
-            let xMax = 0
-            let yMax = 0
-            let xMin = 0
-            let yMin = 0
-            let normalizedPoints: any[] = []
-            let area = result.alignedRect.relativeBox.area/.18;
-            landmarksFromResults.forEach(e=>{
+            if(res){
+
+            //console.log(res)
+                const canvas = this.canvasElement.current;
+                const dims = faceapi.matchDimensions(canvas, videoEl, true)
+                const resizedResult = faceapi.resizeResults(res, dims)
+                const landmarksFromResults = res.landmarks.positions;
+                let xMax = 0
+                let yMax = 0
+                let xMin = 0
+                let yMin = 0
+                let normalizedPoints: any[] = []
+                let area = res.alignedRect.relativeBox.area/.18;
+                landmarksFromResults.forEach((e: { x: number; y: number; })=>{
+                    
+                    if(e.x>xMax){
+                        xMax = e.x
+                    }
+                    if(e.y>yMax){
+                        yMax  = e.y
+                    }
+                    if(e.x<xMin){
+                        xMin  = e.x
+                    }
+                    if(e.y<yMin){
+                        yMin  = e.y
+                    }
+                })
+                let count = 0
+                landmarksFromResults.forEach((e: { x: number; y: number; })=>{
+                    let normal = {x : 0, y: 0, count:count}
+                    normal.x  = (e.x-xMin)/(xMax-xMin)
+                    normal.y = (e.y-yMin)/(yMax-yMin)
+                    count++;
+                    normalizedPoints.push(normal)
+                    
+                })
+                const box = res.alignedRect.box
                 
-                if(e.x>xMax){
-                    xMax = e.x
-                }
-                if(e.y>yMax){
-                    yMax  = e.y
-                }
-                if(e.x<xMin){
-                    xMin  = e.x
-                }
-                if(e.y<yMin){
-                    yMin  = e.y
-                }
-            })
-            let count = 0
-            landmarksFromResults.forEach(e=>{
-                let normal = {x : 0, y: 0, count:count}
-                normal.x  = (e.x-xMin)/(xMax-xMin)
-                normal.y = (e.y-yMin)/(yMax-yMin)
-                count++;
-                normalizedPoints.push(normal)
-                
-            })
-            const box = result.alignedRect.box
+                const topMidpointX  = ((box.topRight.x - box.topLeft.x)/2) + box.topLeft.x
             
-            const topMidpointX  = ((box.topRight.x - box.topLeft.x)/2) + box.topLeft.x
-          
-            let nonLeftPoints = 0
-            landmarksFromResults.forEach(e=>{
-                if(e.x >= topMidpointX){
-                    nonLeftPoints++;
+                let nonLeftPoints = 0
+                landmarksFromResults.forEach((e: { x: number; })=>{
+                    if(e.x >= topMidpointX){
+                        nonLeftPoints++;
+                    }
+                    else{
+
+                    }
+                })
+
+                if(Math.abs(nonLeftPoints-34)<19){
+                    this.glanceScore ++;
+                    if(this.glanceScore>10){
+                        this.glanceScore = 10;
+                    }
                 }
                 else{
 
+                    this.glanceScore --;
+                    if(this.glanceScore<0){
+                        this.glanceScore = 0;
+                    }
                 }
-            })
-
-            if(Math.abs(nonLeftPoints-34)<19){
-                this.glanceScore ++;
-                if(this.glanceScore>10){
-                    this.glanceScore = 10;
+                this.outputElement.current.value = Math.abs(nonLeftPoints-34)
+                this.textElement.current.value = nonLeftPoints;
+                if (this.debug) {
+                    faceapi.draw.drawDetections(canvas, resizedResult)
+                    faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
                 }
+           
             }
             else{
 
-                this.glanceScore --;
+                this.glanceScore--;
                 if(this.glanceScore<0){
                     this.glanceScore = 0;
                 }
+                
             }
-
             if(this.glanceScore>2){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
-            this.outputElement.current.value = Math.abs(nonLeftPoints-34)
-            this.textElement.current.value = nonLeftPoints;
+            
             this.inputElement.current.value = this.glanceScore
             const frameTime = Math.round((Date.now()-ts) * 100) / 100
             this.frameElement.current.value = frameTime;
-            if (this.debug) {
-                faceapi.draw.drawDetections(canvas, resizedResult)
-                faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
-            }
-           
             
-            }
+        })
+        
+        
+            
+            
+            
     
             setTimeout(() => this.onPlay(), 750)
         
