@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, makeStyles } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AboutYou from '../../AboutYou/AboutYou';
 import AboutYourLife from '../../AboutYourLife/AboutYourLife';
 import Interests from '../../Interests/Interests';
 import DailySchedule from '../../DailySchedule/DailySchedule';
 import UploadMedia from '../../UploadMedia/UploadMedia'
+import UploadResponseService from '../../../Services/UploadResponseService';
+import { AboutYou } from '../../AboutYou/AboutYou';
 
 
 export default function AccordionStepper() {
@@ -20,8 +21,12 @@ export default function AccordionStepper() {
         }
     });
 
+
     const [expanded, setExpanded] = React.useState<string | false>('AboutYou')
+    var prevExpanded = 'AboutYou';
     const handleChange = (panel: string) =>(event: React.SyntheticEvent, newExpanded: boolean) =>{
+        UploadResponseService.checkFormDirty();
+        prevExpanded = panel;
         setExpanded(newExpanded ? panel: false);
     }
  return(

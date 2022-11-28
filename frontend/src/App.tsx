@@ -6,7 +6,6 @@ import Vision from "./Vision/Vision"
 import DailySchedule from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Authentication/Login"
 import CreateAccount from "./Components/Authentication/CreateAccount"
-import AboutYou from './Components/AboutYou/AboutYou';
 import Interests from './Components/Interests/Interests';
 import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
@@ -14,6 +13,7 @@ import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
 import PatientInfo from './Components/PatientInfo/PatientInfo'
 import PatientProfile from './Components/PatientInfo/PatientProfile'
+import { AboutYou } from './Components/AboutYou/AboutYou';
 
 function App() {
   return (

@@ -5,7 +5,6 @@ import './PersonalityTraits.css';
 class PersonalityTraits extends React.Component <any, any>{
     constructor(props: any){
         super(props)        
-        
         if(window.innerWidth > 1024){
             this.state = {
                 isTablet: false,
@@ -29,9 +28,9 @@ class PersonalityTraits extends React.Component <any, any>{
 
     displayTrait(element: Question){
         return (
-            <div className="trait" key={element.prompt}>
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_pre"} />
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_post"} />
+            <div className="trait">
+                <input type="checkbox" id={"personalityTrait_post_" + element.prompt} name={element.prompt?.toLowerCase() + "_pre"} />
+                <input type="checkbox" id={"personalityTrait_post_" + element.prompt} name={element.prompt?.toLowerCase() + "_post"} />
                 <label htmlFor="element" id="traitLabel">{element.prompt}</label>
             </div>
         );
