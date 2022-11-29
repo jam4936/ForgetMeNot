@@ -1,6 +1,6 @@
 import Question from "./Question";
 
-export default class DynamoResponse{
+export default class DynamoQuestionResult {
 
     Items: Question[];
     Count: number;

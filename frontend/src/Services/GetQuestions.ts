@@ -1,4 +1,4 @@
-import DynamoResponse from "../Models/DynamoResponse";
+import DynamoResponse from "../Models/DynamoQuestionResult";
 import Question from "../Models/Question";
 
 const GetQuestions = {
