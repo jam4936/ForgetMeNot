@@ -7,12 +7,20 @@ class PersonalityTraits extends React.Component <any, any>{
         super(props)        
         if(window.innerWidth > 1024){
             this.state = {
-                isTablet: false,
+                isTablet: true,
+                isLarger: true,
+            }
+        }
+        else if(window.innerWidth > 530){
+            this.state = {
+                isTablet: true,
+                isLarger: false,
             }
         }
         else{
             this.state = {
-                isTablet: true
+                isTablet: false,
+                isLarger: false,
             }
         }
     }
@@ -20,7 +28,8 @@ class PersonalityTraits extends React.Component <any, any>{
     componentDidMount(): void {
         window.addEventListener('resize', () =>{
             this.setState({
-                isTablet: window.innerWidth < 1024
+                isTablet: window.innerWidth > 530,
+                isLarger: window.innerWidth >= 1024,
             });
             
         }, false);
@@ -38,7 +47,8 @@ class PersonalityTraits extends React.Component <any, any>{
     }
 
     render() {
-        const optional = this.state.isTablet ? null : <div className="checkboxNum"><p>1</p><p>2</p></div>;
+        const optionalTablet = this.state.isTablet ? <div className="checkboxNum"><p>1</p><p>2</p></div> : null;
+        const optionalLarger = this.state.isLarger ? <div className="checkboxNum"><p>1</p><p>2</p></div> : null;
         var personalityTraits = this.props.traits;
         return (
             <div id="container">
@@ -48,11 +58,8 @@ class PersonalityTraits extends React.Component <any, any>{
                         <p>1</p>
                         <p>2</p>
                     </div>
-                    <div className="checkboxNum">
-                        <p>1</p>
-                        <p>2</p>
-                    </div>
-                    {optional}
+                    {optionalTablet}
+                    {optionalLarger}
                     {personalityTraits.map((element: Question) => {
                         return this.displayTrait(element)
                     })}

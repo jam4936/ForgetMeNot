@@ -1,84 +1,84 @@
 
-import React from "react";
+import { useState } from "react";
 import './AboutYourLife.css';
 import Question from "../../Models/Question";
-import { MenuItem, Select, TextField } from "@mui/material";
-import DynamoResponse from "../../Models/DynamoResponse";
+import { MenuItem, Select, TextField, Box } from "@mui/material";
+import SendResponse from "../../Models/SendResponse";
+import UploadResponseService from "../../Services/UploadResponseService";
+import GetQuestions from "../../Services/GetQuestions";
+export const AboutYourLife = () => {
+    const [questions, setQuestions] = useState<Question[]>();
 
-class AboutYourLife extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
+    const initializeQuestions = async () => {
+        await GetQuestions.initializeQuestions("AboutYourLife");
+        setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            isTablet: false,
-            questions: [],
-        }
-        this.initializeQuestions()
     }
+    //initializes the questions
+    initializeQuestions();
 
-    async initializeQuestions() {
-        let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/AboutYourLife', {method: 'GET'}).then(result => result.json());
-        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
+    const onBlurEvent = (value: string, question : Number) => {
+        console.log(value)
+
+        var change = { questionId: question, response: value} as SendResponse
+        // var traits : SendResponse[] = []
+
+        UploadResponseService.setFormDirty(change, value)
+
     }
-
-    getSelect(question: Question){
+    const getSelect = (question: Question) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"} onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
                     {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
                 </Select>
             </div>
         )
     }
-
-    getSingleLine(question: Question){
+    const getSingleLine = (question: Question) => {
+        return(
+            <div id={question.id.toString()} className={question.questionType}>
+                <label htmlFor={question.id.toString()}>
+                    {question.prompt}
+                </label>
+                <TextField id={question.id.toString() + "_resp"}className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
+            </div>
+        )
+    }
+    const getMultiLine = (question: Question) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"/>
+                <TextField id={question.id.toString() + "_resp"}className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
 
-    getMultiLine(question: Question){
-        return(
-            <div id={question.id.toString()} className={question.questionType}>
-                <label>
-                    {question.prompt}
-                </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"  rows={4} multiline/>
-            </div>
-        )
-    }
-    makeQuestionComponent(question: Question){
+    const makeQuestionComponent = (question: Question) =>{
         switch(question.questionType){
             case "singleLine":
-                return this.getSingleLine(question);
+                return getSingleLine(question);
             case "multiLine":
-                return this.getMultiLine(question);
+                return getMultiLine(question);
             case "select":
-                return this.getSelect(question);
+                return getSelect(question);
         }
     }
-
-    render(): React.ReactNode {
-        return(
-            <div>
-                <div id="aboutYourLife">
-                    {this.state.questions.map(element =>{
-                        return this.makeQuestionComponent(element)
+    return (
+        <div>
+            <div id="aboutYourLife">
+                <form className="AboutYourLife">
+                    {questions?.map(element =>{
+                        return makeQuestionComponent(element)
                     })}
-                </div>
+                </form>
             </div>
-        )
-    }
-
+        </div>
+    )
 }
-
-export default AboutYourLife;

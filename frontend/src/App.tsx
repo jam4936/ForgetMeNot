@@ -3,11 +3,11 @@ import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
 import Home from "./Home";
 import Project from "./Project";
 import Vision from "./Vision/Vision"
-import DailySchedule from "./Components/DailySchedule/DailySchedule"
+import { DailySchedule } from "./Components/DailySchedule/DailySchedule"
 import Login from "./Components/Authentication/Login"
 import CreateAccount from "./Components/Authentication/CreateAccount"
-import Interests from './Components/Interests/Interests';
-import AboutYourLife from './Components/AboutYourLife/AboutYourLife';
+import { Interests } from './Components/Interests/Interests';
+import { AboutYourLife } from "./Components/AboutYourLife/AboutYourLife";
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
 import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'

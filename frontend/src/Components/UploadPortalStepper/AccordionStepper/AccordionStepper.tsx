@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, makeStyles } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AboutYourLife from '../../AboutYourLife/AboutYourLife';
-import Interests from '../../Interests/Interests';
-import DailySchedule from '../../DailySchedule/DailySchedule';
+import { AboutYourLife } from '../../AboutYourLife/AboutYourLife';
+import { Interests } from '../../Interests/Interests';
+import { DailySchedule } from '../../DailySchedule/DailySchedule';
 import UploadMedia from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
 import { AboutYou } from '../../AboutYou/AboutYou';

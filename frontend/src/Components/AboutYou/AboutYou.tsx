@@ -3,7 +3,6 @@ import { useState } from "react";
 import './AboutYou.css';
 import Question from "../../Models/Question";
 import { MenuItem, Select, TextField, Box } from "@mui/material";
-import DynamoResponse from "../../Models/DynamoResponse";
 import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
 import SendResponse from "../../Models/SendResponse";
 import UploadResponseService from "../../Services/UploadResponseService";
@@ -15,7 +14,7 @@ export const AboutYou = () => {
     var personalityTraits : Question[] = [];
     
     const initializeQuestions = async () => {
-         await GetQuestions.initializeQuestions();
+         await GetQuestions.initializeQuestions("AboutYou");
          setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
         
     }
