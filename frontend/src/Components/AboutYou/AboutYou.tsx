@@ -15,6 +15,7 @@ export const AboutYou = () => {
     
 
     var personalityTraits : Question[] = [];
+
     const initializeResponses = async () => {
         await GetResponses.initializeResponses("10");
         setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
@@ -30,8 +31,6 @@ export const AboutYou = () => {
     }
     //initializes the questions
     initializeQuestions();
-
-
 
     const onBlurEvent = (value: string, question : Number) => {
         console.log(value)
@@ -54,6 +53,7 @@ export const AboutYou = () => {
         }
         return "";
     }
+
     const getSelect = (question: Question) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
