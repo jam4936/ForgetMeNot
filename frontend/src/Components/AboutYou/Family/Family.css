@@ -1,0 +1,12 @@
+.followUp{
+    margin-left: 1rem;
+}
+#yesResponseMultiline{
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+#yesResponseInput{
+    width: 90%;
+    font-size: 1rem;
+}

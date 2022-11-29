@@ -1,0 +1,63 @@
+.AuthFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.AuthForm {
+    width: 420px;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.AuthFormContent {
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.AuthFormTitle {
+    text-align: left;
+    margin-bottom: 1em;
+    font-size: 2rem;
+    color: rgb(34, 34, 34);
+    font-weight: 800;
+}
+
+p#createAccount {
+    font-size: 1rem;
+    color: rgb(34, 34, 34);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a#createAccount {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#signUpOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button#spacing{
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgb(34, 34, 34);
+}
