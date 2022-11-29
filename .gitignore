@@ -10,7 +10,6 @@
 
 # production
 /build
-/.idea
 
 # misc
 .DS_Store
@@ -43,3 +42,4 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+/.idea/*
