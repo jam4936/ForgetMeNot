@@ -2,99 +2,87 @@
 import React from "react";
 import './AboutYou.css';
 import Question from "../../Models/Question";
-import { TextField } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
+import DynamoResponse from "../../Models/DynamoResponse";
+import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
 
-class AboutYou extends React.Component <{}, {isTablet: boolean}>{
+class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
 
-    questions: Array<Question> = [
-        {
-            Question: "Where were you born?", 
-            Size: "full", 
-            Id:"born", 
-            Type: "single-line-text"
-        },
-        {
-            Question: "What languages do you speak?",
-            Size: "full",
-            Id: "languages",
-            Type: "single-line-text"
-        },
-        {
-            Question: "Do you have any siblings? What are their names? Are they older or younger?",
-            Size: "full",
-            Id: "siblings",
-            Type: "multi-line-text"
-        },
-        {
-            Question: "What is your occupation/work history?",
-            Size: "full",
-            Id: "work",
-            Type: "multi-line-text"
+    personalityTraits : Question[] = [];
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            isTablet: false,
+            questions: []
         }
-
-    ] as Array<Question>;
-
-    getDropdownMenu(question: Question){
-        
+        this.initializeQuestions()
     }
-    getSingleLineText(question: Question){
+
+    async initializeQuestions() {
+        let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/AboutYou', {method: 'GET'}).then(result => result.json());
+        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
+    }
+
+    getSelect(question: Question){
         return(
-            <div id={question.Id} className={question.Type}>
+            <div id={question.id.toString()} className={question.questionType}>
                 <label>
-                    {question.Question}
+                    {question.prompt}
                 </label>
-                <TextField className={question.Id} variant="outlined"/>
+                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                    <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
+                    {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
+                </Select>
             </div>
         )
     }
 
-    getMultiLineText(question: Question){
+    getSingleLine(question: Question){
         return(
-            <div id={question.Id} className={question.Type}>
+            <div id={question.id.toString()} className={question.questionType}>
                 <label>
-                    {question.Question}
+                    {question.prompt}
                 </label>
-                <TextField className={question.Id} variant="outlined"  rows={4} multiline/>
+                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"/>
+            </div>
+        )
+    }
+
+    getMultiLine(question: Question){
+        return(
+            <div id={question.id.toString()} className={question.questionType}>
+                <label>
+                    {question.prompt}
+                </label>
+                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"  rows={4} multiline/>
             </div>
         )
     }
     makeQuestionComponent(question: Question){
-        switch(question.Type){
-            case "single-line-text":
-                return this.getSingleLineText(question);
-            case "multi-line-text":
-                return this.getMultiLineText(question);
+        switch(question.questionType){
+            case "singleLine":
+                return this.getSingleLine(question);
+            case "multiLine":
+                return this.getMultiLine(question);
+            case "select":
+                return this.getSelect(question);
+            case "checkbox":
+                this.personalityTraits.push(question);
         }
     }
-
     render(): React.ReactNode {
-       
         return(
             <div>
                 <div id="aboutYou">
-                    {this.questions.map(element =>{
+                    {this.state.questions.map(element =>{
                         return this.makeQuestionComponent(element)
                     })}
+                    <PersonalityTraits traits={this.personalityTraits}/>
                 </div>
-            </div>        
+            </div>
         )
     }
-   
-    // render(){
-    //     return (
-    //         <div id="aboutYou">
-    //             <Birthplace></Birthplace>
-    //             <Language></Language>
-    //             <PersonalityTraits></PersonalityTraits>
-    //             <Education></Education>
-    //             <Occupation></Occupation>
-    //             <Military></Military>
-    //             <Family></Family>
-    //             <FoodPreference></FoodPreference>
-    //             <Bathing></Bathing>
-    //         </div>
-    //     );
-    // }
+
 }
 
 export default AboutYou;

@@ -1,49 +1,83 @@
-import React from 'react';
-import "./Interests.css"
-import GardeningYardwork from "./DoYouEnjoy/GardeningYardwork/GardeningYardwork";
-import Housework from "./DoYouEnjoy/Housework/Housework";
-import Yoga from "./DoYouEnjoy/Yoga/Yoga";
-import Meditation from "./DoYouEnjoy/Meditation/Meditation";
-import MassageTherapy from "./DoYouEnjoy/MassageTherapy/MassageTherapy";
-import Reading from "./DoYouEnjoy/Reading/Reading";
-import AttendingConcerts from "./DoYouEnjoy/AttendingConcerts/AttendingConcerts";
-import PhysicalActivity from "./DoYouEnjoy/PhysicalActivity/PhysicalActivity";
-import KindOfMusic from "./KindOfMusic/KindOfMusic";
-import PlayInstruments from "./PlayInstruments/PlayInstruments";
-import AvidTraveler from "./AvidTraveler/AvidTraveler";
-import FavoriteTravel from "./FavoriteTravel/FavoriteTravel";
-import KindOfPhysicalActivity from "./KindOfPhysicalActivity/KindOfPhysicalActivity";
-import HasArt from "./HasArt/HasArt";
-import PersonalTrainer from "./PersonalTrainer/PersonalTrainer";
+import React from "react";
+import './Interests.css';
+import Question from "../../Models/Question";
+import { TextField, Select, MenuItem } from "@mui/material";
+import DynamoResponse from "../../Models/DynamoResponse";
 
-function Interests() {
-    return (
-        <>
-            <div id="Interests">
-                <h1>
-                    3. Interests
-                </h1>
-                <div id="DoYouEnjoy">
-                    <label id="DoYouEnjoy">Do you enjoy...</label>
-                    <GardeningYardwork></GardeningYardwork>
-                    <Housework></Housework>
-                    <Yoga></Yoga>
-                    <Meditation></Meditation>
-                    <MassageTherapy></MassageTherapy>
-                    <Reading></Reading>
-                    <AttendingConcerts></AttendingConcerts>
-                    <PhysicalActivity></PhysicalActivity>
-                </div>
-                <KindOfMusic></KindOfMusic>
-                <PlayInstruments></PlayInstruments>
-                <AvidTraveler></AvidTraveler>
-                <FavoriteTravel></FavoriteTravel>
-                <KindOfPhysicalActivity></KindOfPhysicalActivity>
-                <HasArt></HasArt>
-                <PersonalTrainer></PersonalTrainer>
+class Interests extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            isTablet: false,
+            questions: [],
+        }
+        this.initializeQuestions()
+    }
+
+    async initializeQuestions() {
+        let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/Interests', {method: 'GET'}).then(result => result.json());
+        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
+    }
+
+    getSelect(question: Question){
+        return(
+            <div id={question.id.toString()} className={question.questionType}>
+                <label>
+                    {question.prompt}
+                </label>
+                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                    <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
+                    {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
+                </Select>
             </div>
-        </>
-);
+        )
+    }
+
+    getSingleLine(question: Question){
+        return(
+            <div id={question.id.toString()} className={question.questionType}>
+                <label>
+                    {question.prompt}
+                </label>
+                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"/>
+            </div>
+        )
+    }
+
+    getMultiLine(question: Question){
+        return(
+            <div id={question.id.toString()} className={question.questionType}>
+                <label>
+                    {question.prompt}
+                </label>
+                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"  rows={4} multiline/>
+            </div>
+        )
+    }
+    makeQuestionComponent(question: Question){
+        switch(question.questionType){
+            case "singleLine":
+                return this.getSingleLine(question);
+            case "multiLine":
+                return this.getMultiLine(question);
+            case "select":
+                return this.getSelect(question);
+        }
+    }
+
+    render(): React.ReactNode {
+        return(
+            <div>
+                <div id="interests">
+                    {this.state.questions.map(element =>{
+                        return this.makeQuestionComponent(element)
+                    })}
+                </div>
+            </div>
+        )
+    }
+
 }
 
 export default Interests;
