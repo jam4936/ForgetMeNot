@@ -23,16 +23,23 @@ export const AboutYou = (patient : Patient) => {
         setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
     }
-    //initializes the response
-    initializeResponses();
 
     const initializeQuestions = async () => {
          await GetQuestions.initializeQuestions("AboutYou");
          setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
         
     }
-    //initializes the questions
-    initializeQuestions();
+
+    // only call database once
+    const [firstTime, setFirstTime] = useState<boolean>(true);
+    if(firstTime) {
+        //initializes the response
+        initializeResponses();
+        //initializes the questions
+        initializeQuestions();
+        //prevent a second call
+        setFirstTime(false);
+    }
 
     const onBlurEvent = (value: string, question : Number) => {
         console.log(value)

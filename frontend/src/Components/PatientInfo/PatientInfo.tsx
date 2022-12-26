@@ -19,8 +19,15 @@ export const PatientInfo = () => {
         setPatients(GetPatients.patients.sort((a,b) => a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : a.firstName < b.firstName ? -1 : a.firstName > b.firstName ? 1 : 0));
 
     }
-    //initializes the patients
-    initializePatients();
+
+    // only call database once
+    const [firstTime, setFirstTime] = useState<boolean>(true);
+    if(firstTime) {
+        //initializes the patients
+        initializePatients();
+        //prevent a second call
+        setFirstTime(false);
+    }
 
     const makePatientCardComponent = (patient: Patient) =>{
         return PatientCard(patient, () => {navigateToProfile(patient)});
