@@ -2,18 +2,19 @@
 import { useState } from "react";
 import './AboutYourLife.css';
 import Question from "../../Models/Question";
-import { MenuItem, Select, TextField, Box } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import SendResponse from "../../Models/SendResponse";
 import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
-export const AboutYourLife = () => {
+import Patient from "../../Models/Patient";
+export const AboutYourLife = (patient : Patient) => {
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses("10");
+        await GetResponses.initializeResponses(patient.id.toString());
         setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
     }

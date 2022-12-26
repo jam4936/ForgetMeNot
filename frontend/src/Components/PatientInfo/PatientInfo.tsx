@@ -1,25 +1,39 @@
-import React from "react";
+import React, {useState} from "react";
 import './PatientInfo.css';
-import PatientCard from "./PatientCard/PatientCard"
+import Patient from "../../Models/Patient"
+import GetPatients from "../../Services/GetPatients";
+import {useNavigate} from "react-router-dom";
+import {PatientCard} from "./PatientCard/PatientCard";
 
-class PatientInfo extends React.Component <{}, {isTablet: boolean}>{
+export const PatientInfo = () => {
 
-    render(){
-        return (
-            <div id="patientInfo">
-                <h1>Select a Patient Profile:</h1>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-            </div>
-        );
+    const navigate = useNavigate();
+    const navigateToProfile = (patient : Patient) => {
+        navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
+    };
+
+    const [patients, setPatients] = useState<Patient[]>();
+
+    const initializePatients = async () => {
+        await GetPatients.initializePatients();
+        setPatients(GetPatients.patients.sort((a,b) => a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : a.firstName < b.firstName ? -1 : a.firstName > b.firstName ? 1 : 0));
+
     }
-}
+    //initializes the patients
+    initializePatients();
 
-export default PatientInfo;
+    const makePatientCardComponent = (patient: Patient) =>{
+        return PatientCard(patient, () => {navigateToProfile(patient)});
+    }
+
+    return (
+        <div id="patientInfo">
+            <h1>Select a Patient Profile:</h1>
+            <div id="patientCards">
+                {patients?.map(element =>{
+                    return makePatientCardComponent(element)
+                })}
+            </div>
+        </div>
+    );
+}

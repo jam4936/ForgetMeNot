@@ -3,13 +3,15 @@ import { useState } from "react";
 import './AboutYou.css';
 import Question from "../../Models/Question";
 import Response from "../../Models/Response"
-import { MenuItem, Select, TextField, Box } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
 import SendResponse from "../../Models/SendResponse";
 import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
-export const AboutYou = () => {
+import Patient from "../../Models/Patient";
+
+export const AboutYou = (patient : Patient) => {
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
     
@@ -17,7 +19,7 @@ export const AboutYou = () => {
     var personalityTraits : Question[] = [];
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses("10");
+        await GetResponses.initializeResponses(patient.id.toString());
         setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
     }
@@ -102,15 +104,14 @@ export const AboutYou = () => {
     }
     return (
         <div>
-        <div id="aboutYou">
-            <form className="AboutYou">
-                {questions?.map(element =>{
-                    return makeQuestionComponent(element)
-                })}
-                <PersonalityTraits traits={personalityTraits}/>
-            </form>
-
+            <div id="aboutYou">
+                <form className="AboutYou">
+                    {questions?.map(element =>{
+                        return makeQuestionComponent(element)
+                    })}
+                    <PersonalityTraits traits={personalityTraits}/>
+                </form>
+            </div>
         </div>
-    </div>
     )
 }

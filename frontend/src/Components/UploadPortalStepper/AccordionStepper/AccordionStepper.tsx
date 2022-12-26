@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, makeStyles } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AboutYourLife } from '../../AboutYourLife/AboutYourLife';
 import { Interests } from '../../Interests/Interests';
@@ -7,9 +7,10 @@ import { DailySchedule } from '../../DailySchedule/DailySchedule';
 import UploadMedia from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
 import { AboutYou } from '../../AboutYou/AboutYou';
+import Patient from "../../../Models/Patient";
 
 
-export default function AccordionStepper() {
+export default function AccordionStepper( patient: Patient) {
 
     const styles =({
         main: {
@@ -29,30 +30,39 @@ export default function AccordionStepper() {
         prevExpanded = panel;
         setExpanded(newExpanded ? panel: false);
     }
- return(
-    <div className="accordion">
-        <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
-            <AccordionDetails>
-                <AboutYou></AboutYou>
-            </AccordionDetails>
-        </Accordion>
-        <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>About Your Life</AccordionSummary>
-            <AccordionDetails><AboutYourLife/></AccordionDetails>
-        </Accordion>
-        <Accordion sx={styles.main} expanded={expanded==='Interests'} onChange={handleChange('Interests')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Interests</AccordionSummary>
-            <AccordionDetails><Interests/></AccordionDetails>
-        </Accordion>
-        <Accordion sx={styles.main} expanded={expanded==='DailySchedule'} onChange={handleChange('DailySchedule')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Daily Schedule</AccordionSummary>
-            <AccordionDetails><DailySchedule/></AccordionDetails>
-        </Accordion>
-        <Accordion sx={styles.main} expanded={expanded==='UploadMedia'} onChange={handleChange('UploadMedia')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Upload Media</AccordionSummary>
-            <AccordionDetails><UploadMedia/></AccordionDetails>
-        </Accordion>
-    </div>
- )
+
+    return(
+        <div className="accordion">
+            <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
+                <AccordionDetails>
+                    {AboutYou(patient)}
+                </AccordionDetails>
+            </Accordion>
+            <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon/>}>About Your Life</AccordionSummary>
+                <AccordionDetails>
+                    {AboutYourLife(patient)}
+                </AccordionDetails>
+            </Accordion>
+            <Accordion sx={styles.main} expanded={expanded==='Interests'} onChange={handleChange('Interests')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Interests</AccordionSummary>
+                <AccordionDetails>
+                    {Interests(patient)}
+                </AccordionDetails>
+            </Accordion>
+            <Accordion sx={styles.main} expanded={expanded==='DailySchedule'} onChange={handleChange('DailySchedule')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Daily Schedule</AccordionSummary>
+                <AccordionDetails>
+                    {DailySchedule(patient)}
+                </AccordionDetails>
+            </Accordion>
+            <Accordion sx={styles.main} expanded={expanded==='UploadMedia'} onChange={handleChange('UploadMedia')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Upload Media</AccordionSummary>
+                <AccordionDetails>
+                    <UploadMedia/>
+                </AccordionDetails>
+            </Accordion>
+        </div>
+    )
 }
