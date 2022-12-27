@@ -10,9 +10,10 @@ function UploadPortalStepper() {
     // added for the Family Form
     const patient: Patient = {
         id: 0,
-        firstName: "?",
-        lastName: "?"
+        firstName: "Test",
+        lastName: "Demonstration"
     }
+    const allowInput: boolean = true;
 
     return (
         <>
@@ -20,7 +21,7 @@ function UploadPortalStepper() {
                 <h1>
                     Family Upload Portal
                 </h1>
-                {AccordionStepper(patient)}
+                {AccordionStepper(patient, allowInput)}
             </div>
         </>
 );

@@ -9,7 +9,10 @@ import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
-export const AboutYourLife = (patient : Patient) => {
+import spinner from "../../Images/loadingspinner.gif";
+
+export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
+
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
 
@@ -26,15 +29,20 @@ export const AboutYourLife = (patient : Patient) => {
     }
 
     // only call database once
-    const [firstTime, setFirstTime] = useState<boolean>(true);
-    if(firstTime) {
-        //initializes the response
-        initializeResponses();
-        //initializes the questions
-        initializeQuestions();
-        //prevent a second call
-        setFirstTime(false);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(true);
+
+    const initializeData = async () => {
+        if (dataLoaded) {
+            //initializes the response
+            await initializeResponses();
+            //initializes the questions
+            await initializeQuestions();
+            //prevent a second call
+            await setDataLoaded(false);
+        }
     }
+
+    initializeData()
 
     const onBlurEvent = (value: string, question : Number) => {
         console.log(value)
@@ -64,30 +72,32 @@ export const AboutYourLife = (patient : Patient) => {
                 <label>
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={ findResponse(question) } onChange={(event) => onBlurEvent(event.target.value, question.id)}>
+                <Select id={question.id.toString()} className={question.questionType} disabled={!allowInput} defaultValue={ findResponse(question) } onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
                     {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
                 </Select>
             </div>
         )
     }
+
     const getSingleLine = (question: Question) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label htmlFor={question.id.toString()}>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ findResponse(question) } className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
+                <TextField id={question.id.toString() + "_resp"} disabled={!allowInput} defaultValue={ findResponse(question) } className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
             </div>
         )
     }
+
     const getMultiLine = (question: Question) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ findResponse(question) } className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
+                <TextField id={question.id.toString() + "_resp"} disabled={!allowInput} defaultValue={ findResponse(question) } className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
@@ -102,15 +112,24 @@ export const AboutYourLife = (patient : Patient) => {
                 return getSelect(question);
         }
     }
-    return (
-        <div>
-            <div id="aboutYourLife">
-                <form className="AboutYourLife">
-                    {questions?.map(element =>{
-                        return makeQuestionComponent(element)
-                    })}
-                </form>
+
+    if(dataLoaded){
+        return (
+            <div>
+                <img id="spinner" src={spinner} alt="loading..." />
             </div>
-        </div>
-    )
+        )
+    }else {
+        return (
+            <div>
+                <div id="aboutYourLife">
+                    <form className="AboutYourLife">
+                        {questions?.map(element => {
+                            return makeQuestionComponent(element)
+                        })}
+                    </form>
+                </div>
+            </div>
+        )
+    }
 }

@@ -16,10 +16,12 @@ export const PatientProfile = () => {
 
     const location = useLocation();
 
+    const allowInput: boolean = false;
+
     const patient: Patient = {
-        id: location.state != null ? location.state.id : -1,
-        firstName: location.state != null ? location.state.firstName : "?",
-        lastName: location.state != null ? location.state.lastName : "?"
+        id: location.state != null ? location.state.id : 0,
+        firstName: location.state != null ? location.state.firstName : "Test",
+        lastName: location.state != null ? location.state.lastName : "Demonstration"
     };
 
     const patientInitials = patient.firstName!.charAt(0) + patient.lastName!.charAt(0);
@@ -48,10 +50,10 @@ export const PatientProfile = () => {
                 <Accordion sx={{backgroundColor: 'white'}}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1a-content"
                                       id="panel1a-header">
-                        <Typography>Detailed patient information</Typography>
+                        <Typography>Detailed Patient Information</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {AccordionStepper(patient)}
+                        {AccordionStepper(patient, allowInput)}
                     </AccordionDetails>
                 </Accordion>
             </div>

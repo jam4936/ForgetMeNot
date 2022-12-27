@@ -21,9 +21,9 @@ const UploadResponseService = {
 
     },
 
-    checkFormDirty : function(){
+    checkFormDirty : function(patientID: number){
         this.changedQuestions.forEach((question) =>{
-            this.uploadResponse(question, 10);
+            this.uploadResponse(question, patientID);
         })
     },
 

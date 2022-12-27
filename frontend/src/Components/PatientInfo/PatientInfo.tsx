@@ -4,6 +4,7 @@ import Patient from "../../Models/Patient"
 import GetPatients from "../../Services/GetPatients";
 import {useNavigate} from "react-router-dom";
 import {PatientCard} from "./PatientCard/PatientCard";
+import spinner from "../../Images/loadingspinner.gif";
 
 export const PatientInfo = () => {
 
@@ -21,26 +22,42 @@ export const PatientInfo = () => {
     }
 
     // only call database once
-    const [firstTime, setFirstTime] = useState<boolean>(true);
-    if(firstTime) {
-        //initializes the patients
-        initializePatients();
-        //prevent a second call
-        setFirstTime(false);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(true);
+
+    const initializeData = async () => {
+        if (dataLoaded) {
+            //initializes the patients
+            await initializePatients();
+            //prevent a second call
+            await setDataLoaded(false);
+        }
     }
+
+    initializeData()
 
     const makePatientCardComponent = (patient: Patient) =>{
         return PatientCard(patient, () => {navigateToProfile(patient)});
     }
 
-    return (
-        <div id="patientInfo">
-            <h1>Select a Patient Profile:</h1>
-            <div id="patientCards">
-                {patients?.map(element =>{
-                    return makePatientCardComponent(element)
-                })}
+    if(dataLoaded){
+        return (
+            <div id="patientInfo">
+                <h1>Select a Patient Profile:</h1>
+                <div>
+                    <img id="spinner" src={spinner} alt="loading..." />
+                </div>
             </div>
-        </div>
-    );
+        )
+    }else {
+        return (
+            <div id="patientInfo">
+                <h1>Select a Patient Profile:</h1>
+                <div id="patientCards">
+                    {patients?.map(element => {
+                        return makePatientCardComponent(element)
+                    })}
+                </div>
+            </div>
+        );
+    }
 }

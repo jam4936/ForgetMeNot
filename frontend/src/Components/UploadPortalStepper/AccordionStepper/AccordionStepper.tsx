@@ -10,7 +10,7 @@ import { AboutYou } from '../../AboutYou/AboutYou';
 import Patient from "../../../Models/Patient";
 
 
-export default function AccordionStepper( patient: Patient) {
+export default function AccordionStepper( patient: Patient, allowInput: boolean) {
 
     const styles =({
         main: {
@@ -26,7 +26,7 @@ export default function AccordionStepper( patient: Patient) {
     const [expanded, setExpanded] = React.useState<string | false>('AboutYou')
     var prevExpanded = 'AboutYou';
     const handleChange = (panel: string) =>(event: React.SyntheticEvent, newExpanded: boolean) =>{
-        UploadResponseService.checkFormDirty();
+        UploadResponseService.checkFormDirty(patient.id);
         prevExpanded = panel;
         setExpanded(newExpanded ? panel: false);
     }
@@ -36,28 +36,28 @@ export default function AccordionStepper( patient: Patient) {
             <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
                 <AccordionDetails>
-                    {AboutYou(patient)}
+                    {AboutYou(patient, allowInput)}
                 </AccordionDetails>
             </Accordion>
             <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/>}>About Your Life</AccordionSummary>
                 <AccordionDetails>
-                    {AboutYourLife(patient)}
+                    {AboutYourLife(patient, allowInput)}
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={styles.main} expanded={expanded==='Interests'} onChange={handleChange('Interests')}>
+            <Accordion sx={styles.main} expanded={expanded ==='Interests'} onChange={handleChange('Interests')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Interests</AccordionSummary>
                 <AccordionDetails>
-                    {Interests(patient)}
+                    {Interests(patient, allowInput)}
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={styles.main} expanded={expanded==='DailySchedule'} onChange={handleChange('DailySchedule')}>
+            <Accordion sx={styles.main} expanded={expanded ==='DailySchedule'} onChange={handleChange('DailySchedule')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Daily Schedule</AccordionSummary>
                 <AccordionDetails>
-                    {DailySchedule(patient)}
+                    {DailySchedule(patient, allowInput)}
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={styles.main} expanded={expanded==='UploadMedia'} onChange={handleChange('UploadMedia')}>
+            <Accordion sx={styles.main} expanded={expanded ==='UploadMedia'} onChange={handleChange('UploadMedia')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Upload Media</AccordionSummary>
                 <AccordionDetails>
                     <UploadMedia/>

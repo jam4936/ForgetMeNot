@@ -20,10 +20,11 @@ function App() {
 
     // THIS IS FOR DEMONSTRATION ONLY
     // JUST TO PROVIDE A QUICK LINK
+    const allowInput: boolean = true;
     const patient : Patient = {
         id: 0,
-        firstName: "?",
-        lastName: "?"
+        firstName: "Test",
+        lastName: "Demonstration"
     }
 
 
@@ -34,12 +35,12 @@ function App() {
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/project'} element={<Project/>}/>
                 <Route path={'/visionConcept'} element={<Vision/>}/>
-                <Route path={'/dailySchedule'} element={DailySchedule(patient)}/>
+                <Route path={'/dailySchedule'} element={DailySchedule(patient, allowInput)}/>
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/aboutYou'} element={AboutYou(patient)}/>
+                <Route path={'/aboutYou'} element={AboutYou(patient, allowInput)}/>
                 <Route path={'/createAccount'} element={<CreateAccount/>}/>
-                <Route path={'/interests'} element={Interests(patient)}/>
-                <Route path={'/aboutYourLife'} element={AboutYourLife(patient)}/>
+                <Route path={'/interests'} element={Interests(patient, allowInput)}/>
+                <Route path={'/aboutYourLife'} element={AboutYourLife(patient, allowInput)}/>
                 <Route path={'/uploadMedia'} element={<UploadMedia/>}/>
                 <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
                 <Route path={'/patientInfo'} element={<PatientInfo/>}/>

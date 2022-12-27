@@ -1,4 +1,5 @@
-cd export const schema = {
+cd
+export const schema = {
     "models": {
         "Patient": {
             "name": "Patient",
