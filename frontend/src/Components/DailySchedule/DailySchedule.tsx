@@ -29,16 +29,16 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
     }
 
     // only call database once
-    const [dataLoaded, setDataLoaded] = useState<boolean>(true);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
     const initializeData = async () => {
-        if (dataLoaded) {
+        if (!dataLoaded) {
             //initializes the response
             await initializeResponses();
             //initializes the questions
             await initializeQuestions();
             //prevent a second call
-            await setDataLoaded(false);
+            await setDataLoaded(true);
         }
     }
 
@@ -122,19 +122,19 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
     if(dataLoaded){
         return (
             <div>
-                <img id="spinner" src={spinner} alt="loading..." />
-            </div>
-        )
-    }else {
-        return (
-            <div>
-                <div id="dailySchedule">
-                    <form className="DailySchedule">
+                <div id="aboutYourLife">
+                    <form className="AboutYourLife">
                         {questions?.map(element => {
                             return makeQuestionComponent(element)
                         })}
                     </form>
                 </div>
+            </div>
+        )
+    }else {
+        return (
+            <div>
+                <img id="spinner" src={spinner} alt="loading..." />
             </div>
         )
     }

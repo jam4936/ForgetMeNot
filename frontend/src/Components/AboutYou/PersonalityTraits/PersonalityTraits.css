@@ -5,7 +5,7 @@ div.trait{
     text-align: left;
     align-items: center;
 }
-.checkboxNum p{
+.checkboxNum label{
     padding-left: 1rem;
     padding-right: 1rem;
     vertical-align: baseline;
