@@ -35,7 +35,6 @@ class PersonalityTraits extends React.Component <any, any>{
                 isTablet: window.innerWidth > 530,
                 isLarger: window.innerWidth >= 1024,
             });
-            
         }, false);
     }
 

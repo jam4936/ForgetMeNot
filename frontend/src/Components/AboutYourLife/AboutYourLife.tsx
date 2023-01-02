@@ -18,7 +18,7 @@ export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
 
     const initializeResponses = async () => {
         await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        setResponses(GetResponses.responses.sort(((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)));
 
     }
 
@@ -118,7 +118,7 @@ export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
             <div>
                 <div id="aboutYourLife">
                     <form className="AboutYourLife">
-                        {questions?.map(element => {
+                        {questions?.map((element: Question) => {
                             return makeQuestionComponent(element)
                         })}
                     </form>

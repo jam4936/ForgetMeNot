@@ -27,7 +27,6 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const initializeQuestions = async () => {
          await GetQuestions.initializeQuestions("AboutYou");
          setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-         console.log(questions)
     }
 
     // only call database once
@@ -132,7 +131,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
             <div>
                 <div id="aboutYou">
                     <form className="AboutYou">
-                        {questions?.map(element =>{
+                        {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)
                         })}
                         <PersonalityTraits traits={personalityTraits} responses={responses}></PersonalityTraits>
@@ -141,4 +140,5 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
             </div>
         )
     }
+    //
 }

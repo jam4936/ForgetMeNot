@@ -122,9 +122,9 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
     if(dataLoaded){
         return (
             <div>
-                <div id="aboutYourLife">
-                    <form className="AboutYourLife">
-                        {questions?.map(element => {
+                <div id="dailySchedule">
+                    <form className="DailySchedule">
+                        {questions?.map((element: Question) => {
                             return makeQuestionComponent(element)
                         })}
                     </form>
