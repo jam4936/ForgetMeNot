@@ -14,13 +14,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 
-div.select{
+.select{
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 
 @media screen and (min-width: 1024px) {

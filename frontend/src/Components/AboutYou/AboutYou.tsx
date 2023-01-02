@@ -97,7 +97,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const getSingleLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label htmlFor={question.id.toString()}>
+                <label>
                     {question.prompt}
                 </label>
                 <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
