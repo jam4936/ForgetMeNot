@@ -18,6 +18,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const [responses, setResponses] = useState<Response[]>();
 
     var personalityTraits : Question[] = [];
+    var personalityResponses : Response[] = []
 
     const initializeResponses = async () => {
         await GetResponses.initializeResponses(patient.id.toString());
@@ -54,19 +55,28 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
 
     const findResponse = (question: Question) : string =>{
         let response = responses?.find((x) => x.questionID === question.id)?.response;
+        let responseObj : Response;
         if(response != undefined){
+            if (question.questionType === "checkbox"){
+                responseObj = {questionID: question.id, response: response, patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+                personalityResponses.push(responseObj);
+            }
             return response;
         }
         else if(question.questionType === "select")
         {
-            responses?.push({questionID: question.id, response: "none", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response);
+            responseObj = {questionID: question.id, response: "none", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+            responses?.push(responseObj);
             return "none";
         }else if (question.questionType === "checkbox")
         {
-            responses?.push({questionID: question.id, response: "0", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response);
+            responseObj = {questionID: question.id, response: "0", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+            responses?.push(responseObj);
+            personalityResponses.push(responseObj);
             return "0";
         }
-        responses?.push({questionID: question.id, response: "", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response);
+        responseObj = {questionID: question.id, response: "", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+        responses?.push(responseObj);
         return "";
     }
 
@@ -134,7 +144,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
                         {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)
                         })}
-                        <PersonalityTraits traits={personalityTraits} responses={responses}></PersonalityTraits>
+                        <PersonalityTraits traits={personalityTraits} responses={personalityResponses}></PersonalityTraits>
                     </form>
                 </div>
             </div>
