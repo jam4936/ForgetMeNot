@@ -4,6 +4,7 @@ import Response from "../../../Models/Response"
 import './PersonalityTraits.css';
 import SendResponse from "../../../Models/SendResponse";
 import UploadResponseService from "../../../Services/UploadResponseService";
+import Trait from "./Trait";
 
 class PersonalityTraits extends React.Component <any, any>{
 
@@ -37,33 +38,9 @@ class PersonalityTraits extends React.Component <any, any>{
             });
         }, false);
     }
-
-    onBlurEvent(value: string, response: Response, question: Question){
-
-        let oldValue = parseInt(response.response as string);
-        let updatedValue = oldValue;
-        updatedValue ^= (1<<(parseInt(value)-1));
-        response.response = updatedValue.toString();
-
-        console.log(oldValue + "=>" + updatedValue)
-
-        var change = { questionId: question.id, response: updatedValue.toString()} as SendResponse
-        // var traits : SendResponse[] = []
-
-        UploadResponseService.setFormDirty(change, updatedValue.toString())
-    }
-
+    
     displayTrait(element: Question, response: Response){
-        let responseValue = parseInt(response.response);
-        let preChecked = (responseValue & (1<<0)) != 0;
-        let postChecked = (responseValue & (1<<1)) != 0;
-        return (
-            <div className="trait">
-                <input type="checkbox" id={"personalityTrait_pre_" + element.prompt} defaultChecked={ preChecked } name={element.prompt?.toLowerCase() + "_pre"} value={ 1 } onChange={(event) => this.onBlurEvent(event.target.value, response, element)} />
-                <input type="checkbox" id={"personalityTrait_post_" + element.prompt} defaultChecked={ postChecked } name={element.prompt?.toLowerCase() + "_post"} value={ 2 } onChange={(event) => this.onBlurEvent(event.target.value, response, element)} />
-                <label htmlFor="element" id="traitLabel">{element.prompt}</label>
-            </div>
-        );
+        return <Trait response={response} trait={element}/>;
     }
 
     render() {

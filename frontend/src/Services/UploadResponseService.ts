@@ -24,8 +24,11 @@ const UploadResponseService = {
     checkFormDirty : function(patientID: number){
         this.changedQuestions.forEach((question) =>{
             this.uploadResponse(question, patientID);
+            this.changedQuestions = this.changedQuestions.slice(1);
         })
     },
+
+
 
     uploadResponse : async function(response : SendResponse, patientID: number){
         var responseOptions = {
