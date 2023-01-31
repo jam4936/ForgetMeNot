@@ -1,6 +1,5 @@
 import React from "react";
 import './PatientInfo.css';
-import VerticalLinearStepper from "../UploadPortalStepper/VerticalLinearStepper/VerticalLinearStepper";
 import {red} from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import Accordion from '@mui/material/Accordion';
@@ -9,6 +8,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
+import AccordionStepper from "../UploadPortalStepper/AccordionStepper/AccordionStepper";
 
 class PatientProfile extends React.Component <{}, {isTablet: boolean}>{
 
@@ -30,7 +30,7 @@ class PatientProfile extends React.Component <{}, {isTablet: boolean}>{
                     </div>
                 </div>
                 <div id="informationDropdown">
-                    <Accordion sx={{bgcolor: '#EFF1FB'}}>
+                    <Accordion sx={{bgcolor: 'white'}}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -39,7 +39,7 @@ class PatientProfile extends React.Component <{}, {isTablet: boolean}>{
                             <Typography>Detailed patient information</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <VerticalLinearStepper></VerticalLinearStepper>
+                            <AccordionStepper></AccordionStepper>
                         </AccordionDetails>
                     </Accordion>
                 </div>

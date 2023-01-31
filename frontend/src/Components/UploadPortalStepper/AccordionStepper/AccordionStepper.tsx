@@ -1,46 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, makeStyles } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AboutYou from '../../AboutYou/AboutYou';
-import { Theme } from '@aws-amplify/ui-react';
 import AboutYourLife from '../../AboutYourLife/AboutYourLife';
 import Interests from '../../Interests/Interests';
 import DailySchedule from '../../DailySchedule/DailySchedule';
+import UploadMedia from '../../UploadMedia/UploadMedia'
 
-// const steps = [
-//     {
-//         label: 'About You',
-//         component: <AboutYou></AboutYou>,
-//     },
-//     {
-//         label: 'About Your Life',
-//         component: <AboutYourLife></AboutYourLife>,
-//     },
-//     {
-//         label: 'Interests',
-//         component: <Interests></Interests>,
-//     },
-//     {
-//         label: 'Daily Schedule',
-//         component: <DailySchedule></DailySchedule>,
-//     },
-//     {
-//         label: 'Upload Media',
-//         component: <UploadMedia></UploadMedia>,
-//     },
-//     {
-//         label: 'Finish',
-//         component: `You're all done! Just submit to complete the process.`,
-//     },
-// ];
+
 export default function AccordionStepper() {
 
     const styles =({
@@ -76,6 +43,10 @@ export default function AccordionStepper() {
         <Accordion sx={styles.main} expanded={expanded==='DailySchedule'} onChange={handleChange('DailySchedule')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Daily Schedule</AccordionSummary>
             <AccordionDetails><DailySchedule/></AccordionDetails>
+        </Accordion>
+        <Accordion sx={styles.main} expanded={expanded==='UploadMedia'} onChange={handleChange('UploadMedia')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Upload Media</AccordionSummary>
+            <AccordionDetails><UploadMedia/></AccordionDetails>
         </Accordion>
     </div>
  )
