@@ -3,9 +3,9 @@ p{
 }
 div.trait{
     text-align: left;
-    align-items: top;
+    align-items: center;
 }
-.checkboxNum p{
+.checkboxNum label{
     padding-left: 1rem;
     padding-right: 1rem;
     vertical-align: baseline;
@@ -24,10 +24,6 @@ div.checkboxNum{
     flex-direction: row;
     height: 1.5rem;
 }
-div.trait{
-    text-align: left;
-    align-items: top;
-}
 /*computer view*/
 @media screen and (min-width: 1024px){
     div.allTraits{
@@ -38,10 +34,18 @@ div.trait{
 }
 
 /*Tablet view*/
-@media screen and (min-width: 400px) and (max-width: 1024px){
+@media screen and (min-width: 530px) and (max-width: 1024px){
     div.allTraits{
         display: grid;
         margin-left: 1rem;
         grid-template-columns: 1fr 1fr;
+    }
+}
+/*Tablet view but smaller*/
+@media screen and (max-width: 530px){
+    div.allTraits{
+        display: grid;
+        margin-left: 1rem;
+        grid-template-columns: 1fr;
     }
 }

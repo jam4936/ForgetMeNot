@@ -9,6 +9,17 @@
     background-color: #EFF1FB;
 }
 
+#patientCards{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
 #patientProfile{
     padding-left: 1rem;
     padding-right: 1rem;
@@ -49,7 +60,7 @@
 #fullName{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 #informationDropdown{

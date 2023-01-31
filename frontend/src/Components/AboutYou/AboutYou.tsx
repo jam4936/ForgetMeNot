@@ -1,35 +1,92 @@
 
-import React from "react";
+import { useState } from "react";
 import './AboutYou.css';
 import Question from "../../Models/Question";
+import Response from "../../Models/Response"
 import { MenuItem, Select, TextField } from "@mui/material";
-import DynamoResponse from "../../Models/DynamoResponse";
 import PersonalityTraits from "./PersonalityTraits/PersonalityTraits";
+import SendResponse from "../../Models/SendResponse";
+import UploadResponseService from "../../Services/UploadResponseService";
+import GetQuestions from "../../Services/GetQuestions";
+import GetResponses from "../../Services/GetResponses"
+import Patient from "../../Models/Patient";
+import spinner from "../../Images/loadingspinner.gif"
 
-class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
+export const AboutYou = (patient : Patient, allowInput: boolean) => {
 
-    personalityTraits : Question[] = [];
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            isTablet: false,
-            questions: []
+    const [questions, setQuestions] = useState<Question[]>();
+    const [responses, setResponses] = useState<Response[]>();
+
+    var personalityTraits : Question[] = [];
+    var personalityResponses : Response[] = []
+
+    const initializeResponses = async () => {
+        await GetResponses.initializeResponses(patient.id.toString());
+        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    }
+
+    const initializeQuestions = async () => {
+         await GetQuestions.initializeQuestions("AboutYou");
+         setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    }
+
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+
+    const initializeData = async () => {
+        //initializes the response
+        await initializeResponses();
+        //initializes the questions
+        await initializeQuestions();
+        // set data as loaded
+        setDataLoaded(true);
+    }
+
+    if(!dataLoaded) initializeData();
+
+    const onBlurEvent = (value: string, question : Number) => {
+        console.log(value)
+        
+        var change = { questionId: question, response: value} as SendResponse
+        // var traits : SendResponse[] = []
+        
+        UploadResponseService.setFormDirty(change, value)
+    }
+
+    const findResponse = (question: Question) : string =>{
+        let response = responses?.find((x) => x.questionID === question.id)?.response;
+        let responseObj : Response;
+        if(response != undefined){
+            if (question.questionType === "checkbox"){
+                responseObj = {questionID: question.id, response: response, patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+                personalityResponses.push(responseObj);
+            }
+            return response;
         }
-        this.initializeQuestions()
+        else if(question.questionType === "select")
+        {
+            responseObj = {questionID: question.id, response: "none", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+            responses?.push(responseObj);
+            return "none";
+        }else if (question.questionType === "checkbox")
+        {
+            responseObj = {questionID: question.id, response: "0", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+            responses?.push(responseObj);
+            personalityResponses.push(responseObj);
+            return "0";
+        }
+        responseObj = {questionID: question.id, response: "", patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
+        responses?.push(responseObj);
+        return "";
     }
 
-    async initializeQuestions() {
-        let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/AboutYou', {method: 'GET'}).then(result => result.json());
-        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
-    }
-
-    getSelect(question: Question){
+    const getSelect = (question: Question, response: string) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                <Select id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
                     {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
                 </Select>
@@ -37,52 +94,61 @@ class AboutYou extends React.Component <{}, {isTablet: boolean, questions: Quest
         )
     }
 
-    getSingleLine(question: Question){
+    const getSingleLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"/>
+                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
             </div>
         )
     }
 
-    getMultiLine(question: Question){
+    const getMultiLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"  rows={4} multiline/>
+                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput}  className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
-    makeQuestionComponent(question: Question){
+
+    const makeQuestionComponent = (question: Question) =>{
+        let response = findResponse(question);
         switch(question.questionType){
             case "singleLine":
-                return this.getSingleLine(question);
+                return getSingleLine(question, response);
             case "multiLine":
-                return this.getMultiLine(question);
+                return getMultiLine(question, response);
             case "select":
-                return this.getSelect(question);
+                return getSelect(question, response);
             case "checkbox":
-                this.personalityTraits.push(question);
+                personalityTraits.push(question);
         }
     }
-    render(): React.ReactNode {
-        return(
+
+    if(!dataLoaded) {
+        return (
+            <div>
+                <img id="spinner" src={spinner} alt="loading..."/>
+            </div>
+        )
+    }else{
+        return (
             <div>
                 <div id="aboutYou">
-                    {this.state.questions.map(element =>{
-                        return this.makeQuestionComponent(element)
-                    })}
-                    <PersonalityTraits traits={this.personalityTraits}/>
+                    <form className="AboutYou">
+                        {questions?.map((element: Question) =>{
+                            return makeQuestionComponent(element)
+                        })}
+                        <PersonalityTraits traits={personalityTraits} responses={personalityResponses}></PersonalityTraits>
+                    </form>
                 </div>
             </div>
         )
     }
-
+    //
 }
-
-export default AboutYou;

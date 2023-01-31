@@ -1,25 +1,63 @@
-import React from "react";
+import React, {useState} from "react";
 import './PatientInfo.css';
-import PatientCard from "./PatientCard/PatientCard"
+import Patient from "../../Models/Patient"
+import GetPatients from "../../Services/GetPatients";
+import {useNavigate} from "react-router-dom";
+import {PatientCard} from "./PatientCard/PatientCard";
+import spinner from "../../Images/loadingspinner.gif";
 
-class PatientInfo extends React.Component <{}, {isTablet: boolean}>{
+export const PatientInfo = () => {
 
-    render(){
+    const navigate = useNavigate();
+    const navigateToProfile = (patient : Patient) => {
+        navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
+    };
+
+    const [patients, setPatients] = useState<Patient[]>();
+
+    const initializePatients = async () => {
+        await GetPatients.initializePatients();
+        setPatients(GetPatients.patients.sort((a,b) => a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : a.firstName < b.firstName ? -1 : a.firstName > b.firstName ? 1 : 0));
+
+    }
+
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(true);
+
+    const initializeData = async () => {
+        if (dataLoaded) {
+            //initializes the patients
+            await initializePatients();
+            //prevent a second call
+            await setDataLoaded(false);
+        }
+    }
+
+    initializeData()
+
+    const makePatientCardComponent = (patient: Patient) =>{
+        return PatientCard(patient, () => {navigateToProfile(patient)});
+    }
+
+    if(dataLoaded){
         return (
             <div id="patientInfo">
                 <h1>Select a Patient Profile:</h1>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
+                <div>
+                    <img id="spinner" src={spinner} alt="loading..." />
                 </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
-                </div>
-                <div id="cardWrap">
-                    <PatientCard></PatientCard>
+            </div>
+        )
+    }else {
+        return (
+            <div id="patientInfo">
+                <h1>Select a Patient Profile:</h1>
+                <div id="patientCards">
+                    {patients?.map(element => {
+                        return makePatientCardComponent(element)
+                    })}
                 </div>
             </div>
         );
     }
 }
-
-export default PatientInfo;
