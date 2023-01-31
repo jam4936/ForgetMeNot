@@ -1,19 +1,31 @@
 import React from "react";
-import { Question } from "../../../Models";
+import Question from "../../../Models/Question";
+import Response from "../../../Models/Response"
 import './PersonalityTraits.css';
+import SendResponse from "../../../Models/SendResponse";
+import UploadResponseService from "../../../Services/UploadResponseService";
+import Trait from "./Trait";
 
 class PersonalityTraits extends React.Component <any, any>{
+
     constructor(props: any){
         super(props)        
-        
         if(window.innerWidth > 1024){
             this.state = {
-                isTablet: false,
+                isTablet: true,
+                isLarger: true,
+            }
+        }
+        else if(window.innerWidth > 530){
+            this.state = {
+                isTablet: true,
+                isLarger: false,
             }
         }
         else{
             this.state = {
-                isTablet: true
+                isTablet: false,
+                isLarger: false,
             }
         }
     }
@@ -21,45 +33,37 @@ class PersonalityTraits extends React.Component <any, any>{
     componentDidMount(): void {
         window.addEventListener('resize', () =>{
             this.setState({
-                isTablet: window.innerWidth < 1024
+                isTablet: window.innerWidth > 530,
+                isLarger: window.innerWidth >= 1024,
             });
-            
         }, false);
     }
-
-    displayTrait(element: Question){
-        return (
-            <div className="trait" key={element.prompt}>
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_pre"} />
-                <input type="checkbox" id="personalityTrait" name={element.prompt?.toLowerCase() + "_post"} />
-                <label htmlFor="element" id="traitLabel">{element.prompt}</label>
-            </div>
-        );
-        
+    
+    displayTrait(element: Question, response: Response){
+        return <Trait response={response} trait={element}/>;
     }
 
     render() {
-        const optional = this.state.isTablet ? null : <div className="checkboxNum"><p>1</p><p>2</p></div>;
-        var personalityTraits = this.props.traits;
+        let optionalTablet = this.state.isTablet ? <div className="checkboxNum"><label>1</label><label>2</label></div> : null;
+        let optionalLarger = this.state.isLarger ? <div className="checkboxNum"><label>1</label><label>2</label></div> : null;
+        let personalityTraits = this.props.traits;
+        let responses = this.props.responses;
         return (
             <div id="container">
-                <p id="question">Personality Traits (Check box 1 for traits before illness. Check box 2 for traits after illness.):</p>
+                <label id="question">Personality Traits (Check box 1 for traits before illness. Check box 2 for traits after illness.):</label>
                 <div className="allTraits">
                     <div className="checkboxNum">
-                        <p>1</p>
-                        <p>2</p>
+                        <label>1</label>
+                        <label>2</label>
                     </div>
-                    <div className="checkboxNum">
-                        <p>1</p>
-                        <p>2</p>
-                    </div>
-                    {optional}
+                    {optionalTablet}
+                    {optionalLarger}
                     {personalityTraits.map((element: Question) => {
-                        return this.displayTrait(element)
+                        let response = responses.find((x: Response) => x.questionID === element.id)
+                        return this.displayTrait(element, response)
                     })}
                 </div>
             </div>
-
         )
     }
 }
