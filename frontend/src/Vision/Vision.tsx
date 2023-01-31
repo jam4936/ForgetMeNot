@@ -180,16 +180,43 @@ class Vision extends React.Component {
         
     }
 
+    async getWebcam(){
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+        console.log("Stream",stream)
+        let devices = await navigator.mediaDevices.enumerateDevices()
+        let frontDevice :any;
+        devices.forEach(device=>{
+            if (device.kind === 'videoinput') {
+                if (device.label && device.label.length > 0) {
+                    if (device.label.toLowerCase().indexOf('front') >= 0) {
+                        console.log("Device", device)
+                        frontDevice = device
+                    }
+                }
+            }
+        })
+        if(frontDevice){
+            return frontDevice
+        }
+        else{
+            return stream;
+        }
+        
+        
+    }
 
     async componentDidMount(){
         console.log('loading model')
         await faceapi.nets.ssdMobilenetv1.load('/models')
         await faceapi.loadFaceLandmarkModel('/models')
         console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
-        const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+        
+        const stream = await this.getWebcam()
+        console.log('Found stream is: ', stream)
+
         let hasWebcam = await this.hasCameras()
         console.log(hasWebcam)
-        this.webcam.current.value = hasWebcam
+        this.webcam.current.value = hasWebcam   
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
     }
