@@ -23,7 +23,7 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
     }
 
     const initializeQuestions = async () => {
-        await GetQuestions.initializeQuestions("DailySchedule");
+        await GetQuestions.initializeQuestionsBySection("DailySchedule");
         setQuestions(GetQuestions.questions.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
     }

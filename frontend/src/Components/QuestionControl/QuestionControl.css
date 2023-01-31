@@ -1,0 +1,66 @@
+#questionControl{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+#spinner{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+}
+
+.spanLabel {
+    margin-left: 1rem;
+    font-weight: normal;
+}
+
+.questionBox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border: 1px solid;
+    border-radius: 20px;
+    padding-left: 1rem;
+    background-color: white;
+}
+
+.questionContents{
+    padding-right: 1rem;
+}
+.MuiInputBase-root.MuiOutlinedInput-root{
+    background-color: white;
+}
+.MuiSelect-select.MuiSelect-outlined{
+    margin-left: 4rem;
+    margin-top: 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+    select {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    select {
+        width: 70%;
+    }
+}
+
+.MuiFormControl-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-input .MuiOutlinedInput-input{
+    background-color: white;
+}
