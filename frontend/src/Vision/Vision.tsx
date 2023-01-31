@@ -12,6 +12,7 @@ class Vision extends React.Component {
     distancePairings = [[1,28,17],[1,29,17],[2,30,16],[2,31,16]]
     glanceScore: number;
     debug = false
+    webcam: any;
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -22,7 +23,25 @@ class Vision extends React.Component {
         this.inputElement = React.createRef();
         this.frameElement = React.createRef();
         this.glanceScore = 5;
+        this.webcam=React.createRef();
     }
+
+    async hasCameras(){
+        
+    
+        let devices = await navigator.mediaDevices.enumerateDevices()
+        
+        let haveAllDevices=false;
+        devices.forEach((device)=>{
+            if(!(device.kind=='videoinput')){
+                haveAllDevices=true;
+            }
+        });
+        return haveAllDevices;
+        
+    }
+
+
     getFaceDetectorOptions() {
         const minConfidence = 0.5
 
@@ -168,6 +187,9 @@ class Vision extends React.Component {
         await faceapi.loadFaceLandmarkModel('/models')
         console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+        let hasWebcam = await this.hasCameras()
+        console.log(hasWebcam)
+        this.webcam.current.value = hasWebcam
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
     }
@@ -202,6 +224,9 @@ class Vision extends React.Component {
                                 <br/>
                                 <label>Is Face There?: </label>
                                 <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                <br/>
+                                <label>Is webcam detected </label>
+                                <input ref={this.webcam} disabled value="" id="fps" type="text" className="bold"/>
                                 <br/>
                                 
 
