@@ -1,7 +1,7 @@
 import React from "react";
 import './PatientInfo.css';
-import AccordionStepper from "../../Components/UploadPortalStepper/AccordionStepper/AccordionStepper";
-import MediaFeed from "../MediaFeed"
+import AccordionStepper from "../UploadPortalStepper/AccordionStepper/AccordionStepper";
+import MediaFeed from "../../MediaFeed/MediaFeed"
 import Avatar from "@mui/material/Avatar";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
