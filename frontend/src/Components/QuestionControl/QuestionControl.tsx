@@ -4,7 +4,9 @@ import React, {useState} from "react";
 import Question from "../../Models/Question";
 import './QuestionControl.css'
 import spinner from "../../Images/loadingspinner.gif"
-
+import {Modal} from "react-bootstrap";
+import EditQuestion from "./Buttons/EditQuestion";
+import DeleteQuestion from "./Buttons/DeleteQuestion";
 
 export const QuestionControl = () => {
 
@@ -30,24 +32,36 @@ export const QuestionControl = () => {
 
     const makeQuestionComponent = (question: Question) =>{
         return (
-            <div id={question.id.toString()} className={"questionBox"}>
+            <div id={question.id.toString()} className={"questionContainer"}>
                 <div id={question.id.toString()} className={"questionContents"}>
-                    <label>Question Prompt:</label>
-                    <label className="spanLabel">
-                        {question.prompt}
-                    </label>
+                    <div id={question.id.toString()} className={"questionLabel"}>
+                        <label>ID:</label>
+                        <label className="spanLabel">
+                            {question.id}
+                        </label>
+                    </div>
+                    <div id={question.id.toString()} className={"questionLabel"}>
+                        <label>Question Prompt:</label>
+                        <label className="spanLabel">
+                            {question.prompt}
+                        </label>
+                    </div>
+                    <div id={question.id.toString()} className={"questionLabel"}>
+                        <label>Question Type:</label>
+                        <label className="spanLabel">
+                            {question.questionType}
+                        </label>
+                    </div>
+                    <div id={question.id.toString()} className={"questionLabel"}>
+                        <label>Question Section:</label>
+                        <label className="spanLabel">
+                            {question.sectionType}
+                        </label>
+                    </div>
                 </div>
-                <div id={question.id.toString()} className={"questionContents"}>
-                    <label>Question Type:</label>
-                    <label className="spanLabel">
-                        {question.questionType}
-                    </label>
-                </div>
-                <div id={question.id.toString()} className={"questionContents"}>
-                    <label>Question Section:</label>
-                    <label className="spanLabel">
-                        {question.sectionType}
-                    </label>
+                <div id={question.id.toString()} className={"questionButtons"}>
+                    <EditQuestion question={question}></EditQuestion>
+                    <DeleteQuestion question={question}></DeleteQuestion>
                 </div>
             </div>
         )
