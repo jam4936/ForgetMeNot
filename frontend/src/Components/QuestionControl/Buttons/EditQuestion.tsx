@@ -10,7 +10,8 @@ class EditQuestion extends React.Component <any, any>{
         this.state={
             show:false,
             showErrorLabel:false,
-            errorMessage:""
+            errorMessage:"",
+            unsavedChanges:false
         }
     }
 
@@ -19,16 +20,19 @@ class EditQuestion extends React.Component <any, any>{
         this.setState({show:!this.state.show})
     }
 
+    private doubleClose: boolean = false;
     handleClose(){
-        if (!this.state.showErrorLabel) {
+        if (!this.state.unsavedChanges && !this.doubleClose) {
             this.setState({
                 errorMessage: "You have unsaved changes!",
                 showErrorLabel: true
             })
+            this.doubleClose = true;
         }else {
             this.setState({show:!this.state.show,
                                 errorMessage: "",
-                                showErrorLabel: false})
+                                showErrorLabel: false,
+                                unsavedChanges: false})
         }
     }
 
@@ -50,7 +54,7 @@ class EditQuestion extends React.Component <any, any>{
                                 <TextField className="form-control" id="message-text" type="number" defaultValue={this.props.question.id}></TextField>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="question-type" className="col-form-label">Change the question prompt?</label>
+                                <label htmlFor="question-type" className="col-form-label">Change the question type?</label>
                                 <Select id={"select-question-type"} className="select" defaultValue={this.props.question.questionType}>
                                     <MenuItem value="checkbox">CheckBox</MenuItem>
                                     <MenuItem value="multiLine">MultiLine</MenuItem>
