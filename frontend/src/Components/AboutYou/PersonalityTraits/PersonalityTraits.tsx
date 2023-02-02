@@ -44,20 +44,12 @@ class PersonalityTraits extends React.Component <any, any>{
     }
 
     render() {
-        let optionalTablet = this.state.isTablet ? <div className="checkboxNum"><label>1</label><label>2</label></div> : null;
-        let optionalLarger = this.state.isLarger ? <div className="checkboxNum"><label>1</label><label>2</label></div> : null;
         let personalityTraits = this.props.traits;
         let responses = this.props.responses;
         return (
             <div id="container">
                 <label id="question">Personality Traits (Check box 1 for traits before illness. Check box 2 for traits after illness.):</label>
                 <div className="allTraits">
-                    <div className="checkboxNum">
-                        <label>1</label>
-                        <label>2</label>
-                    </div>
-                    {optionalTablet}
-                    {optionalLarger}
                     {personalityTraits.map((element: Question) => {
                         let response = responses.find((x: Response) => x.questionID === element.id)
                         return this.displayTrait(element, response)
