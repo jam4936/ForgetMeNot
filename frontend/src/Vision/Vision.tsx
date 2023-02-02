@@ -196,7 +196,7 @@ class Vision extends React.Component {
             }
         })
         if(frontDevice){
-            return frontDevice
+            return await navigator.mediaDevices.getUserMedia({video: { facingMode: "user" }})
         }
         else{
             return stream;
@@ -216,7 +216,8 @@ class Vision extends React.Component {
 
         let hasWebcam = await this.hasCameras()
         console.log(hasWebcam)
-        this.webcam.current.value = hasWebcam   
+        this.webcam.current.value = hasWebcam
+        console.log(await navigator.mediaDevices.enumerateDevices())  
         const videoEl = this.videoElement.current;
         videoEl.srcObject = stream
     }
