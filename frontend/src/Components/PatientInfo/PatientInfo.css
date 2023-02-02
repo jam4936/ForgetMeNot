@@ -9,6 +9,17 @@
     background-color: #EFF1FB;
 }
 
+#patientCards{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
 #patientProfile{
     padding-left: 1rem;
     padding-right: 1rem;
@@ -26,13 +37,6 @@
     width: 100%;
 }
 
-#cardsContainer{
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
 .infoContainer{
     display: flex;
     width: 100%;
@@ -40,9 +44,7 @@
 }
 
 .infoContainer span{
-    padding-left: 2rem;
-    font-size: 1.5rem;
-    font-weight: bold;
+    padding-left: 1rem;
 }
 
 #leftContainer{
@@ -55,25 +57,13 @@
     align-items: center;
 }
 
-#middleContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #fullName{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 #informationDropdown{
     padding-top: 1rem;
     padding-bottom: 1rem;
-}
-
-div#feedOptions{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

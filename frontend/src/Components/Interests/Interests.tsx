@@ -1,32 +1,78 @@
-import React from "react";
+
+import { useState } from "react";
 import './Interests.css';
 import Question from "../../Models/Question";
-import { TextField, Select, MenuItem } from "@mui/material";
-import DynamoResponse from "../../Models/DynamoResponse";
+import { MenuItem, Select, TextField } from "@mui/material";
+import SendResponse from "../../Models/SendResponse";
+import UploadResponseService from "../../Services/UploadResponseService";
+import GetQuestions from "../../Services/GetQuestions";
+import Response from "../../Models/Response";
+import GetResponses from "../../Services/GetResponses";
+import Patient from "../../Models/Patient";
+import spinner from "../../Images/loadingspinner.gif";
 
-class Interests extends React.Component <{}, {isTablet: boolean, questions: Question[]}>{
+export const Interests = (patient : Patient, allowInput: boolean) => {
 
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            isTablet: false,
-            questions: [],
+    const [questions, setQuestions] = useState<Question[]>();
+    const [responses, setResponses] = useState<Response[]>();
+
+    const initializeResponses = async () => {
+        await GetResponses.initializeResponses(patient.id.toString());
+        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+
+    }
+
+    const initializeQuestions = async () => {
+        await GetQuestions.initializeQuestions("Interests");
+        setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+
+    }
+
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+
+    const initializeData = async () => {
+        if (!dataLoaded) {
+            //initializes the response
+            await initializeResponses();
+            //initializes the questions
+            await initializeQuestions();
+            //prevent a second call
+            await setDataLoaded(true);
         }
-        this.initializeQuestions()
     }
 
-    async initializeQuestions() {
-        let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/section/Interests', {method: 'GET'}).then(result => result.json());
-        this.setState({questions: temp.Items.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)})
+    initializeData()
+
+    const onBlurEvent = (value: string, question : Number) => {
+        console.log(value)
+
+        var change = { questionId: question, response: value} as SendResponse
+        // var traits : SendResponse[] = []
+
+        UploadResponseService.setFormDirty(change, value)
+
     }
 
-    getSelect(question: Question){
+    const findResponse = (question: Question) : string =>{
+        let response = responses?.find((x) => x.questionID === question.id)?.response;
+        if(response != undefined){
+            return response;
+        }
+        else if(question.questionType === "select")
+        {
+            return "none"
+        }
+        return "";
+    }
+
+    const getSelect = (question: Question) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={"none"}>
+                <Select id={question.id.toString()} className={question.questionType} disabled={!allowInput} defaultValue={ findResponse(question) } onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
                     {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
                 </Select>
@@ -34,50 +80,56 @@ class Interests extends React.Component <{}, {isTablet: boolean, questions: Ques
         )
     }
 
-    getSingleLine(question: Question){
+    const getSingleLine = (question: Question) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label htmlFor={question.id.toString()}>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"/>
+                <TextField id={question.id.toString() + "_resp"} disabled={!allowInput} defaultValue={ findResponse(question) } className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
             </div>
         )
     }
 
-    getMultiLine(question: Question){
+    const getMultiLine = (question: Question) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
                 <label>
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString()} className={question.questionType} variant="outlined"  rows={4} multiline/>
+                <TextField id={question.id.toString() + "_resp"} disabled={!allowInput} defaultValue={ findResponse(question) } className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
-    makeQuestionComponent(question: Question){
+
+    const makeQuestionComponent = (question: Question) =>{
         switch(question.questionType){
             case "singleLine":
-                return this.getSingleLine(question);
+                return getSingleLine(question);
             case "multiLine":
-                return this.getMultiLine(question);
+                return getMultiLine(question);
             case "select":
-                return this.getSelect(question);
+                return getSelect(question);
         }
     }
 
-    render(): React.ReactNode {
-        return(
+    if(dataLoaded){
+        return (
             <div>
                 <div id="interests">
-                    {this.state.questions.map(element =>{
-                        return this.makeQuestionComponent(element)
-                    })}
+                    <form className="Interests">
+                        {questions?.map((element: Question) => {
+                            return makeQuestionComponent(element)
+                        })}
+                    </form>
                 </div>
             </div>
         )
+    }else {
+        return (
+            <div>
+                <img id="spinner" src={spinner} alt="loading..." />
+            </div>
+        )
     }
-
 }
-
-export default Interests;

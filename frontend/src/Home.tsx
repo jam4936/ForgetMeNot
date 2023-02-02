@@ -27,6 +27,8 @@ function Home() {
             <br></br>
                 <a href="/patientInfo">- "/patientInfo</a>
             <br></br>
+                <a href="/patientProfile">- "/patientProfile</a>
+            <br></br>
         </h1>
     );
 }

@@ -1,37 +1,36 @@
-import React from "react";
+import React, {MouseEventHandler} from "react";
 import './PatientCard.css';
-import Avatar from '@mui/material/Avatar';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IconButton from '@mui/material/IconButton';
-import {useNavigate} from 'react-router-dom';
+import Patient from "../../../Models/Patient"
+import Avatar from "@mui/material/Avatar";
+import {red} from "@mui/material/colors";
+import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+export const PatientCard = (patient : Patient, onclick : MouseEventHandler) => {
 
-export default function App() {
-    const navigate = useNavigate();
+    const initials = patient.firstName.charAt(0) + patient.lastName.charAt(0);
 
-    const navigateToProfile = () => {
-        navigate('/patientProfile');
-    };
+    const fullName = patient.firstName + " " + patient.lastName;
 
     return (
-        <button type="button" className="patientCardButton"
-                onClick={navigateToProfile}>
-            <div className="buttonContainer">
-                <div id="rightContainer">
-                    <Avatar sx={{bgcolor: "#"+((1<<24)*Math.random()|0).toString(16)}}>
-                        R
-                    </Avatar>
-                    <span>
-                            Full Name
-                    </span>
+        <div>
+            <button type="button" className="patientCardButton" onClick={onclick}>
+                <div className="buttonContainer">
+                    <div id="rightContainer">
+                        <Avatar sx={{backgroundColor: red[500]}}>
+                            {initials}
+                        </Avatar>
+                        <span>
+                            {fullName}
+                        </span>
+                    </div>
+                    <div id="leftContainer">
+                        <IconButton aria-label="settings">
+                            <MoreVertIcon/>
+                        </IconButton>
+                    </div>
                 </div>
-                <div id="leftContainer">
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon/>
-                    </IconButton>
-                </div>
-            </div>
-        </button>
-
-    )
+            </button>
+        </div>
+    );
 }
