@@ -2,8 +2,6 @@ import React from "react";
 import Question from "../../../Models/Question";
 import Response from "../../../Models/Response"
 import './PersonalityTraits.css';
-import SendResponse from "../../../Models/SendResponse";
-import UploadResponseService from "../../../Services/UploadResponseService";
 import Trait from "./Trait";
 
 class PersonalityTraits extends React.Component <any, any>{

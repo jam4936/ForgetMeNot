@@ -15,11 +15,5 @@ const GetQuestions = {
 
         this.questions = temp.Items;
     },
-
-    initializeQuestionById : async function(id: number) {
-        let temp: DynamoResponse = await fetch("https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/question/" + id, {method: 'GET'}).then(result => result.json())
-
-        this.questions = temp.Items;
-    }
 };
 export default GetQuestions;

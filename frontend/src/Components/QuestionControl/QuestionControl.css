@@ -1,7 +1,5 @@
 #questionControl{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 1rem;
+    padding: 1rem;
     margin: 1rem;
     display: flex;
     flex-direction: column;
@@ -37,7 +35,7 @@
         justify-content: space-between;
         padding: 1rem;
         border: 1px solid;
-        border-radius: 20px;
+        border-radius: 10px;
         background-color: white;
     }
 }
@@ -79,9 +77,14 @@
 .MuiInputBase-root.MuiOutlinedInput-root{
     background-color: white;
 }
+.MuiSelect-select .MuiSelect-outlined .MuiInputBase-input .MuiOutlinedInput-input {
+    padding-right: 0rem;
+}
 .MuiSelect-select.MuiSelect-outlined{
-    margin-left: 4rem;
-    margin-top: 1rem;
+    padding: 12.5px 5px 12.5px 1rem;
+    margin-left: 0rem;
+    margin-top: 0rem;
+    width: 90%;
 }
 
 @media screen and (min-width: 1024px) {

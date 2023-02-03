@@ -4,9 +4,10 @@ import React, {useState} from "react";
 import Question from "../../Models/Question";
 import './QuestionControl.css'
 import spinner from "../../Images/loadingspinner.gif"
-import {Modal} from "react-bootstrap";
 import EditQuestion from "./Buttons/EditQuestion";
 import DeleteQuestion from "./Buttons/DeleteQuestion";
+import {TextField} from "@mui/material";
+import AddQuestion from "./Buttons/AddQuestion";
 
 export const QuestionControl = () => {
 
@@ -29,7 +30,6 @@ export const QuestionControl = () => {
 
     if(!dataLoaded) initializeData();
 
-
     const makeQuestionComponent = (question: Question) =>{
         return (
             <div id={question.id.toString()} className={"questionContainer"}>
@@ -47,20 +47,28 @@ export const QuestionControl = () => {
                         </label>
                     </div>
                     <div id={question.id.toString()} className={"questionLabel"}>
-                        <label>Question Type:</label>
-                        <label className="spanLabel">
-                            {question.questionType}
-                        </label>
-                    </div>
-                    <div id={question.id.toString()} className={"questionLabel"}>
                         <label>Question Section:</label>
                         <label className="spanLabel">
                             {question.sectionType}
                         </label>
                     </div>
+                    <div id={question.id.toString()} className={"questionLabel"}>
+                        <label>Question Type:</label>
+                        <label className="spanLabel">
+                            {question.questionType}
+                        </label>
+                    </div>
+                    { question.questionType == "select" ?
+                        <div id={question.id.toString()} className={"questionLabel"}>
+                            <label>Select Options:</label>
+                            <label className="spanLabel">
+                                {(question.selectOptions as string[]).toString()}
+                            </label>
+                        </div> : <div></div>
+                    }
                 </div>
                 <div id={question.id.toString()} className={"questionButtons"}>
-                    <EditQuestion question={question}></EditQuestion>
+                    <EditQuestion question={question} questions={questions}></EditQuestion>
                     <DeleteQuestion question={question}></DeleteQuestion>
                 </div>
             </div>
@@ -81,6 +89,7 @@ export const QuestionControl = () => {
             <div>
                 <div id="questionControl">
                     <h1>Manage the Questions:</h1>
+                    <AddQuestion questions={questions}></AddQuestion>
                     <form className="questionControl">
                         {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)
@@ -90,5 +99,4 @@ export const QuestionControl = () => {
             </div>
         )
     }
-    //
 }

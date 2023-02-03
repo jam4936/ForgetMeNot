@@ -14,8 +14,17 @@
     }
 }
 
+.select{
+    padding: 0rem;
+    margin: 0rem;
+}
+
 .errorMessage{
     color: red !important;
+}
+
+.saveMessage{
+    color: green !important;
 }
 
 .multiLine, .singleLine{
