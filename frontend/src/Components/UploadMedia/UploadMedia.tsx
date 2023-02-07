@@ -7,7 +7,7 @@ import spinner from "../../Images/loadingspinner.gif";
 import GetMedia from "../../Services/GetMedia";
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
-    const [mediaFiles, setMedia] = useState<String[]>();
+    const [mediaFiles, setMedia] = useState<string[]>();
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
@@ -23,7 +23,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
 
                 <section>
                     <div className="imageGrid">
-                        {mediaFiles?.map((element: String) => {
+                        {mediaFiles?.map((element: string) => {
                             return <Thumbnail image={element}></Thumbnail>
                         })}
                     </div>

@@ -3,7 +3,7 @@ import Media from "../Models/Media";
 
 const GetMedia = {
     mediaMetadata : [] as Media[],
-    media : [] as Array<String>,
+    media : [] as Array<string>,
 
     getMediaFile : async function(objectKey: String, patientID: String) {
         const signedUrlOptions = {
