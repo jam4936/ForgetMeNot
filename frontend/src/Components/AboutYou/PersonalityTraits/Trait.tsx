@@ -30,7 +30,6 @@ export default function Trait(props: any) {
     const [postState, setPostState] = useState(post);
 
     useEffect( () =>{
-        console.log(preState);
         updateResponse();
     }, [preState]);
     useEffect(() =>{
