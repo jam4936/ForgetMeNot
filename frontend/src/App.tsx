@@ -12,7 +12,7 @@ import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalSt
 import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
 import { PatientInfo } from './Components/PatientInfo/PatientInfo'
-import { PatientProfile } from './Components/PatientInfo/PatientProfile'
+import PatientProfile from './Components/PatientInfo/PatientProfile'
 import { AboutYou } from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";

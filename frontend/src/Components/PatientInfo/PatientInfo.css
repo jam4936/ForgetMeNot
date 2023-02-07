@@ -44,7 +44,9 @@
 }
 
 .infoContainer span{
-    padding-left: 1rem;
+    padding-left: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 #leftContainer{
