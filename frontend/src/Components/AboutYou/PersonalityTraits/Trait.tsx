@@ -30,7 +30,6 @@ export default function Trait(props: any) {
     const [postState, setPostState] = useState(post);
 
     useEffect( () =>{
-        console.log(preState);
         updateResponse();
     }, [preState]);
     useEffect(() =>{
@@ -63,9 +62,9 @@ export default function Trait(props: any) {
     return (
         <div className="trait" id="trait">
             <div id="oneTrait">
-                <label><Checkbox value={1} id={"pre_" + trait.prompt} checked={preState} onClick={async () => await setPreState(!preState)}/>1</label>
-                <label><Checkbox value={2} id={"post_"  + trait.prompt} checked={postState} onClick={ async () => await setPostState(!postState)} />2</label>
-                <label>{trait.prompt}</label>
+                <Checkbox value={1} id={"pre_" + trait.prompt} checked={preState} onClick={async () => await setPreState(!preState)}/><label>1</label>
+                <Checkbox value={2} id={"post_"  + trait.prompt} checked={postState} onClick={ async () => await setPostState(!postState)} /><label>2</label>
+                <label className="traitPrompt">{trait.prompt}</label>
             </div>
         </div>
     )

@@ -1,0 +1,109 @@
+#questionControl{
+    padding: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+#spinner{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+}
+
+.spanLabel {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-weight: normal;
+}
+
+@media screen and (min-width: 1024px) {
+    .questionButtons{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+
+    .questionContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 1rem;
+        border: 1px solid;
+        border-radius: 10px;
+        background-color: white;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .questionButtons{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .questionContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 1rem;
+        border: 1px solid;
+        border-radius: 20px;
+        background-color: white;
+    }
+}
+
+.questionContents{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: flex-start;
+}
+
+.questionLabel{
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root{
+    background-color: white;
+}
+.MuiSelect-select .MuiSelect-outlined .MuiInputBase-input .MuiOutlinedInput-input {
+    padding-right: 0rem;
+}
+.MuiSelect-select.MuiSelect-outlined{
+    padding: 12.5px 5px 12.5px 1rem;
+    margin-left: 0rem;
+    margin-top: 0rem;
+    width: 90%;
+}
+
+@media screen and (min-width: 1024px) {
+    select {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    select {
+        width: 70%;
+    }
+}
+
+.MuiFormControl-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-root .MuiTextField-root{
+    width: 100%;
+}
+.MuiInputBase-input .MuiOutlinedInput-input{
+    background-color: white;
+}

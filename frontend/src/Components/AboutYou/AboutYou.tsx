@@ -26,7 +26,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     }
 
     const initializeQuestions = async () => {
-         await GetQuestions.initializeQuestions("AboutYou");
+         await GetQuestions.initializeQuestionsBySection("AboutYou");
          setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
     }
 
@@ -129,7 +129,9 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
                 personalityTraits.push(question);
         }
     }
-
+    window.addEventListener("beforeunload", (event) =>{
+        UploadResponseService.checkFormDirty(patient.id);
+    });
     if(!dataLoaded) {
         return (
             <div>
@@ -150,5 +152,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
             </div>
         )
     }
+
+
     //
 }

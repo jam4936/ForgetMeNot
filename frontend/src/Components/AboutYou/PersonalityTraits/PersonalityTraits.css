@@ -1,9 +1,15 @@
+#question{
+    padding-top: 2rem;
+}
 p{
     font-size: 1rem;
 }
 div.trait{
     text-align: left;
     align-items: center;
+}
+.traitPrompt{
+    padding-left: 1rem;
 }
 .checkboxNum label{
     padding-left: 1rem;

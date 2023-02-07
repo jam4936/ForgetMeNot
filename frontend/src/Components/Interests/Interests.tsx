@@ -23,7 +23,7 @@ export const Interests = (patient : Patient, allowInput: boolean) => {
     }
 
     const initializeQuestions = async () => {
-        await GetQuestions.initializeQuestions("Interests");
+        await GetQuestions.initializeQuestionsBySection("Interests");
         setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
     }
@@ -113,6 +113,10 @@ export const Interests = (patient : Patient, allowInput: boolean) => {
         }
     }
 
+    window.addEventListener("beforeunload", (event) =>{
+        UploadResponseService.checkFormDirty(patient.id);
+    });
+    
     if(dataLoaded){
         return (
             <div>

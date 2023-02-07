@@ -28,6 +28,7 @@ export default function NavigationBar() {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="familyForm"> Family Form </NavDropdown.Item>
                         <NavDropdown.Item href="patientInfo"> Patient Information </NavDropdown.Item>
+                        <NavDropdown.Item href="questionControl"> Question Control </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 <Nav>
