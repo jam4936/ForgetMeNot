@@ -1,4 +1,15 @@
-.mediaFeed {
+#mediaFeed{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #EFF1FB;
+}
+
+.mediaView {
     width: 100%;
     height: 90vh;
     max-height: 100%;
@@ -28,7 +39,7 @@
     transform: translateX(0);
 }
 
-.mediaFeed #enterFullscreen {
+.mediaView #enterFullscreen {
     color: gray;
     position: absolute;
     top: 2px;
@@ -42,7 +53,21 @@
     position: relative;
     border-radius: 25px;
 }
-.mediaFeed #enterFullscreen:hover{
+
+.mediaView #enterFullscreen:hover{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+#feedOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#arrowButton{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }

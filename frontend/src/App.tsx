@@ -13,6 +13,7 @@ import UploadMedia from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
 import { PatientInfo } from './Components/PatientInfo/PatientInfo'
 import PatientProfile from './Components/PatientInfo/PatientProfile'
+import MediaFeed from './MediaFeed/MediaFeed'
 import { AboutYou } from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";
@@ -47,6 +48,7 @@ function App() {
                 <Route path={'/patientInfo'} element={<PatientInfo/>}/>
                 <Route path={'/patientProfile'} element={<PatientProfile/>}/>
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
+                <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
             </Routes>
         </Router>
   );
