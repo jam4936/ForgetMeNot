@@ -129,7 +129,9 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
                 personalityTraits.push(question);
         }
     }
-
+    window.addEventListener("beforeunload", (event) =>{
+        UploadResponseService.checkFormDirty(patient.id);
+    });
     if(!dataLoaded) {
         return (
             <div>
@@ -150,5 +152,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
             </div>
         )
     }
+
+
     //
 }
