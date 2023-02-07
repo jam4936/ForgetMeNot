@@ -119,6 +119,10 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
         }
     }
 
+    window.addEventListener("beforeunload", (event) =>{
+        UploadResponseService.checkFormDirty(patient.id);
+    });
+    
     if(dataLoaded){
         return (
             <div>
