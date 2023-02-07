@@ -9,14 +9,20 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import AccordionStepper from "../UploadPortalStepper/AccordionStepper/AccordionStepper";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Patient from "../../Models/Patient";
 
-export const PatientProfile = () => {
+
+function PatientProfile(){
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const allowInput: boolean = false;
+
+    const navigateToMediaFeed = (patient : Patient) => {
+        navigate('/mediaFeed', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
+    };
 
     const patient: Patient = {
         id: location.state != null ? location.state.id : 0,
@@ -43,7 +49,7 @@ export const PatientProfile = () => {
                     </div>
                 </div>
                 <div id="rightContainer">
-                    <Button variant="contained">Start Media Feed</Button>
+                    <Button variant="contained" onClick={() => navigateToMediaFeed(patient)}>Start Media Feed</Button>
                 </div>
             </div>
             <div id="informationDropdown">
@@ -60,3 +66,5 @@ export const PatientProfile = () => {
         </div>
     );
 }
+
+export default PatientProfile;

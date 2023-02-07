@@ -22,14 +22,14 @@ export const PatientInfo = () => {
     }
 
     // only call database once
-    const [dataLoaded, setDataLoaded] = useState<boolean>(true);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
     const initializeData = async () => {
-        if (dataLoaded) {
+        if (!dataLoaded) {
             //initializes the patients
             await initializePatients();
             //prevent a second call
-            await setDataLoaded(false);
+            await setDataLoaded(true);
         }
     }
 
@@ -39,7 +39,7 @@ export const PatientInfo = () => {
         return PatientCard(patient, () => {navigateToProfile(patient)});
     }
 
-    if(dataLoaded){
+    if(!dataLoaded){
         return (
             <div id="patientInfo">
                 <h1>Select a Patient Profile:</h1>

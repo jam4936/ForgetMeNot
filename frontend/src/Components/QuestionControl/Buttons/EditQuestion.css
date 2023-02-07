@@ -1,0 +1,36 @@
+@media screen and (min-width: 1024px) {
+    .questionButtons{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .questionButtons{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.select{
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.errorMessage{
+    color: red !important;
+}
+
+.saveMessage{
+    color: green !important;
+}
+
+.multiLine, .singleLine{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
