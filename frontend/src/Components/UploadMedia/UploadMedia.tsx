@@ -1,20 +1,31 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
-import AddImage from "./AddImage/AddImage"
+import { AddImage } from "./AddImage/AddImage"
+import Patient from "../../Models/Patient";
+import spinner from "../../Images/loadingspinner.gif";
+import GetMedia from "../../Services/GetMedia";
 
-class UploadMedia extends React.Component <{}, {isTablet: boolean}>{
+export const UploadMedia = (patient : Patient, allowInput: boolean) => {
+    const [mediaFiles, setMedia] = useState<string[]>();
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-    render(){
+    useEffect(() => {
+        GetMedia.initializeMedia(patient.id.toString());
+        setMedia(GetMedia.media);
+        setDataLoaded(true)
+        }, [])
+
+    if(dataLoaded){
         return (
             <div id="mediaUpload">
-                <h1>5. Upload Media</h1>
 
                 <section>
                     <div className="imageGrid">
-                        <Thumbnail image="https://picsum.photos/200/300"></Thumbnail>
-                        <Thumbnail image="https://cdn.pixabay.com/photo/2019/10/03/12/12/javascript-4523100_960_720.jpg"></Thumbnail>
-                        <Thumbnail image="https://images.pexels.com/photos/13247739/pexels-photo-13247739.jpeg?cs=srgb&dl=pexels-gaye-k%C4%B1rk%C4%B1n-13247739.jpg&fm=jpg&_gl=1*11p66fg*_ga*MTAyOTUzODA3OC4xNjY2NjMyNzU5*_ga_8JE65Q40S6*MTY2NjYzMjc1OS4xLjEuMTY2NjYzMjc2My4wLjAuMA.."></Thumbnail>
+                        {mediaFiles?.map((element: string) => {
+                            return <Thumbnail image={element}></Thumbnail>
+                        })}
                     </div>
 
                     <br />
@@ -22,8 +33,12 @@ class UploadMedia extends React.Component <{}, {isTablet: boolean}>{
                     <AddImage></AddImage>
                 </section>
             </div>
-        );
+        )
+    }else {
+        return (
+            <div>
+                <img id="spinner" src={spinner} alt="loading..." />
+            </div>
+        )
     }
 }
-
-export default UploadMedia;

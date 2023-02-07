@@ -9,7 +9,7 @@ import CreateAccount from "./Components/Authentication/CreateAccount"
 import { Interests } from './Components/Interests/Interests';
 import { AboutYourLife } from "./Components/AboutYourLife/AboutYourLife";
 import UploadPortalStepper from './Components/UploadPortalStepper/UploadPortalStepper'
-import UploadMedia from './Components/UploadMedia/UploadMedia'
+import { UploadMedia } from './Components/UploadMedia/UploadMedia'
 import NavigationBar from './NavigationBar'
 import { PatientInfo } from './Components/PatientInfo/PatientInfo'
 import PatientProfile from './Components/PatientInfo/PatientProfile'
@@ -43,7 +43,7 @@ function App() {
                 <Route path={'/createAccount'} element={<CreateAccount/>}/>
                 <Route path={'/interests'} element={Interests(patient, allowInput)}/>
                 <Route path={'/aboutYourLife'} element={AboutYourLife(patient, allowInput)}/>
-                <Route path={'/uploadMedia'} element={<UploadMedia/>}/>
+                <Route path={'/uploadMedia'} element={UploadMedia(patient, allowInput)}/>
                 <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
                 <Route path={'/patientInfo'} element={<PatientInfo/>}/>
                 <Route path={'/patientProfile'} element={<PatientProfile/>}/>
