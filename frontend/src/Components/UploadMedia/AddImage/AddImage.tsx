@@ -1,12 +1,25 @@
 import React from "react";
 import './AddImage.css';
 
-class AddImage extends React.Component {
-    render() {
-        return (
-            <button type="button" className="uploadButton">+ Add Images</button>
-        )
-    }
-}
+export const AddImage = () => {
 
-export default AddImage;
+    const openFileUpload = () => {
+        const input = document.getElementById('file-input');
+
+        if (input) {
+            input.click();
+        }
+    };
+
+    return (
+        <div>
+            <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Images</button>
+            <input
+                type="file" multiple
+                accept="image/*,video/mp4,video/x-m4v,video/*"
+                style={{ display: 'none' }}
+                id="file-input"
+            />
+        </div>
+    )
+}

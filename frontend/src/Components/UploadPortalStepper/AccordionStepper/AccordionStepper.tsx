@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AboutYourLife } from '../../AboutYourLife/AboutYourLife';
 import { Interests } from '../../Interests/Interests';
 import { DailySchedule } from '../../DailySchedule/DailySchedule';
-import UploadMedia from '../../UploadMedia/UploadMedia'
+import { UploadMedia } from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
 import { AboutYou } from '../../AboutYou/AboutYou';
 import Patient from "../../../Models/Patient";
@@ -60,7 +60,7 @@ export default function AccordionStepper( patient: Patient, allowInput: boolean)
             <Accordion sx={styles.main} expanded={expanded ==='UploadMedia'} onChange={handleChange('UploadMedia')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/> }>Upload Media</AccordionSummary>
                 <AccordionDetails>
-                    <UploadMedia/>
+                    {UploadMedia(patient, allowInput)}
                 </AccordionDetails>
             </Accordion>
         </div>
