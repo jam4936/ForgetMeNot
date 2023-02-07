@@ -207,8 +207,20 @@ class EditQuestion extends React.Component <any, any>{
                     <Modal.Body>
                         <form>
                             <div className="form-group">
-                                <label htmlFor="question-id" className="col-form-label">Change the ID?</label>
-                                <TextField className="form-control" id="question-id" type="number" InputProps={{inputProps: {min:0}}} defaultValue={this.question.id} onChange={this.handleIdChange.bind(this)}></TextField>
+                                <div id={this.question.id.toString()} className={"questionContents"}>
+                                    <div id={this.question.id.toString()} className={"questionLabel"}>
+                                        <label>ID:</label>
+                                        <label className="spanLabel">
+                                            {this.question.id}
+                                        </label>
+                                    </div>
+                                    <div id={this.question.id.toString()} className={"questionLabel"}>
+                                        <label>Question Type:</label>
+                                        <label className="spanLabel">
+                                            {this.question.questionType}
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="question-section" className="col-form-label">Change the question section?</label>
@@ -224,21 +236,6 @@ class EditQuestion extends React.Component <any, any>{
                                 <TextField className="multiLine" id="question-prompt" defaultValue={this.question.prompt} onChange={this.handlePromptChange.bind(this)} rows={4} multiline></TextField>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="question-type" className="col-form-label">Change the question type?</label>
-                                <Select id="question-type" className="select" defaultValue={this.question.questionType as string} onChange={this.handleTypeChange.bind(this)} autoWidth={true}>
-                                    <MenuItem value="checkbox">CheckBox</MenuItem>
-                                    <MenuItem value="multiLine">MultiLine</MenuItem>
-                                    <MenuItem value="select">Select</MenuItem>
-                                    <MenuItem value="singleLine">SingleLine</MenuItem>
-                                </Select>
-                            </div>
-                            { this.state.typeIsSelect ?
-                                <div className="form-group">
-                                    <label htmlFor="question-prompt" className="col-form-label">Enter the Select Menu Items as Comma Separated Values in a List:</label>
-                                    <TextField className="multiLine" id="select-options" defaultValue={this.selectOptionsAsString} onChange={this.handleSelectOptionsChange.bind(this)} rows={4} multiline></TextField>
-                                </div> : <div></div>
-                            }
-                            <div className="form-group">
                                 {this.state.showErrorLabel ? <label className="errorMessage">{this.errorMessage}</label>: <div></div>}
                                 {this.state.showSaveLabel ? <label className="saveMessage">{this.saveMessage}</label>: <div></div>}
                             </div>
@@ -253,5 +250,29 @@ class EditQuestion extends React.Component <any, any>{
         )
     }
 }
+
+/**
+ <div className="form-group">
+ <label htmlFor="question-id" className="col-form-label">Change the ID?</label>
+ <TextField className="form-control" id="question-id" type="number" InputProps={{inputProps: {min:0}}} defaultValue={this.question.id} onChange={this.handleIdChange.bind(this)}></TextField>
+ </div>
+
+ <div className="form-group">
+ <label htmlFor="question-type" className="col-form-label">Change the question type?</label>
+ <Select id="question-type" className="select" defaultValue={this.question.questionType as string} onChange={this.handleTypeChange.bind(this)} autoWidth={true}>
+ <MenuItem value="checkbox">CheckBox</MenuItem>
+ <MenuItem value="multiLine">MultiLine</MenuItem>
+ <MenuItem value="select">Select</MenuItem>
+ <MenuItem value="singleLine">SingleLine</MenuItem>
+ </Select>
+ </div>
+
+ { this.state.typeIsSelect ?
+                                <div className="form-group">
+                                    <label htmlFor="question-prompt" className="col-form-label">Enter the Select Menu Items as Comma Separated Values in a List:</label>
+                                    <TextField className="multiLine" id="select-options" defaultValue={this.selectOptionsAsString} onChange={this.handleSelectOptionsChange.bind(this)} rows={4} multiline></TextField>
+                                </div> : <div></div>
+                            }
+ **/
 
 export default EditQuestion;

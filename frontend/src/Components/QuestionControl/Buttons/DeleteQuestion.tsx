@@ -3,21 +3,23 @@ import './DeleteQuestion.css';
 import {Modal} from 'react-bootstrap';
 import Question from "../../../Models/Question";
 import DeleteQuestions from "../../../Services/DeleteQuestions";
+import GetResponses from "../../../Services/GetResponses";
+import DeleteResponses from "../../../Services/DeleteResponses";
 
 class DeleteQuestion extends React.Component <any, any>{
     constructor(props: {} | Readonly<{}>){
         super(props)
         this.state={
             show:false,
-            showNoLabel:false,
+            showCloseLabel:false,
             showYesLabel:false
         }
-        this.noMessage = "";
+        this.closeMessage = "";
         this.yesMessage = "";
         this.question = this.props.question as Question;
     }
 
-    private noMessage: string = "";
+    private closeMessage: string = "";
     private yesMessage: string = "";
     private question: Question = this.props.question;
 
@@ -27,36 +29,42 @@ class DeleteQuestion extends React.Component <any, any>{
 
     private confirmDelete: boolean = false;
     private timeToRefresh: boolean = false;
+    private alreadyDeleted: boolean = false;
     async handleYes(){
         this.doubleClose = false;
-        if (this.confirmDelete){
+        if (this.confirmDelete && !this.alreadyDeleted){
             await DeleteQuestions.deleteQuestionById(this.question.id);
+            let responses = await GetResponses.getResponsesByQuestionId(this.question.id);
+            for(const response of responses){
+                await DeleteResponses.deleteResponseById(response.id);
+            }
             this.confirmDelete = false;
+            this.alreadyDeleted = true;
             this.yesMessage = "Question deleted!"
-            this.setState({showYesLabel: true, showNoLabel: false})
+            this.setState({showYesLabel: true, showCloseLabel: false})
             this.timeToRefresh = true;
-        }else if (!this.confirmDelete){
-            this.setState({showYesLabel: true, showNoLabel: false})
-            this.noMessage = "";
+        }else if (!this.confirmDelete && !this.alreadyDeleted){
+            this.setState({showYesLabel: true, showCloseLabel: false})
+            this.closeMessage = "";
             this.yesMessage = "Confirm deletion of this question?";
             this.confirmDelete = true;
         }
     }
 
     private doubleClose: boolean = false;
-    handleNo(){
+    handleClose(){
         this.confirmDelete = false;
         if (!this.doubleClose){
             this.yesMessage = "";
-            this.setState({showNoLabel: true, showYesLabel: false})
-            this.noMessage = "Confirm no?";
+            this.setState({showCloseLabel: true, showYesLabel: false})
+            this.closeMessage = "Confirm close?";
             this.doubleClose = true;
         }else if (this.doubleClose) {
             this.setState({show:!this.state.show,
-                showNoLabel: false,
+                showCloseLabel: false,
                 showYesLabel: false
             })
-            this.noMessage = "";
+            this.closeMessage = "";
             this.doubleClose = false;
             if (this.timeToRefresh){
                 this.timeToRefresh = false;
@@ -69,8 +77,7 @@ class DeleteQuestion extends React.Component <any, any>{
         return (
             <div id={this.question.id.toString()} className={"questionButtons"}>
                 <button type="button" className="deleteButton" onClick={()=>this.handleModal()}>Delete Question</button>
-
-                <Modal show={this.state.show} onHide={()=>this.handleNo()}>
+                <Modal show={this.state.show} onHide={()=>this.handleClose()}>
                     <Modal.Header >Delete Question</Modal.Header>
                     <Modal.Body>
                         <form>
@@ -111,13 +118,13 @@ class DeleteQuestion extends React.Component <any, any>{
                                 </div>
                             </div>
                             <div className="form-group">
-                                {this.state.showNoLabel ? <label className="noMessage">{this.noMessage}</label>: <div></div>}
+                                {this.state.showCloseLabel ? <label className="closeMessage">{this.closeMessage}</label>: <div></div>}
                                 {this.state.showYesLabel ? <label className="yesMessage">{this.yesMessage}</label>: <div></div>}
                             </div>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleNo()}>No</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleClose()}>Close</button>
                         <button type="button" className="btn btn-primary" onClick={()=>this.handleYes()}>Yes</button>
                     </Modal.Footer>
                 </Modal>
