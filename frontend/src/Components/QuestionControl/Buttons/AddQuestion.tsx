@@ -29,26 +29,29 @@ class AddQuestion extends React.Component <any, any>{
 
     private confirmAdd: boolean = false;
     private timeToRefresh: boolean = false;
+    private alreadyAdded: boolean = false;
     async handleAdd(){
         this.doubleClose = false;
-        if (this.confirmAdd){
+        if (this.confirmAdd && !this.alreadyAdded){
             await PutQuestions.addQuestion(this.changedId, this.changedType, this.changedPrompt, this.changedSection, this.changedSelectOptions);
             this.confirmAdd = false;
+            this.alreadyAdded = true;
             this.addMessage = "Question added!"
             this.setState({showAddLabel: true, showErrorLabel: false})
             this.timeToRefresh = true;
-        }
-        if (this.idChosen && this.sectionChosen && this.typeChosen && this.promptChosen){
-            this.setState({showAddLabel: true, showErrorLabel: false})
-            this.errorMessage = "";
-            this.addMessage = "Confirm addition of this question?";
-            this.confirmAdd = true;
-        }else{
-            this.setState({showAddLabel: false, showErrorLabel: true})
-            this.errorMessage = "Some fields are invalid!";
-            this.addMessage = "";
-            this.confirmAdd = false;
-            this.doubleClose = false;
+        }else if(!this.alreadyAdded){
+            if (this.idChosen && this.sectionChosen && this.typeChosen && this.promptChosen) {
+                this.setState({showAddLabel: true, showErrorLabel: false})
+                this.errorMessage = "";
+                this.addMessage = "Confirm addition of this question?";
+                this.confirmAdd = true;
+            } else {
+                this.setState({showAddLabel: false, showErrorLabel: true})
+                this.errorMessage = "Some fields are invalid!";
+                this.addMessage = "";
+                this.confirmAdd = false;
+                this.doubleClose = false;
+            }
         }
     }
 
@@ -159,11 +162,11 @@ class AddQuestion extends React.Component <any, any>{
                         <form>
                             <div className="form-group">
                                 <label htmlFor="question-id" className="col-form-label">Choose the ID:</label>
-                                <TextField className="form-control" id="question-id" type="number" InputProps={{inputProps: {min:0}}} defaultValue={this.generateId()} onChange={this.handleIdChange.bind(this)}></TextField>
+                                <TextField className="form-control" id="question-id" disabled={this.alreadyAdded} type="number" InputProps={{inputProps: {min:0}}} defaultValue={this.generateId()} onChange={this.handleIdChange.bind(this)}></TextField>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="question-section" className="col-form-label">Choose the question section:</label>
-                                <Select id="question-section" className="select" defaultValue={"none"} onChange={this.handleSectionChange.bind(this)} autoWidth={true}>
+                                <Select id="question-section" className="select" disabled={this.alreadyAdded} defaultValue={"none"} onChange={this.handleSectionChange.bind(this)} autoWidth={true}>
                                     <MenuItem value="none" disabled hidden>Choose a Section</MenuItem>
                                     <MenuItem value="AboutYou">AboutYou</MenuItem>
                                     <MenuItem value="AboutYourLife">AboutYourLife</MenuItem>
@@ -173,11 +176,11 @@ class AddQuestion extends React.Component <any, any>{
                             </div>
                             <div className="form-group">
                                 <label htmlFor="question-prompt" className="col-form-label">Choose the question prompt:</label>
-                                <TextField className="multiLine" id="question-prompt" defaultValue={""} onChange={this.handlePromptChange.bind(this)} rows={4} multiline></TextField>
+                                <TextField className="multiLine" id="question-prompt" disabled={this.alreadyAdded} defaultValue={""} onChange={this.handlePromptChange.bind(this)} rows={4} multiline></TextField>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="question-type" className="col-form-label">Choose the question type:</label>
-                                <Select id="question-type" className="select" defaultValue={"none"} onChange={this.handleTypeChange.bind(this)} autoWidth={true}>
+                                <Select id="question-type" className="select" disabled={this.alreadyAdded} defaultValue={"none"} onChange={this.handleTypeChange.bind(this)} autoWidth={true}>
                                     <MenuItem value="none" disabled hidden>Choose a Question Type</MenuItem>
                                     <MenuItem value="checkbox">CheckBox</MenuItem>
                                     <MenuItem value="multiLine">MultiLine</MenuItem>
@@ -188,7 +191,7 @@ class AddQuestion extends React.Component <any, any>{
                             { this.state.typeIsSelect ?
                                 <div className="form-group">
                                     <label htmlFor="question-prompt" className="col-form-label">Enter the Select Menu Items as Comma Separated Values in a List:</label>
-                                    <TextField className="multiLine" id="select-options" defaultValue={""} onChange={this.handleSelectOptionsChange.bind(this)} rows={4} multiline></TextField>
+                                    <TextField className="multiLine" id="select-options" disabled={this.alreadyAdded} defaultValue={""} onChange={this.handleSelectOptionsChange.bind(this)} rows={4} multiline></TextField>
                                 </div> : <div></div>
                             }
                             <div className="form-group">
