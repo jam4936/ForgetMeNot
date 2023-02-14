@@ -14,7 +14,7 @@ import NavigationBar from './NavigationBar'
 import { PatientInfo } from './Components/PatientInfo/PatientInfo'
 import PatientProfile from './Components/PatientInfo/PatientProfile'
 import MediaFeed from './MediaFeed/MediaFeed'
-import { AboutYou } from './Components/AboutYou/AboutYou';
+import AboutYou  from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";
 
@@ -39,7 +39,7 @@ function App() {
                 <Route path={'/visionConcept'} element={<Vision/>}/>
                 <Route path={'/dailySchedule'} element={DailySchedule(patient, allowInput)}/>
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/aboutYou'} element={AboutYou(patient, allowInput)}/>
+                <Route path={'/aboutYou'} element={<AboutYou patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/createAccount'} element={<CreateAccount/>}/>
                 <Route path={'/interests'} element={Interests(patient, allowInput)}/>
                 <Route path={'/aboutYourLife'} element={AboutYourLife(patient, allowInput)}/>

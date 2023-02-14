@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.6",
     "aws-amplify": "^4.3.36",
     "face-api.js": "^0.22.2",
+    "node-notifier": "^10.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-checkbox-group": "^5.0.2",
@@ -27,6 +28,7 @@
     "react-spinners": "^0.13.8",
     "simple-statistics": "^7.7.6",
     "start": "^5.1.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3",
     "web-vitals": "^2.1.4"
   },
@@ -34,7 +36,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
   },
   "eslintConfig": {
     "extends": [
@@ -53,5 +56,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "type": "module",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+ }
 }

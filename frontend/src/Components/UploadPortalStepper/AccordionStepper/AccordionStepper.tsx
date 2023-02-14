@@ -6,7 +6,7 @@ import { Interests } from '../../Interests/Interests';
 import { DailySchedule } from '../../DailySchedule/DailySchedule';
 import { UploadMedia } from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
-import { AboutYou } from '../../AboutYou/AboutYou';
+import AboutYou from '../../AboutYou/AboutYou';
 import Patient from "../../../Models/Patient";
 
 
@@ -36,7 +36,7 @@ export default function AccordionStepper( patient: Patient, allowInput: boolean)
             <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
                 <AccordionDetails>
-                    {AboutYou(patient, allowInput)}
+                    {<AboutYou patient={patient} allowInput={allowInput}/>}
                 </AccordionDetails>
             </Accordion>
             <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
