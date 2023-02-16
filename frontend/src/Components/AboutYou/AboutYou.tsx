@@ -100,7 +100,7 @@ function AboutYou(props: any) {
                 </label>
                 <Select data-testid="selectResponse" id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
-                    {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
+                    {question.selectOptions?.map(element => { return <MenuItem data-testid="selectOption" value={element}>{element}</MenuItem> })}
                 </Select>
             </div>
         )
