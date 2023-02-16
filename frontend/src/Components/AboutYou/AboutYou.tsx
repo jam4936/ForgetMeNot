@@ -15,8 +15,6 @@ function AboutYou(props: any) {
     const patient = props.patient;
     const allowInput = props.allowInput;
     
-    // let questions : Question[] = [];
-    // let responses : Response[] = [];
     const [questions, setQuestions] = useState([] as Question[]);
 
     const [responses, setResponses] = useState([] as Response[]);
@@ -97,10 +95,10 @@ function AboutYou(props: any) {
     const getSelect = (question: Question, response: string) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="selectPrompt">
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
+                <Select data-testid="selectResponse" id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
                     {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
                 </Select>
@@ -111,10 +109,10 @@ function AboutYou(props: any) {
     const getSingleLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="singleLinePrompt">
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
+                <TextField data-testid="singleLineResponse" id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
             </div>
         )
     }
@@ -122,10 +120,10 @@ function AboutYou(props: any) {
     const getMultiLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="multiLinePrompt">
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput}  className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
+                <TextField data-testid="multiLineResponse"id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput}  className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
