@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
 import { AddImage } from "./AddImage/AddImage"
@@ -15,7 +15,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.media);
         setDataLoaded(true)
-        }, [])
+    }, [])
 
     if(dataLoaded){
         return (
@@ -30,7 +30,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
 
                     <br />
 
-                    <AddImage></AddImage>
+                    {AddImage(patient, allowInput)}
                 </section>
             </div>
         )
@@ -38,6 +38,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         return (
             <div>
                 <img id="spinner" src={spinner} alt="loading..." />
+                {AddImage(patient, allowInput)}
             </div>
         )
     }

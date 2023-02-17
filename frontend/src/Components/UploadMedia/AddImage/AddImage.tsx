@@ -1,9 +1,11 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './AddImage.css';
+import Patient from "../../../Models/Patient";
+import UploadMediaService from "../../../Services/UploadMediaService";
 
-export const AddImage = () => {
-    const [fileList, setFileList] = useState<FileList | null>(null);
-    const objectKeys: File[] = []
+export const AddImage = (patient : Patient, allowInput: boolean) => {
+    const [images, setImages] = useState([] as any);
+    const [imageURLS, setImageURLs] = useState([]);
 
     const openFileUpload = () => {
         const input = document.getElementById('file-input');
@@ -13,15 +15,16 @@ export const AddImage = () => {
         }
     };
 
-    const saveMedia = (e: ChangeEvent<HTMLInputElement>) =>{
-        setFileList(e.target.files);
-        if (!fileList) {
-            return;
-        }
-        Array.from(fileList).forEach( file => {
-            objectKeys.push(file)
-            }
-        )
+    useEffect(() => {
+        if (images.length < 1) return;
+        const newImageUrls: any = [];
+        console.log(images)
+        images.forEach((image:any) => UploadMediaService.uploadMedia(patient.id.toString(), image));
+        setImageURLs(newImageUrls);
+    }, [images]);
+
+    function onImageChange(e: any) {
+        setImages([...e.target.files]);
     }
 
     return (
@@ -32,8 +35,11 @@ export const AddImage = () => {
                 accept="image/*,video/mp4,video/x-m4v,video/*"
                 style={{ display: 'none' }}
                 id="file-input"
-                onChange={saveMedia}
+                onChange={onImageChange}
             />
+            {imageURLS.map((imageSrc) => (
+                <img src={imageSrc} alt="not fount" width={"250px"} />
+            ))}
         </div>
     )
 }

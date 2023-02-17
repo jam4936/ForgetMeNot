@@ -33,8 +33,6 @@ const GetMedia = {
         let temp: DynamoMediaResult = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media/patient/' + patient, {method: 'GET'}).then(result => result.json());
 
         this.mediaMetadata = temp.Items;
-
-        console.log(this.mediaMetadata)
         for (let i = 0; i < this.mediaMetadata.length; i++) {
             await this.getMediaFile(this.mediaMetadata[i].objectKey,patient);
         }
