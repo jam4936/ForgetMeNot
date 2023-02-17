@@ -6,7 +6,9 @@ import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif";
 import GetMedia from "../../Services/GetMedia";
 
-export const UploadMedia = (patient : Patient, allowInput: boolean) => {
+function UploadMedia(props: any) {
+    let patient = props.patient;
+    let allowInput = props.allowInput;
     const [mediaFiles, setMedia] = useState<string[]>();
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
@@ -42,3 +44,4 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         )
     }
 }
+export default UploadMedia

@@ -27,7 +27,6 @@ function AboutYou(props: any) {
     const initializeResponses = async () => {
         const temp = await GetResponses.initializeResponses(patient.id.toString());
         temp.sort((a: { id: number; },b: { id: number; }) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
-        
         setResponses(temp);
         
     }
@@ -36,17 +35,16 @@ function AboutYou(props: any) {
         const tempQuestions = await GetQuestions.initializeQuestionsBySection("AboutYou");
         tempQuestions.sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
 
-        // questions = tempQuestions;
         setQuestions(tempQuestions); 
     }
 
     async function initializeData() {
-            //initializes the response
-        await initializeResponses();
-        
         //initializes the questions
         await initializeQuestions();
             // set data as loaded
+            //initializes the response
+        await initializeResponses();
+        
     
         setDataLoaded(true); 
         return dataLoaded;
