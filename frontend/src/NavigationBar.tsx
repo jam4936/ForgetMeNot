@@ -26,6 +26,7 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="dailySchedule">Daily Schedule</NavDropdown.Item>
                         <NavDropdown.Item href="uploadMedia">Upload Media</NavDropdown.Item>
                         <NavDropdown.Divider />
+                        <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
                         <NavDropdown.Item href="familyForm"> Family Form </NavDropdown.Item>
                         <NavDropdown.Item href="patientInfo"> Patient Information </NavDropdown.Item>
                         <NavDropdown.Item href="questionControl"> Question Control </NavDropdown.Item>

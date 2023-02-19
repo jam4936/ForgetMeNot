@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles.css'
 import * as faceapi from 'face-api.js'
+import GetVisionConfigs from "../Services/GetVisionConfigs";
+import Config from "../Models/Config";
 class Vision extends React.Component {
     videoElement: any;
     canvasElement: any;
@@ -13,6 +15,7 @@ class Vision extends React.Component {
     glanceScore: number;
     debug = false
     webcam: any;
+    glanceSensitivity: number;
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -24,6 +27,12 @@ class Vision extends React.Component {
         this.frameElement = React.createRef();
         this.glanceScore = 5;
         this.webcam=React.createRef();
+        this.glanceSensitivity = 19;
+    }
+
+    async getGlanceSensitivity(){
+        await GetVisionConfigs.getGlanceSensitivity();
+        this.glanceSensitivity = (GetVisionConfigs.configs.at(0) as Config).configValue;
     }
 
     async hasCameras(){
@@ -129,7 +138,7 @@ class Vision extends React.Component {
                     }
                 })
 
-                if(Math.abs(nonLeftPoints-34)<19){
+                if(Math.abs(nonLeftPoints-34)<this.glanceSensitivity){
                     this.glanceScore ++;
                     if(this.glanceScore>10){
                         this.glanceScore = 10;
@@ -206,6 +215,8 @@ class Vision extends React.Component {
     }
 
     async componentDidMount(){
+        await this.getGlanceSensitivity();
+        console.log('glance sensitivity = ' + this.glanceSensitivity)
         console.log('loading model')
         await faceapi.nets.ssdMobilenetv1.load('/models')
         await faceapi.loadFaceLandmarkModel('/models')
