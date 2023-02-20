@@ -1,31 +1,37 @@
 import React from "react";
 import './Thumbnail.css';
 import {Modal} from 'react-bootstrap';
+import DeleteMedia from "../../../Services/DeleteMedia";
 
 class Thumbnail extends React.Component <any, any>{
-    constructor(props: {} | Readonly<{}>){
+    constructor(props: any){
         super(props)
         this.state={
             show:false
         }
+
     }
 
     handleModal(){
         this.setState({show:!this.state.show})
     }
 
+    async handleDelete(){
+        await DeleteMedia.deleteMediaById(this.props.image.id);
+    }
+
     render() {
         return (
-            <div key={this.props.image} className="thumbnail">
+            <div key={this.props.image.url} className="thumbnail">
                 <button id="buttonOverlay" onClick={()=>this.handleModal()} >
-                    <img src={this.props.image} height="200" alt="upload" />
+                    <img src={this.props.image.url} height="200" alt="upload" />
                 </button>
-                <button type="button" className="btn btn-circle btn-sm" id="delete">X</button>
+                <button type="button" className="btn btn-circle btn-sm" id="delete" onClick={() => this.handleDelete()}>X</button>
 
                 <Modal show={this.state.show} onHide={()=>this.handleModal()}>
                     <Modal.Header closeButton>Edit Description</Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.image} height="200" alt="upload" id="image" />
+                        <img src={this.props.image.url} height="200" alt="upload" id="image" />
                         <form>
                             <div className="form-group">
                                 <label htmlFor="recipient-name" className="col-form-label">Is there anyone significant in this photo?</label>

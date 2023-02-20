@@ -1,21 +1,31 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
 import { AddImage } from "./AddImage/AddImage"
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif";
 import GetMedia from "../../Services/GetMedia";
+import Media from "../../Models/Media";
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
-    const [mediaFiles, setMedia] = useState<string[]>();
+    const [mediaFiles, setMedia] = useState<Media[]>();
+
+    const initializeMedia = async () => {
+        await GetMedia.initializeMedia(patient.id.toString());
+        setMedia(GetMedia.mediaMetadata);
+    }
+
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-    useEffect(() => {
-        GetMedia.initializeMedia(patient.id.toString());
-        setMedia(GetMedia.media);
-        setDataLoaded(true)
-    }, [])
+    const initializeData = async () => {
+        //initializes the questions
+        await initializeMedia();
+        // set data as loaded
+        setDataLoaded(true);
+    }
+
+    if(!dataLoaded) initializeData();
 
     if(dataLoaded){
         return (
@@ -23,7 +33,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
 
                 <section>
                     <div className="imageGrid">
-                        {mediaFiles?.map((element: string) => {
+                        {mediaFiles?.map((element) => {
                             return <Thumbnail image={element}></Thumbnail>
                         })}
                     </div>

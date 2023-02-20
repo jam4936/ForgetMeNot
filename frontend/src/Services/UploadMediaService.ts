@@ -20,10 +20,8 @@ const UploadMediaService = {
                 console.error(error);
             });
 
-
-        var temp = await fetch(signedUrl, {method: 'PUT',headers: {'content-type': objectKey.type}, body: objectKey}).catch((error) => {
-            console.error(error);
-        });
+        await fetch(signedUrl, {method: 'PUT',headers: {'content-type': objectKey.type}, body: objectKey}).catch((error) => {
+            console.error(error);});
 
         const databaseUploadOptions = {
             method: 'PUT',
@@ -34,7 +32,7 @@ const UploadMediaService = {
             }),
         };
 
-        fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', databaseUploadOptions).catch((error) => {
+        await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', databaseUploadOptions).catch((error) => {
             console.error(error);
         });
     }

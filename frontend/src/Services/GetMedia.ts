@@ -3,7 +3,6 @@ import Media from "../Models/Media";
 
 const GetMedia = {
     mediaMetadata : [] as Media[],
-    media : [] as Array<string>,
 
     getMediaFile : async function(objectKey: String, patientID: String) {
         const signedUrlOptions = {
@@ -15,26 +14,25 @@ const GetMedia = {
             }),
         };
 
-        const signedUrl =  await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', signedUrlOptions).then((response) => response.json())
-            .then((responseJson) => {
-                console.log('preSignedUrl:', responseJson)
-                return responseJson
-            })
+        const signedUrl =  await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', signedUrlOptions).then(result => result.json())
             .catch((error) => {
                 console.error(error);
             });
 
-        return fetch(signedUrl, {method: 'GET'}).then((response) => response.blob()).then(json => {
-            this.media.push(window.URL.createObjectURL(json))
-        })
+        console.log(signedUrl)
+        
+        const mediaUrl = await fetch(signedUrl, {method: 'GET'}).then(result => result.blob());
+
+        return window.URL.createObjectURL(mediaUrl);
     },
 
     initializeMedia : async function(patient: String) {
         let temp: DynamoMediaResult = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media/patient/' + patient, {method: 'GET'}).then(result => result.json());
 
         this.mediaMetadata = temp.Items;
+
         for (let i = 0; i < this.mediaMetadata.length; i++) {
-            await this.getMediaFile(this.mediaMetadata[i].objectKey,patient);
+            this.mediaMetadata[i].url = await this.getMediaFile(this.mediaMetadata[i].objectKey,patient);
         }
     }
 };
