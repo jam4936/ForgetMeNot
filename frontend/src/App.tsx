@@ -17,6 +17,7 @@ import MediaFeed from './MediaFeed/MediaFeed'
 import AboutYou  from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";
+import Calendar from './Components/Calendar/Calendar';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                 <Route path={'/patientProfile'} element={<PatientProfile/>}/>
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
                 <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                <Route path={'/calendar'} element={<Calendar/>}/>
             </Routes>
         </Router>
   );

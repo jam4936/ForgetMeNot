@@ -31,6 +31,8 @@ function Home() {
             <br></br>
                 <a href="/questionControl">- "/questionControl</a>
             <br></br>
+            <a href="/calendar">- "/calendar</a>
+            <br></br>
         </h1>
     );
 }
