@@ -1,35 +1,52 @@
 import React from "react";
 import './Thumbnail.css';
-import {Modal} from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import DeleteMedia from "../../../Services/DeleteMedia";
 
 class Thumbnail extends React.Component <any, any>{
     constructor(props: any){
         super(props)
         this.state={
-            show:false
+            showImageDetails:false,
+            showDeleteConfirm:false
         }
-
     }
 
-    handleModal(){
-        this.setState({show:!this.state.show})
+    handleImageDetailsModal(){
+        this.setState({showImageDetails:!this.state.showImageDetails})
     }
 
-    async handleDelete(){
+    handleDeleteModal(){
+        this.setState({showDeleteConfirm:!this.state.showDeleteConfirm})
+    }
+
+    async deleteMedia(){
         await DeleteMedia.deleteMediaById(this.props.image.id);
+        this.handleDeleteModal()
     }
 
     render() {
         return (
             <div key={this.props.image.url} className="thumbnail">
-                <button id="buttonOverlay" onClick={()=>this.handleModal()} >
+                <button id="buttonOverlay" onClick={()=>this.handleImageDetailsModal()} >
                     <img src={this.props.image.url} height="200" alt="upload" />
                 </button>
-                <button type="button" className="btn btn-circle btn-sm" id="delete" onClick={() => this.handleDelete()}>X</button>
+                <button type="button" className="btn btn-circle btn-sm" id="delete" onClick={() => this.handleDeleteModal()}>X</button>
 
-                <Modal show={this.state.show} onHide={()=>this.handleModal()}>
-                    <Modal.Header closeButton>Edit Description</Modal.Header>
+                <Modal show={this.state.showDeleteConfirm} onHide={()=>this.handleDeleteModal()}>
+                    <Modal.Header>
+                        <Modal.Title>Confirm Delete</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Footer>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleDeleteModal()}>Back</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>this.deleteMedia()}>Delete</button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={this.state.showImageDetails} onHide={()=>this.handleImageDetailsModal()}>
+                    <Modal.Header>
+                        <Modal.Title>Edit Description</Modal.Title>
+                    </Modal.Header>
                     <Modal.Body>
                         <img src={this.props.image.url} height="200" alt="upload" id="image" />
                         <form>
@@ -48,8 +65,8 @@ class Thumbnail extends React.Component <any, any>{
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleModal()}>Close</button>
-                        <button type="button" className="btn btn-primary" onClick={()=>this.handleModal()}>Save</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleImageDetailsModal()}>Close</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>this.handleImageDetailsModal()}>Save</button>
                     </Modal.Footer>
                 </Modal>
             </div>

@@ -1,55 +1,75 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
-import { AddImage } from "./AddImage/AddImage"
 import Patient from "../../Models/Patient";
-import spinner from "../../Images/loadingspinner.gif";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
+import UploadMediaService from "../../Services/UploadMediaService";
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const [mediaFiles, setMedia] = useState<Media[]>();
+    const [images, setImages] = useState([] as any);
+
+    const openFileUpload = () => {
+        const input = document.getElementById('file-input');
+
+        if (input) {
+            input.click();
+        }
+    };
+
+    const initializeData = async() => {
+        //initializes the questions
+        await initializeMedia();
+        await initializeUpload()
+    }
+
+    function onImageChange(e: any) {
+        setImages([...e.target.files]);
+    }
+
 
     const initializeMedia = async () => {
         await GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.mediaMetadata);
     }
 
-    // only call database once
-    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+    const initializeUpload = async () => {
+        if (images.length < 1) return;
 
-    const initializeData = async () => {
-        //initializes the questions
-        await initializeMedia();
-        // set data as loaded
-        setDataLoaded(true);
+        for(let i = 0; i < images.length; i++){
+            await UploadMediaService.uploadMedia(patient.id.toString(), images[i]);
+        }
     }
 
-    if(!dataLoaded) initializeData();
+    useEffect(() => {
+        initializeData();
+    }, [images]);
 
-    if(dataLoaded){
-        return (
-            <div id="mediaUpload">
+    return (
+        <div id="mediaUpload">
 
-                <section>
-                    <div className="imageGrid">
-                        {mediaFiles?.map((element) => {
-                            return <Thumbnail image={element}></Thumbnail>
-                        })}
-                    </div>
+            <section>
+                <div className="imageGrid">
+                    {mediaFiles?.map((element) => {
+                        return <Thumbnail image={element}></Thumbnail>
+                    })}
+                </div>
 
-                    <br />
+                <br />
 
-                    {AddImage(patient, allowInput)}
-                </section>
-            </div>
-        )
-    }else {
-        return (
-            <div>
-                <img id="spinner" src={spinner} alt="loading..." />
-                {AddImage(patient, allowInput)}
-            </div>
-        )
-    }
+                <div>
+                    <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Images</button>
+                    <input
+                        type="file" multiple
+                        accept="image/*,video/mp4,video/x-m4v,video/*"
+                        style={{ display: 'none' }}
+                        id="file-input"
+                        onChange={onImageChange}
+                    />
+                </div>
+            </section>
+        </div>
+    )
+
 }
