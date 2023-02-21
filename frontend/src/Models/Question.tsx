@@ -1,8 +1,8 @@
 export default interface Question{
     //prompt: the question
-    //questionType: "select" | "singleLine" | "multiLine"
+    //questionType: "select" | "singleLine" | "multiLine" | "checkbox"
     //id: id of the component
-    //sectionType: "Configs" | "AboutYourLife" | "Interests"
+    //sectionType: "AboutYou" | "AboutYourLife" | "Interests" | "DailySchedule"
 
     prompt: string;
     questionType: string;
