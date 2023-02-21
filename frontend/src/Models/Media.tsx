@@ -1,7 +1,8 @@
 export default interface Media{
 
     objectKey: string;
-    id: number
+    id: string
     patientID: number
+    url: string
 
 }
