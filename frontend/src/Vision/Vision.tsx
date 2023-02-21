@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles.css'
 import * as faceapi from 'face-api.js'
+import GetVisionConfigs from "../Services/GetVisionConfigs";
+import Config from "../Models/Config";
 class Vision extends React.Component {
     videoElement: any;
     canvasElement: any;
@@ -13,6 +15,12 @@ class Vision extends React.Component {
     glanceScore: number;
     debug = false
     webcam: any;
+    glanceSensitivity: number;
+    glancePatience: number;
+    pDict : any;
+    upperBound: number;
+    activationNumner: number;
+
 
     constructor(props: {} | Readonly<{}>){
         super(props)
@@ -24,6 +32,39 @@ class Vision extends React.Component {
         this.frameElement = React.createRef();
         this.glanceScore = 5;
         this.webcam=React.createRef();
+        this.glanceSensitivity = 19;
+        this.glancePatience = 1
+        this.upperBound = 10;
+        this.activationNumner = 2;
+        this.pDict = {
+            0:{
+                upper:5,
+                activation:2
+            },
+            1:{
+                upper:10,
+                activation:2
+            },
+            2:{
+                upper:25,
+                activation: 8
+            }
+        }
+    }
+
+    async getGlanceSensitivity(){
+        await GetVisionConfigs.getGlanceSensitivity();
+        this.glanceSensitivity = (GetVisionConfigs.configs.at(0) as Config).configValue;
+    }
+    async getGlancePatience(){
+        await GetVisionConfigs.getGlancePatience();
+        this.glancePatience = (GetVisionConfigs.configs.at(0) as Config).configValue;
+        console.log('Patience is: ',this.glancePatience)
+        let temp = this.pDict[this.glancePatience]
+        this.upperBound = temp.upper;
+        this.activationNumner = temp.activation;
+        console.log('Upper: ', this.upperBound)
+
     }
 
     async hasCameras(){
@@ -129,10 +170,10 @@ class Vision extends React.Component {
                     }
                 })
 
-                if(Math.abs(nonLeftPoints-34)<19){
+                if(Math.abs(nonLeftPoints-34)<this.glanceSensitivity){
                     this.glanceScore ++;
-                    if(this.glanceScore>10){
-                        this.glanceScore = 10;
+                    if(this.glanceScore>this.upperBound){
+                        this.glanceScore = this.upperBound;
                     }
                 }
                 else{
@@ -158,7 +199,7 @@ class Vision extends React.Component {
                 }
                 
             }
-            if(this.glanceScore>2){
+            if(this.glanceScore>this.activationNumner){
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
@@ -206,6 +247,10 @@ class Vision extends React.Component {
     }
 
     async componentDidMount(){
+        await this.getGlanceSensitivity();
+        console.log('glance sensitivity = ' + this.glanceSensitivity)
+        await this.getGlancePatience();
+
         console.log('loading model')
         await faceapi.nets.ssdMobilenetv1.load('/models')
         await faceapi.loadFaceLandmarkModel('/models')
