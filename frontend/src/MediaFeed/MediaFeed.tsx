@@ -19,16 +19,14 @@ export default function MediaFeed() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
 
-    const [mediaFiles, setMedia] = useState<Media[]>([]);
+    const [mediaFiles, setMedia] = useState<Media[]>();
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-    useEffect(() => {
-        GetMedia.initializeMedia(patient.id.toString());
+    const initializeMedia = async () => {
+        await GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.mediaMetadata);
-        setFeedLength(mediaFiles.length)
-        setDataLoaded(true)
-    }, [])
+    }
 
     const navigateToPatientProfile = (patient : Patient) => {
         navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
@@ -54,6 +52,14 @@ export default function MediaFeed() {
     function auto() {
         slideInterval = setInterval(nextSlide, intervalTime);
     }
+    useEffect(() => {
+        initializeMedia()
+        setDataLoaded(true)
+    }, [])
+
+    useEffect( () => {
+        if (mediaFiles) setFeedLength(mediaFiles.length);
+    }, [mediaFiles])
 
     useEffect(() => {
         auto();
