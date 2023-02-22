@@ -28,6 +28,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "react-uuid": "^2.0.0",
     "simple-statistics": "^7.7.6",
     "start": "^5.1.0",
     "ts-node": "^10.9.1",
