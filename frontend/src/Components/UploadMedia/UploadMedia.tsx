@@ -78,3 +78,4 @@ function UploadMedia(props: any) {
     )
 
 }
+export default UploadMedia
