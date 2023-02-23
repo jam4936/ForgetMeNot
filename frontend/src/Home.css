@@ -1,0 +1,38 @@
+.landing{
+  align-items: center;
+  display: flex;
+}
+.leftWindow{
+  width: 50%;
+  height: 100%;
+  flex-flow: column;
+}
+.rightWindow{
+  width: 50%;
+  height: 100%;
+  display: block;
+  justify-content: space-evenly;
+}
+.rightTopWindow{
+  display: flex;
+  justify-content: space-evenly;
+}
+.rightBottomWindow{
+  display: flex;
+  justify-content: space-evenly;
+}
+.Item1{
+  background-color: #7abaff;
+}
+.Item2{
+  background-color: #8fd19e;
+}
+.Item3{
+  background-color: #20c997;
+}
+.Item4{
+  background-color: #86cfda;
+}
+.Item5{
+  background-color: #abdde5;
+}
