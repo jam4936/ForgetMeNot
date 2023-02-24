@@ -32,7 +32,7 @@ function Home() {
                 <a href="/questionControl">- "/questionControl</a>
             <br></br>
             <a href="/calendar">- "/calendar</a>
-            <a href="/configs">- "/configs</a>
+            
             <br></br>
         </h1>
     );
