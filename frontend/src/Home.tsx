@@ -31,8 +31,9 @@ function Home() {
             <br></br>
                 <a href="/questionControl">- "/questionControl</a>
             <br></br>
-            <a href="/calendar">- "/calendar</a>
-            
+            <a href="/patientCalendar">- "/patientCalendar</a>
+            <br></br>
+            <a href="/facultyCalendar">- "/facultyCalendar</a>
             <br></br>
         </h1>
     );

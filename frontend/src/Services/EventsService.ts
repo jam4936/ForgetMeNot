@@ -8,8 +8,8 @@ const EventsService = {
 
         temp.Items.forEach((event: Events) => {
             events.push({
-                start : event.start,
-                end: event.end,
+                startTime : event.startTime,
+                endTime: event.endTime,
                 description: event.description,
                 date: event.date,
                 eventId: event.eventId,

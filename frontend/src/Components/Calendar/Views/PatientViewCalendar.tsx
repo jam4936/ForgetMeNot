@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Events from '../../Models/Events';
-import DynamoResponse from "../../Models/DynamoResponseResult";
-import EventsService from "../../Services/EventsService"
+import Events from '../../../Models/Events';
+import DynamoResponse from "../../../Models/DynamoResponseResult";
+import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../../Images/loadingspinner.gif";
 import { EventInput } from '@fullcalendar/core';
+ import '../Calendar.css';
 
 function PatientViewCalendar(props: any){
     // const [events, setEvents] = useState([] as Events[]);
@@ -20,12 +21,13 @@ function PatientViewCalendar(props: any){
         let events = [] as EventInput[];
         temp.forEach((response: Events) =>{
             if(response.date){
-                let start = new Date(response.date);
-                let end = new Date(response.end);
+                let startTime = new Date(response.startTime);
+                let endTime = new Date(response.endTime);
                 let eventInput =  {
                     title: response.name,
                     id: response.eventId,
-                    start: start,
+                    start: startTime,
+                    end: endTime,
                     allDay: response.allDay
                  } as EventInput;
                 
@@ -64,6 +66,7 @@ function PatientViewCalendar(props: any){
                     weekends={true}
                     initialEvents={eventInputs}
                     displayEventTime
+                    displayEventEnd
                     eventDisplay='list-item'
                     height={window.screen.height - 250}
                 />

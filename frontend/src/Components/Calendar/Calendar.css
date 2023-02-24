@@ -1,12 +1,6 @@
-.fc-event-time, .fc-event-title {
-    padding: 0 1px;
-    white-space: normal !important;
-}
-
-.fc-title {
+div.fc-event-title {
     white-space: normal;
 }
-
 #calendar{
-    padding: 1rem;
+    margin: 1rem;
 }

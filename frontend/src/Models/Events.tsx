@@ -1,9 +1,9 @@
 export default interface Events{
     eventId: string
     name: string
-    start: string
+    startTime: string
     date? : string
-    end: string
+    endTime: string
     description: string
     allDay: boolean
 }

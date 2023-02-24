@@ -1,0 +1,18 @@
+#createCalendarEvent{
+    display: flex;
+    flex-direction:column;
+    margin: 1rem;
+}
+.MuiFormControl-root.MuiTextField-root{
+    padding-bottom: 1rem;
+}
+#formButtons{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    padding-top: 1rem;
+}   
+.MuiDialogTitle-root{
+    display: flex;
+    justify-content: space-between;
+}

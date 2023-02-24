@@ -18,7 +18,8 @@ import AboutYou  from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";
 import {Configs} from "./Components/Configs/Configs";
-import PatientViewCalendar from './Components/Calendar/PatientViewCalendar';
+import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
+import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 
 function App() {
 
@@ -52,7 +53,8 @@ function App() {
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
                 <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
                 <Route path={'/configs'} element={<Configs/>}/>
-                <Route path={'/calendar'} element={<PatientViewCalendar/>}/>
+                <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
+                <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>
             </Routes>
         </Router>
   );
