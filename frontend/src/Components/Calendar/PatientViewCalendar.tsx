@@ -58,15 +58,15 @@ function PatientViewCalendar(props: any){
         console.log(dataLoaded);
         return(
             <div id="calendar">
-            <FullCalendar
-            plugins={[dayGridPlugin]}
-            initialView='dayGridWeek'
-            weekends={true}
-            initialEvents={eventInputs}
-            displayEventTime
-            eventDisplay='list-item'
-            height={window.screen.height - 250}
-        />
+                <FullCalendar
+                    plugins={[dayGridPlugin]}
+                    initialView='dayGridWeek'
+                    weekends={true}
+                    initialEvents={eventInputs}
+                    displayEventTime
+                    eventDisplay='list-item'
+                    height={window.screen.height - 250}
+                />
             </div>
         )
     }
