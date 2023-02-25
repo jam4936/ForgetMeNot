@@ -5,6 +5,7 @@
 }
 .MuiFormControl-root.MuiTextField-root{
     padding-bottom: 1rem;
+    vertical-align: middle;
 }
 #formButtons{
     display: flex;

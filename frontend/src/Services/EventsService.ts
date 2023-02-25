@@ -11,7 +11,6 @@ const EventsService = {
                 startTime : event.startTime,
                 endTime: event.endTime,
                 description: event.description,
-                date: event.date,
                 eventId: event.eventId,
                 name: event.name,
                 allDay: event.allDay
@@ -19,6 +18,21 @@ const EventsService = {
         })
         return events;
 
+    },
+
+    async insertEvent(event: Events){
+        var responseOptions = {
+            method: 'PUT',
+            body: JSON.stringify({
+                'eventId': event.eventId,
+                'name': event.name,
+                'startTime': event.startTime,
+                'endTime': event.endTime,
+                'description': event.description,
+                'allDay': event.allDay
+            })
+        }
+        var temp = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/events', responseOptions).then(response => {console.log(response.json)})
     }
 }
 export default EventsService;
