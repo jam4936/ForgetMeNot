@@ -185,8 +185,12 @@ class Vision extends React.Component {
                         this.glanceScore = 0;
                     }
                 }
-                this.outputElement.current.value = Math.abs(nonLeftPoints-34)
+                
+                if(this.debug){
+                    this.outputElement.current.value = Math.abs(nonLeftPoints-34)
                 this.textElement.current.value = nonLeftPoints;
+                }
+                
                 if (this.debug) {
                     faceapi.draw.drawDetections(canvas, resizedResult)
                     faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
@@ -203,11 +207,17 @@ class Vision extends React.Component {
             }
             if(this.glanceScore>this.activationNumner){
                 this.stateChange(true)
-                this.outputElement.current.style.backgroundColor="#00B1E1"
+                if(this.debug){
+                    this.outputElement.current.style.backgroundColor="#00B1E1"
+                }
+                
             }
             else{
                 this.stateChange(false)
-                this.outputElement.current.style.backgroundColor="#E9573F"
+                if(this.debug){
+                    this.outputElement.current.style.backgroundColor="#E9573F"
+                }
+                
             }
             
             this.inputElement.current.value = this.glanceScore
@@ -268,7 +278,7 @@ class Vision extends React.Component {
         
         let hasWebcam = await this.hasCameras()
         console.log('Has camera? ',hasWebcam)
-        this.webcam.current.value = hasWebcam + ""
+        //this.webcam.current.value = hasWebcam + ""
         console.log(await navigator.mediaDevices.enumerateDevices())  
         if(hasWebcam){
             try{
@@ -297,7 +307,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video  style = {{height:"1px",width:"1px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video  style = {{height:"10px",width:"10px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
                     {this.debug &&

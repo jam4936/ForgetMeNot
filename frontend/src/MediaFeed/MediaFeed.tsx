@@ -48,18 +48,25 @@ export default function MediaFeed() {
         // eslint-disable-next-line react/no-direct-mutation-state
         state=val
         console.log("Horayy: ", val )
-    }
+    }   
 
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? feedLength - 1 : currentSlide - 1);
     };
 
     const nextSlide = () => {
-        setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
+        if(state){
+            
+        }
+        else{
+            setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
+        }
+        
     };
 
     const handleSlideCreation = (slide: Media, index: Number) => {
         const re = /(?:\.([^.]+))?$/;
+        
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
