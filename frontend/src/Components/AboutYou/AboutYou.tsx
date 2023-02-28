@@ -136,14 +136,14 @@ function AboutYou(props: any){
     });
     if(!dataLoaded) {
         return (
-            <div data-testid="loading-screen">
+            <div>
                 <img id="spinner" src={spinner} alt="loading..."/>
             </div>
         )
     }else{
         return (
             <div>
-                <div data-testid="testAboutYou" id="aboutYou">
+                <div id="aboutYou">
                     <form className="AboutYou">
                         {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)

@@ -34,7 +34,7 @@ export default function AccordionStepper( props: any) {
 
     return(
         <div className="accordion">
-            <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')} data-testid="AboutYou" >
+            <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
                 <AccordionDetails >
                     {<AboutYou patient={patient} allowInput={allowInput}/>}

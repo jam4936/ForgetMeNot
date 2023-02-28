@@ -47,7 +47,7 @@ class PersonalityTraits extends React.Component <any, any>{
         return (
             <div id="container">
                 <label id="question">Personality Traits (Check box 1 for traits before illness. Check box 2 for traits after illness.):</label>
-                <div data-testid="allTraits" className="allTraits">
+                <div className="allTraits">
                     {personalityTraits.map((element: Question) => {
                         let response = responses.find((x: Response) => x.questionID === element.id)
                         return this.displayTrait(element, response)
