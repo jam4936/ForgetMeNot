@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +11,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GetMedia from "../Services/GetMedia";
 import spinner from "../Images/loadingspinner.gif";
 import Media from "../Models/Media";
+import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
+import Vision from "../Vision/Vision";
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -23,6 +25,7 @@ export default function MediaFeed() {
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
+    let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
 
@@ -39,6 +42,12 @@ export default function MediaFeed() {
     const initializeMedia = async () => {
         await GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.mediaMetadata);
+    }
+
+    const updateState = (val:boolean)=>{
+        // eslint-disable-next-line react/no-direct-mutation-state
+        state=val
+        console.log("Horayy: ", val )
     }
 
     const prevSlide = () => {
@@ -86,9 +95,12 @@ export default function MediaFeed() {
         auto();
         return () => clearInterval(slideInterval);
     }, [currentSlide]);
-
+    
     if(dataLoaded) {
+        let temp = {updateFN:updateState,debug:false}
         return (
+            <>
+            <Vision {...temp} />
             <div id="mediaFeed">
                 <div id="arrowButton">
                     <IconButton size="large" onClick={() => navigateToPatientProfile(patient)}>
@@ -120,7 +132,7 @@ export default function MediaFeed() {
                     </div>
                 </div>
             </div>
-
+        </>
 
         );
     }else{

@@ -37,7 +37,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/project'} element={<Project/>}/>
-                <Route path={'/visionConcept'} element={<Vision/>}/>
+                <Route path={'/visionConcept'} element={<Vision {...{debug:false}}/>}/>
                 <Route path={'/dailySchedule'} element={DailySchedule(patient, allowInput)}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/aboutYou'} element={AboutYou(patient, allowInput)}/>
