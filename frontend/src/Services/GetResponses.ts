@@ -8,11 +8,13 @@ const GetResponses = {
         let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/response/patient/' + patient, {method: 'GET'}).then(result => result.json())
 
         this.responses = temp.Items;
+        return this.responses;
     },
     async getResponsesByQuestionId(questionId: number){
         let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/response/question/' + questionId, {method: 'GET'}).then(result => result.json())
 
         return temp.Items;
+        
     },
 
 

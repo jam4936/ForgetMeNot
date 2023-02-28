@@ -12,8 +12,10 @@ import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif"
 
-export const AboutYou = (patient : Patient, allowInput: boolean) => {
-
+// export const AboutYou = (patient : Patient, allowInput: boolean) => {
+function AboutYou(props: any){
+    var patient = props.patient;
+    var allowInput = props.allowInput;
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
 
@@ -21,13 +23,13 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     var personalityResponses : Response[] = []
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        let temp = await GetResponses.initializeResponses(patient.id.toString());
+        setResponses(temp.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
     }
 
     const initializeQuestions = async () => {
-         await GetQuestions.initializeQuestionsBySection("AboutYou");
-         setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        let temp = await GetQuestions.initializeQuestionsBySection("AboutYou");
+        setQuestions(temp.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
     }
 
     // only call database once
@@ -134,14 +136,14 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     });
     if(!dataLoaded) {
         return (
-            <div>
+            <div data-testid="loading-screen">
                 <img id="spinner" src={spinner} alt="loading..."/>
             </div>
         )
     }else{
         return (
             <div>
-                <div id="aboutYou">
+                <div data-testid="testAboutYou" id="aboutYou">
                     <form className="AboutYou">
                         {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)
@@ -156,3 +158,4 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
 
     //
 }
+export default AboutYou;

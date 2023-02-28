@@ -6,12 +6,13 @@ import { Interests } from '../../Interests/Interests';
 import { DailySchedule } from '../../DailySchedule/DailySchedule';
 import { UploadMedia } from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
-import { AboutYou } from '../../AboutYou/AboutYou';
+import AboutYou from '../../AboutYou/AboutYou';
 import Patient from "../../../Models/Patient";
 
 
-export default function AccordionStepper( patient: Patient, allowInput: boolean) {
-
+export default function AccordionStepper( props: any) {
+    let patient = props.patient;
+    let allowInput = props.allowInput;
     const styles =({
         main: {
             margin: '1rem',
@@ -33,10 +34,10 @@ export default function AccordionStepper( patient: Patient, allowInput: boolean)
 
     return(
         <div className="accordion">
-            <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')}>
+            <Accordion sx={styles.main} expanded={expanded === 'AboutYou'} onChange={handleChange('AboutYou')} data-testid="AboutYou" >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>About You</AccordionSummary>
-                <AccordionDetails>
-                    {AboutYou(patient, allowInput)}
+                <AccordionDetails >
+                    {<AboutYou patient={patient} allowInput={allowInput}/>}
                 </AccordionDetails>
             </Accordion>
             <Accordion sx={styles.main} expanded={expanded === 'AboutYourLife'} onChange={handleChange('AboutYourLife')}>
