@@ -50,6 +50,17 @@ export default function MediaFeed() {
         console.log("Horayy: ", val )
     }   
 
+    function isVisible(index:number){
+        if(state){
+            console.log('something should be off')
+            return false
+           
+        }
+        else{
+            return index === currentSlide
+        }
+    }
+
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? feedLength - 1 : currentSlide - 1);
     };
@@ -107,7 +118,7 @@ export default function MediaFeed() {
         let temp = {updateFN:updateState,debug:false}
         return (
             <>
-            <Vision {...temp} />
+            
             <div id="mediaFeed">
                 <div id="arrowButton">
                     <IconButton size="large" onClick={() => navigateToPatientProfile(patient)}>
@@ -119,10 +130,11 @@ export default function MediaFeed() {
                         <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
                             <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
                         </IconButton>
+                        <Vision {...temp} />
                         <FullScreen handle={handle}>
                             {mediaFiles?.map((slide, index) => {
                                 return (
-                                    <div className={index === currentSlide ? "slide current" : "slide"} key={index}>
+                                    <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
                                         {handleSlideCreation(slide,index)}
                                     </div>
                                 );

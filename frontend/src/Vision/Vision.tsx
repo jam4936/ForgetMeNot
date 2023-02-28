@@ -219,10 +219,12 @@ class Vision extends React.Component {
                 }
                 
             }
+            if(this.debug){
+                this.inputElement.current.value = this.glanceScore
+                const frameTime = Math.round((Date.now()-ts) * 100) / 100
+                this.frameElement.current.value = frameTime;
+            }
             
-            this.inputElement.current.value = this.glanceScore
-            const frameTime = Math.round((Date.now()-ts) * 100) / 100
-            this.frameElement.current.value = frameTime;
             
         })
         
@@ -307,7 +309,7 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video  style = {{height:"10px",width:"10px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video  style = {{height:"0px",width:"0px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
                     {this.debug &&
