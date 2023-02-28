@@ -24,6 +24,8 @@
     "aws-amplify": "^4.3.36",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.7",
     "face-api.js": "^0.22.2",
     "jest-when": "^3.5.2",
     "moment": "^2.29.4",
