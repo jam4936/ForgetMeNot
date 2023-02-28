@@ -20,10 +20,12 @@ class Vision extends React.Component {
     pDict : any;
     upperBound: number;
     activationNumner: number;
+    stateChange : any
 
-
-    constructor(props: {} | Readonly<{}>){
+    constructor(props: any){
         super(props)
+        this.stateChange=props.updateFN;
+        this.debug = props.debug;
         this.videoElement = React.createRef();
         this.canvasElement = React.createRef();
         this.outputElement = React.createRef();
@@ -200,9 +202,11 @@ class Vision extends React.Component {
                 
             }
             if(this.glanceScore>this.activationNumner){
+                this.stateChange(true)
                 this.outputElement.current.style.backgroundColor="#00B1E1"
             }
             else{
+                this.stateChange(false)
                 this.outputElement.current.style.backgroundColor="#E9573F"
             }
             
@@ -248,6 +252,7 @@ class Vision extends React.Component {
     }
 
     async componentDidMount(){
+        
         await this.getGlanceSensitivity();
         console.log('glance sensitivity = ' + this.glanceSensitivity)
         await this.getGlancePatience();
@@ -292,10 +297,10 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video  style = {{height:"40px",width:"40px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video  style = {{height:"1px",width:"1px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
-
+                    {this.debug &&
                     <div className="row side-by-side">
                         <div id="fps_meter" className="row side-by-side">
                             <div>
@@ -320,6 +325,7 @@ class Vision extends React.Component {
                         </div>
 
                     </div>
+                    }
                 </div>
                     
             </body>);
