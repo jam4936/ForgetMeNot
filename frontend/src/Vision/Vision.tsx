@@ -72,13 +72,13 @@ class Vision extends React.Component {
     
         let devices = await navigator.mediaDevices.enumerateDevices()
         
-        let haveAllDevices=false;
+        let hasVideo=false;
         devices.forEach((device)=>{
-            if(!(device.kind=='videoinput')){
-                haveAllDevices=true;
+            if( (device.kind=='videoinput') && !device.label.includes('OBS')){
+                hasVideo=true;
             }
         });
-        return haveAllDevices;
+        return hasVideo;
         
     }
 
@@ -222,8 +222,8 @@ class Vision extends React.Component {
     }
 
     async getWebcam(){
-        const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-        console.log("Stream",stream)
+        
+        //const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
         let devices = await navigator.mediaDevices.enumerateDevices()
         let frontDevice :any;
         devices.forEach(device=>{
@@ -236,11 +236,12 @@ class Vision extends React.Component {
                 }
             }
         })
+        
         if(frontDevice){
             return await navigator.mediaDevices.getUserMedia({video: { facingMode: "user" }})
         }
         else{
-            return stream;
+            return false;
         }
         
         
@@ -257,14 +258,26 @@ class Vision extends React.Component {
         console.log('Model loaded: ', faceapi.nets.tinyFaceDetector)
         
         const stream = await this.getWebcam()
+        
         console.log('Found stream is: ', stream)
-
+        
         let hasWebcam = await this.hasCameras()
-        console.log(hasWebcam)
-        this.webcam.current.value = hasWebcam
+        console.log('Has camera? ',hasWebcam)
+        this.webcam.current.value = hasWebcam + ""
         console.log(await navigator.mediaDevices.enumerateDevices())  
-        const videoEl = this.videoElement.current;
-        videoEl.srcObject = stream
+        if(hasWebcam){
+            try{
+                const videoEl = this.videoElement.current;
+                videoEl.srcObject = stream 
+            }
+            catch{
+                const temp = await navigator.mediaDevices.getUserMedia({ video: {} })
+                const videoEl = this.videoElement.current;
+                videoEl.srcObject = temp 
+            }
+            
+        }
+        
     }
     
     render() {
