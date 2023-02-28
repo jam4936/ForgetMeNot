@@ -5,10 +5,13 @@ import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
+import spinner from "../../Images/loadingspinner.gif";
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [images, setImages] = useState([] as any);
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
     const openFileUpload = () => {
         const input = document.getElementById('file-input');
@@ -21,7 +24,8 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const initializeData = async() => {
         //initializes the questions
         await initializeMedia();
-        await initializeUpload()
+        await initializeUpload();
+        setDataLoaded(true);
     }
 
     function onImageChange(e: any) {
@@ -46,30 +50,44 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         initializeData();
     }, [images]);
 
-    return (
-        <div id="mediaUpload">
-
-            <section>
-                <div className="imageGrid">
-                    {mediaFiles?.map((element) => {
-                        return <Thumbnail image={element}></Thumbnail>
-                    })}
-                </div>
-
-                <br />
-
+    if(!dataLoaded){
+        return (
+            <div id="mediaUpload">
                 <div>
-                    <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Images</button>
-                    <input
-                        type="file" multiple
-                        accept="image/*,video/mp4,video/x-m4v,video/*"
-                        style={{ display: 'none' }}
-                        id="file-input"
-                        onChange={onImageChange}
-                    />
+                    <img id="spinner" src={spinner} alt="loading..." />
                 </div>
-            </section>
-        </div>
-    )
+            </div>
+        )
+    }else {
+        return (
+            <div id="mediaUpload">
+                <section>
+                    <div className="imageGrid">
+                        {mediaFiles?.map((element) => {
+                            const re = /(?:\.([^.]+))?$/;
+                            if (re.exec(element.objectKey)![1] === "mp4") {
+                                console.log(element.url)
+                                return <Thumbnail media={element} isVideo={true}></Thumbnail>
+                            } else {
+                                return <Thumbnail media={element} isVideo={false}></Thumbnail>
+                            }
+                        })}
+                    </div>
 
+                    <br/>
+
+                    <div>
+                        <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Images</button>
+                        <input
+                            type="file" multiple
+                            accept="image/*,video/mp4,video/x-m4v,video/*"
+                            style={{display: 'none'}}
+                            id="file-input"
+                            onChange={onImageChange}
+                        />
+                    </div>
+                </section>
+            </div>
+        )
+    }
 }

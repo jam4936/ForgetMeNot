@@ -16,17 +16,15 @@ export default function MediaFeed() {
     const location = useLocation();
     const navigate = useNavigate()
     const handle = useFullScreenHandle();
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
 
     const [mediaFiles, setMedia] = useState<Media[]>();
-    // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-    const initializeMedia = async () => {
-        await GetMedia.initializeMedia(patient.id.toString());
-        setMedia(GetMedia.mediaMetadata);
-    }
+    let slideInterval: string | number | NodeJS.Timer | undefined;
+    let intervalTime = 10000;
 
     const navigateToPatientProfile = (patient : Patient) => {
         navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
@@ -38,8 +36,10 @@ export default function MediaFeed() {
         lastName: location.state != null ? location.state.lastName : "Demonstration"
     };
 
-    let slideInterval: string | number | NodeJS.Timer | undefined;
-    let intervalTime = 10000;
+    const initializeMedia = async () => {
+        await GetMedia.initializeMedia(patient.id.toString());
+        setMedia(GetMedia.mediaMetadata);
+    }
 
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? feedLength - 1 : currentSlide - 1);
@@ -49,9 +49,26 @@ export default function MediaFeed() {
         setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
     };
 
-    function auto() {
-        slideInterval = setInterval(nextSlide, intervalTime);
-    }
+    const handleSlideCreation = (slide: Media, index: Number) => {
+        const re = /(?:\.([^.]+))?$/;
+        if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
+            return (
+                <div>
+                    <video autoPlay>
+                        <source src={slide.url} type="video/mp4" />
+                    </video>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div>
+                    <img src={slide.url} alt="slide" className="image"/>
+                </div>
+            )
+        }
+    };
+
     useEffect(() => {
         initializeMedia()
         setDataLoaded(true)
@@ -60,6 +77,10 @@ export default function MediaFeed() {
     useEffect( () => {
         if (mediaFiles) setFeedLength(mediaFiles.length);
     }, [mediaFiles])
+
+    function auto() {
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
 
     useEffect(() => {
         auto();
@@ -83,11 +104,7 @@ export default function MediaFeed() {
                             {mediaFiles?.map((slide, index) => {
                                 return (
                                     <div className={index === currentSlide ? "slide current" : "slide"} key={index}>
-                                        {index === currentSlide && (
-                                            <div>
-                                                <img src={slide.url} alt="slide" className="image"/>
-                                            </div>
-                                        )}
+                                        {handleSlideCreation(slide,index)}
                                     </div>
                                 );
                             })}
