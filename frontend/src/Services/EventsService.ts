@@ -33,6 +33,11 @@ const EventsService = {
             })
         }
         var temp = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/events', responseOptions).then(response => {console.log(response.json)})
+    },
+
+    async deleteEvent(event: Events){
+        
     }
+
 }
 export default EventsService;
