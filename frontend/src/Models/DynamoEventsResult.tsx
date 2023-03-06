@@ -1,8 +1,6 @@
 import Events from "./Events";
 
-export default class DynamoQuestionResult {
-    [x: string]: any;
-
+export default class DynamoEventsResult {
     Items: Events[];
     Count: number;
     ScannedCount: number

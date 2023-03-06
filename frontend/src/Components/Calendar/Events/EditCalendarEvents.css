@@ -1,0 +1,19 @@
+#addEditEvent{
+        display: flex;
+        flex-direction:column;
+        margin: 1rem;
+}
+.MuiFormControl-root.MuiTextField-root{
+        padding-bottom: 1rem;
+        vertical-align: middle;
+    }
+    #formButtons{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        padding-top: 1rem;
+    }   
+    .MuiDialogTitle-root{
+        display: flex;
+        justify-content: space-between;
+    }

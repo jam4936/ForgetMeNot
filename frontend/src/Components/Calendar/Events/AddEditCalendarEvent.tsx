@@ -1,33 +1,36 @@
-import { Checkbox, FormControlLabel, MenuItem, Select, TextField } from "@mui/material";
-import React from "react";
-import { Button } from "react-bootstrap";
-import Events from "../../../Models/Events";
-import './CreateCalendarEvents.css';
-// import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs, { Dayjs } from 'dayjs';
-import { DatePicker, DateTimePicker, LocalizationProvider , TimePicker} from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { EventInput } from "@fullcalendar/core";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, Checkbox, FormControlLabel, IconButton, TextField, Typography } from "@mui/material";
+import { LocalizationProvider, DatePicker, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Dayjs } from "dayjs";
+import React from "react";
+import './EditCalendarEvents.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EventsService from "../../../Services/EventsService";
-export default class CreateCalendarEvent extends React.Component <any, any>{
+import Events from "../../../Models/Events";
+
+export default class AddEditCalendarEvent extends React.Component<any, any>{
+    editMode: boolean | undefined;
+
     constructor(props: any){
         super(props);
+        this.editMode = this.props.eventMode === 'create' ? false : true;
+            
+        let now = new Date(Date.now());
+        let nextId = this.generateId();
         this.state = {
-            events : props.events,
-            eventName: "",
-            startTime: null,
-            openDialog: true,
-            date: null,
-            allDay: false,
-            endTime: null,
-            description: "",
-            id: this.generateId(),
-            repeat: false,
-            recurring: "Does not repeat"
-        }
+            name: this.editMode ? this.props.editableEvent.name : "Event Name",
+            date: new Date().toISOString(),
+            allDay: this.editMode ? this.props.editableEvent.allDay : false,
+            startTime: this.editMode ? this.props.editableEvent.startTime : now.getTime(),
+            endTime: this.editMode ? this.props.editableEvent.endTime : "",
+            id: this.editMode ? this.props.editableEvent.eventId : nextId.toString()
+        };
+
         this.setState.bind(this);
     }
-    
+
     eventIdExists(checkId: number){
         let idExists = false;
         this.props.events.forEach((event: EventInput) => {
@@ -45,26 +48,30 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
         }
         return genID;
     };
-    handleStartTimeChange(newValue: Dayjs | null){
+    handleStartTimeChange(newValue : Dayjs | null){
         this.setState(() =>({
-            startTime: newValue?.format("LLL")
+                startTime: newValue?.format("LLL")
+        }));
+    }
+    handleEndTimeChange(newValue : Dayjs | null){
+        this.setState(() =>({
+                endTime: newValue?.format("LLL")
+            
+        }));
+    }
+    handleDateChange(newValue: Dayjs){
+        this.setState(() =>({
+                date: newValue?.toDate().toDateString() 
+            
         }));
     };
-    handleDateChange(newValue: Dayjs | null){
-        this.setState(() =>({
-            date: newValue?.format("MM/DD/YYYY")
-        }));
-    };
-    handleEndTimeChange(newValue: Dayjs | null){
-        this.setState(() =>({
-            endTime: newValue?.format("LLL")
-        }));
-    };
+
     handleAllDayChange(event: React.ChangeEvent<HTMLInputElement>){
         this.setState(() =>({
             allDay: event.target.checked
         }))
-    };
+    }
+
     handleSubmit (){
         var valid : boolean =  this.validateFields();
 
@@ -73,10 +80,10 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
             var event: Events;
             if(this.state.allDay){
                 event = {
-                    eventId: this.state.id, 
+                    eventId: this.state.id.toString(), 
                     allDay: this.state.allDay, 
                     startTime: this.state.date, 
-                    name: this.state.eventName,
+                    name: this.state.name,
                     description: this.state.description}
             }
             else{
@@ -84,44 +91,48 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
                     eventId: this.state.id, 
                     allDay: this.state.allDay, 
                     startTime: new Date(this.state.startTime).toISOString(), 
-                    name: this.state.eventName, 
+                    name: this.state.name, 
                     endTime: new Date(this.state.endTime).toISOString(),
                     description: this.state.description}
             }
 
             EventsService.insertEvent(event);
-            this.props.parentCallback();
+
         }
         
     }
     validateFields() {
         //all day event
-        if(this.state.eventName != "" && this.state.allDay && this.state.date != null)
+        if(this.state.name != "" && this.state.allDay && this.state.date != null)
             return true
-        else if(this.state.eventName != "" && !this.state.allDay && this.state.startTime &&this.state.endTime)
+        else if(this.state.name != "" && !this.state.allDay && this.state.startTime &&this.state.endTime)
             return true;
         else{
             return false;
         }
     }
-    render() {
-        return(
-            <div id="createCalendarEvent">
+    handleDelete(){
+        EventsService.deleteEvent(this.state.id);
+    }
+    render(){
+        return (
+            <div id="addEditEvent">
                 <TextField
                     id="formField"
                     label="Event ID"
-                    value={this.state.id}
-                    type="number"
-                    disabled
                     variant="filled"
-                />
+                    value={this.editMode ? this.props.editableEvent.eventId : this.generateId() }
+                    disabled
+                    />
                 <TextField
                     id="formField"
                     label="Event Name"
                     type="text"
                     variant="filled"
-                    onChange={(newValue) => {this.setState(() => ({eventName: newValue.target.value}))}}
+                    value={this.state.name}
+                    onChange={(newValue) => {this.setState(() => ({name: newValue.target.value}))}}
                 />
+                
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <div id="allDay">
                         <DatePicker
@@ -132,7 +143,9 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
                         />
                         <FormControlLabel
                             control={
-                            <Checkbox onChange={(event) => this.handleAllDayChange(event)} checked={this.state.allDay}/>
+                                <Checkbox 
+                                    onChange={(event) => this.handleAllDayChange(event)} 
+                                    checked={this.state.allDay}/>
                             }
                             label="All Day"
                         /> 
@@ -144,8 +157,7 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
                         value={this.state.startTime}
                         onChange={(newValue) => {this.handleStartTimeChange(newValue)}}
                         ampm={true}
-                        inputFormat="hh:mm A"
-                    />
+                        inputFormat="hh:mm A"/>
                     <TimePicker
                         renderInput={(params) =>  <TextField {...params} />}
                         label="Event End Time"
@@ -154,31 +166,20 @@ export default class CreateCalendarEvent extends React.Component <any, any>{
                         onChange={(newValue) => {this.handleEndTimeChange(newValue)}}
                         ampm={true}
                         inputFormat="hh:mm A"
-                    />
+                    /> 
                 </LocalizationProvider>
-                <TextField 
-                    label="Event Description" 
-                    rows="2" 
-                    onChange={(newValue) => {this.setState(() => ({eventDesc: newValue.target.value}))}}
-                    />
-                <Select defaultValue={"Does not repeat"}>
-                    <MenuItem value="Does not repeat">Does not repeat</MenuItem>
-                    <MenuItem value="daily">Daily</MenuItem>
-                    <MenuItem value="weekly">Weekly</MenuItem>
-                    <MenuItem value="monthly">Monthly</MenuItem>
-                    <MenuItem value="custom">Custom</MenuItem>
-                </Select>
-                
+
                 <div id="formButtons">
+                <IconButton onClick={() =>{
+                        this.handleDelete();
+                    }}
+                    hidden={!this.editMode}>
+                        <DeleteIcon/>
+                    </IconButton>
                     <Button onClick={(newValue) =>{this.handleSubmit()}}>Submit</Button>
                 </div>
+                    
             </div>
-
-
-
-        );
+        )
     }
 }
-;
-
-{}

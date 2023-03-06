@@ -1,3 +1,4 @@
+import DynamoEventsResult from "../Models/DynamoEventsResult";
 import DynamoResponse from "../Models/DynamoEventsResult";
 import Events from "../Models/Events";
 const EventsService = {
@@ -24,7 +25,7 @@ const EventsService = {
         var responseOptions = {
             method: 'PUT',
             body: JSON.stringify({
-                'eventId': event.eventId,
+                'eventId': Number(event.eventId),
                 'name': event.name,
                 'startTime': event.startTime,
                 'endTime': event.endTime,
@@ -32,11 +33,11 @@ const EventsService = {
                 'allDay': event.allDay
             })
         }
-        var temp = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/events', responseOptions).then(response => {console.log(response.json)})
+        var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {console.log(response.json)})
     },
 
-    async deleteEvent(event: Events){
-        
+    async deleteEvent(eventId: String){
+        let temp= await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId), {method: 'DELETE'}).then(result => result.json());
     }
 
 }

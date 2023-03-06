@@ -6,16 +6,34 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import spinner from "../../../Images/loadingspinner.gif";
 import CloseIcon from '@mui/icons-material/Close';
-import { EventInput } from '@fullcalendar/core';
+import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CreateCalendarEvent from '../Events/CreateCalendarEvent';
+import EditCalendarEvent from '../Events/EditCalendarEvent';
+import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
 
-function FacultyViewCalendar(props: any){
+function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
-    const [openDialog, setOpenDialog] = useState(false);
-   
+    const [openCreateDialog, setOpenCreateDialog] = useState(false);
+    const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [editEvent, setEditEvent] = useState(null as unknown as Events);
+    const [dialogMode, setDialogMode] = useState("create");
+    const [nextId, setNextId] = useState(0);
+
+    const editedEvent = (click: EventClickArg) =>{
+        var tempEvent : Events = {
+            eventId: click.event.id,
+            startTime: click.event.startStr,
+            endTime: click.event.endStr,
+            allDay: click.event.allDay,
+            name: click.event.title
+        }
+        setEditEvent(tempEvent);
+        setDialogMode("edit");
+        setOpenCreateDialog(true);
+    }
     const getEvents = async () =>{
         let temp = await (await EventsService.getAllEvents()).sort((a: {eventId: string},b: {eventId: string}) => Number(a.eventId) < Number(b.eventId) ? -1 : Number(a.eventId) > Number(b.eventId) ? 1 : 0);
         let events = [] as EventInput[];
@@ -35,8 +53,9 @@ function FacultyViewCalendar(props: any){
                     eventInput = {
                         title: response.name,
                         id: response.eventId,
-                        startTime: new Date(response.startTime)
-                    }
+                        allDay: true,
+                        date: new Date(response.startTime)
+                    } as EventInput;
                 }
 
                 
@@ -50,8 +69,13 @@ function FacultyViewCalendar(props: any){
             setEventInputs([...eventInputs, ...events]);
             setDataLoaded(true);
         });
+
     }
-    
+    const setCreateMode = () =>{
+        setOpenCreateDialog(true); 
+        setDialogMode("create");
+        setEditEvent(null as unknown as Events);
+    }
     if(!dataLoaded){
      return (
         <div>
@@ -60,34 +84,35 @@ function FacultyViewCalendar(props: any){
         )
     }
     else{
-        console.log(eventInputs);
-        console.log(dataLoaded);
         return(
-            
             <div id="calendar">
-                <Button onClick={() => setOpenDialog(true)}>Create Event</Button>
+                <Button onClick={() => setCreateMode()}>Create Event</Button>
                 <FullCalendar
                     plugins={[dayGridPlugin]}
                     weekends={true}
                     initialEvents={eventInputs}
+                    eventClick={((click) =>editedEvent(click))}
                     displayEventTime
                     displayEventEnd
                     eventDisplay='list-item'
                 />
 
-            <Dialog open={openDialog}>
+            <Dialog open={openCreateDialog}>
                 <DialogTitle id="title">
                     <h2>Create Event</h2>
-                    <IconButton onClick={ () => setOpenDialog(false)}>
+                    <IconButton onClick={ () => setOpenCreateDialog(false)}>
                         <CloseIcon/>
                     </IconButton>
                 </DialogTitle>
                 <DialogContent>
-                    <CreateCalendarEvent events={eventInputs}/>
+                    <AddEditCalendarEvent 
+                        eventMode={dialogMode}
+                        editableEvent={editEvent}
+                        events={eventInputs}/>
                 </DialogContent>
-
-                
             </Dialog>
+
+
             </div>
         )
     }
