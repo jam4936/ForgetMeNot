@@ -3,7 +3,7 @@ import GetQuestions from "../../Services/GetQuestions";
 import React, {useState} from "react";
 import Question from "../../Models/Question";
 import './QuestionControl.css'
-import spinner from "../../Images/loadingspinner.gif"
+import spinner from "../../Assets/loadingspinner.gif"
 import EditQuestion from "./Buttons/EditQuestion";
 import DeleteQuestion from "./Buttons/DeleteQuestion";
 import {TextField} from "@mui/material";

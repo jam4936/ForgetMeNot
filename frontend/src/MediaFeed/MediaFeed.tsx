@@ -1,18 +1,19 @@
 import React, {useState, useEffect } from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import "./MediaFeed.css";
+import Media from "../Models/Media";
+import Vision from "../Vision/Vision";
+import Weather from "../Components/Weather/Weather"
+import spinner from "../Assets/loadingspinner.gif";
+import GetMedia from "../Services/GetMedia";
+import Patient from "../Models/Patient";
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import IconButton from '@mui/material/IconButton';
-import "./MediaFeed.css";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import {useLocation, useNavigate} from "react-router-dom";
-import Patient from "../Models/Patient";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import GetMedia from "../Services/GetMedia";
-import spinner from "../Images/loadingspinner.gif";
-import Media from "../Models/Media";
-import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
-import Vision from "../Vision/Vision";
+import ThermostatIcon from '@mui/icons-material/Thermostat';
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -24,6 +25,7 @@ export default function MediaFeed() {
 
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+    const [showWeather, setShowWeather] = useState<boolean>(false);
 
     let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
@@ -118,7 +120,6 @@ export default function MediaFeed() {
         let temp = {updateFN:updateState,debug:false}
         return (
             <>
-            
             <div id="mediaFeed">
                 <div id="arrowButton">
                     <IconButton size="large" onClick={() => navigateToPatientProfile(patient)}>
@@ -139,6 +140,10 @@ export default function MediaFeed() {
                                     </div>
                                 );
                             })}
+                            <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
+                                <ThermostatIcon fontSize="inherit"></ThermostatIcon>
+                            </IconButton>
+                            {showWeather && <Weather></Weather>}
                         </FullScreen>
                     </div>
                     <div id="feedOptions">

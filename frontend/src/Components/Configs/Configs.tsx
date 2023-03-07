@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import './Configs.css'
-import spinner from "../../Images/loadingspinner.gif"
+import spinner from "../../Assets/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
 import {MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";

@@ -5,7 +5,7 @@ import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../Assets/loadingspinner.gif";
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const [mediaFiles, setMedia] = useState<Media[]>();

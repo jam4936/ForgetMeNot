@@ -9,7 +9,7 @@ import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../Assets/loadingspinner.gif";
 
 export const Interests = (patient : Patient, allowInput: boolean) => {
 

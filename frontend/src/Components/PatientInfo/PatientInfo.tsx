@@ -4,7 +4,7 @@ import Patient from "../../Models/Patient"
 import GetPatients from "../../Services/GetPatients";
 import {useNavigate} from "react-router-dom";
 import {PatientCard} from "./PatientCard/PatientCard";
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../Assets/loadingspinner.gif";
 
 export const PatientInfo = () => {
 
