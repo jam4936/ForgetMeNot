@@ -20,10 +20,12 @@ class Vision extends React.Component {
     pDict : any;
     upperBound: number;
     activationNumner: number;
-    stateChange : any
+    stateChange : any;
+    showVision: true;
 
     constructor(props: any){
         super(props)
+        this.showVision = props.showVision;
         this.stateChange=props.updateFN;
         this.debug = props.debug;
         this.videoElement = React.createRef();
@@ -298,10 +300,9 @@ class Vision extends React.Component {
     }
     
     render() {
-
-        return (
-
-            <body>
+        if (this.showVision){
+            return (
+                <body>
                 <div id="navbar"></div>
                 <div className="center-content page-container">
 
@@ -309,38 +310,81 @@ class Vision extends React.Component {
                         <div className="indeterminate"></div>
                     </div>
                     <div className="margin">
-                        <video  style = {{height:"0px",width:"0px"}}ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <video  style = {{height:"0px",width:"0px"}} ref={this.videoElement} onLoadedMetadata={()=>this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
                         <canvas ref={this.canvasElement} id="overlay" />
                     </div>
                     {this.debug &&
-                    <div className="row side-by-side">
-                        <div id="fps_meter" className="row side-by-side">
-                            <div>
-                                <label>Glance score: </label>
-                                <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
-                                <br/>
-                                <label>Processing time is (ms): </label>
-                                <input ref={this.frameElement} value="" id="in" type="text" className="bold"/>
-                                <br/>
-                                <label>Landmarks in the subbox:</label>
-                                <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
-                                <br/>
-                                <label>Is Face There?: </label>
-                                <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
-                                <br/>
-                                <label>Is webcam detected </label>
-                                <input ref={this.webcam} disabled value="" id="fps" type="text" className="bold"/>
-                                <br/>
-                                
+                        <div className="row side-by-side">
+                            <div id="fps_meter" className="row side-by-side">
+                                <div>
+                                    <label>Glance score: </label>
+                                    <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Processing time is (ms): </label>
+                                    <input ref={this.frameElement} value="" id="in" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Landmarks in the subbox:</label>
+                                    <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Is Face There?: </label>
+                                    <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Is webcam detected </label>
+                                    <input ref={this.webcam} disabled value="" id="fps" type="text" className="bold"/>
+                                    <br/>
 
+
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     }
                 </div>
-                    
-            </body>);
+
+                </body>);
+        } else {
+            return(
+                <div style={{visibility: 'hidden',
+                    position: 'absolute',
+                    top: '-9999px'}}>
+                    <div className="progress" id="loader">
+                        <div className="indeterminate"></div>
+                    </div>
+                    <div className="margin">
+                        <video style={{height: "0px", width: "0px"}} ref={this.videoElement}
+                               onLoadedMetadata={() => this.onPlay()} id="inputVideo" autoPlay muted playsInline></video>
+                        <canvas ref={this.canvasElement} id="overlay"/>
+                    </div>
+                    {this.debug &&
+                        <div className="row side-by-side">
+                            <div id="fps_meter" className="row side-by-side">
+                                <div>
+                                    <label>Glance score: </label>
+                                    <input ref={this.inputElement} value="" id="in" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Processing time is (ms): </label>
+                                    <input ref={this.frameElement} value="" id="in" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Landmarks in the subbox:</label>
+                                    <input ref={this.textElement} disabled value="-" id="time" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Is Face There?: </label>
+                                    <input ref={this.outputElement} disabled value="" id="fps" type="text" className="bold"/>
+                                    <br/>
+                                    <label>Is webcam detected </label>
+                                    <input ref={this.webcam} disabled value="" id="fps" type="text" className="bold"/>
+                                    <br/>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                )
+        }
+
     }
 
 }

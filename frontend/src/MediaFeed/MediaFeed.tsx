@@ -131,7 +131,7 @@ export default function MediaFeed() {
                         <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
                             <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
                         </IconButton>
-                        <Vision {...temp} />
+                        <Vision {...temp} {...{showVision:false}}  />
                         <FullScreen handle={handle}>
                             {mediaFiles?.map((slide, index) => {
                                 return (
