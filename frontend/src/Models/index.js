@@ -21,7 +21,7 @@ const Size = {
   "SMALL": "SMALL"
 };
 
-const {Patient, Response, Question} = initSchema(schema);
+const { Patient, Response, Question } = initSchema(schema);
 
 export {
   Patient,
