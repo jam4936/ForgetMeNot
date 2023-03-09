@@ -1,12 +1,13 @@
+import uuid from 'react-uuid';
+
 const UploadMediaService = {
 
-    uploadMedia : async function(patient: String, objectKey: String) {
-
+    uploadMedia : async function(patient: String, objectKey: File) {
         const signedUrlOptions = {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                'object_key': 'patient/' + patient + '/' + objectKey,
+                'object_key': 'patient/' + patient + '/' + objectKey.name,
                 'action': 'putObject'
             }),
         };
@@ -19,8 +20,21 @@ const UploadMediaService = {
                 console.error(error);
             });
 
-        fetch(signedUrl, {method: 'PUT'}).then((response) => response.json())
+        await fetch(signedUrl, {method: 'PUT',headers: {'content-type': objectKey.type}, body: objectKey}).catch((error) => {
+            console.error(error);});
 
+        const databaseUploadOptions = {
+            method: 'PUT',
+            body: JSON.stringify({
+                'id': uuid(),
+                'objectKey': objectKey.name,
+                'patientID': Number(patient),
+            }),
+        };
+
+        await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', databaseUploadOptions).catch((error) => {
+            console.error(error);
+        });
     }
 };
 

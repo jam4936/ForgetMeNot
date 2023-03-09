@@ -17,6 +17,7 @@ import MediaFeed from './MediaFeed/MediaFeed'
 import { AboutYou } from './Components/AboutYou/AboutYou';
 import { QuestionControl } from './Components/QuestionControl/QuestionControl';
 import Patient from "./Models/Patient";
+import {Configs} from "./Components/Configs/Configs";
 import Dev from "./Dev";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
                 <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
                 <Route path={'/dev'} element={<Dev/>}/>
+                <Route path={'/configs'} element={<Configs/>}/>
             </Routes>
         </Router>
   );

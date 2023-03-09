@@ -10,6 +10,7 @@ import Patient from "../Models/Patient";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GetMedia from "../Services/GetMedia";
 import spinner from "../Images/loadingspinner.gif";
+import Media from "../Models/Media";
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -18,16 +19,14 @@ export default function MediaFeed() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
 
-    const [mediaFiles, setMedia] = useState<string[]>([]);
+    const [mediaFiles, setMedia] = useState<Media[]>();
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-    useEffect(() => {
-        GetMedia.initializeMedia(patient.id.toString());
-        setMedia(GetMedia.media);
-        setFeedLength(mediaFiles.length)
-        setDataLoaded(true)
-    }, [])
+    const initializeMedia = async () => {
+        await GetMedia.initializeMedia(patient.id.toString());
+        setMedia(GetMedia.mediaMetadata);
+    }
 
     const navigateToPatientProfile = (patient : Patient) => {
         navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
@@ -53,6 +52,14 @@ export default function MediaFeed() {
     function auto() {
         slideInterval = setInterval(nextSlide, intervalTime);
     }
+    useEffect(() => {
+        initializeMedia()
+        setDataLoaded(true)
+    }, [])
+
+    useEffect( () => {
+        if (mediaFiles) setFeedLength(mediaFiles.length);
+    }, [mediaFiles])
 
     useEffect(() => {
         auto();
@@ -78,7 +85,7 @@ export default function MediaFeed() {
                                     <div className={index === currentSlide ? "slide current" : "slide"} key={index}>
                                         {index === currentSlide && (
                                             <div>
-                                                <img src={slide} alt="slide" className="image"/>
+                                                <img src={slide.url} alt="slide" className="image"/>
                                             </div>
                                         )}
                                     </div>
