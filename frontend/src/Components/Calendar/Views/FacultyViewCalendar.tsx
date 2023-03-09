@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Events from '../../../Models/Events';
-import DynamoResponse from "../../../Models/DynamoResponseResult";
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -9,18 +8,51 @@ import CloseIcon from '@mui/icons-material/Close';
 import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import CreateCalendarEvent from '../Events/CreateCalendarEvent';
-import EditCalendarEvent from '../Events/EditCalendarEvent';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
+import MenuItemDialog from '../Events/MenuItemDialog';
 
 function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
-    const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
     const [editEvent, setEditEvent] = useState(null as unknown as Events);
     const [dialogMode, setDialogMode] = useState("create");
     const [nextId, setNextId] = useState(0);
+
+    const handleCallback = async (events: Events, mode: String) =>{
+        setOpenCreateDialog(false);
+        let tempEvents = await getEvents();
+        setEventInputs(tempEvents);
+        // if(mode === 'edit'){
+        //     var index = 0;
+        //     var found = false;
+        //     eventInputs.forEach((e: EventInput) =>{
+        //         if(e.id === events.eventId.toString()){
+        //             found = true;
+        //             var temp = eventInputs.splice(index, 1);
+        //             setEventInputs(temp);
+        //         }
+        //         index++;
+        //     })
+        // }
+        // else{
+        //     let startTime = new Date(events.startTime);
+        //     let endTime : Date | null = null;
+        //     if(events.endTime){
+        //          endTime = new Date(events?.endTime);
+        //     }
+        //     var temp = {
+        //         title: events.name,
+        //         id: events.eventId,
+        //         start: startTime,
+        //         end: endTime,
+        //         allDay : events.allDay
+        //     } as EventInput;
+        //     setEventInputs((prev) =>({...prev, temp}));
+        // }
+        
+    }
 
     const editedEvent = (click: EventClickArg) =>{
         var tempEvent : Events = {
@@ -86,11 +118,15 @@ function FacultyViewCalendar(this: any, props: any){
     else{
         return(
             <div id="calendar">
-                <Button onClick={() => setCreateMode()}>Create Event</Button>
+                <div id="facultyAddButtons">
+                    <Button onClick={() => setCreateMode()}>Create Event</Button>
+                    <Button onClick={() => setOpenMenuItemDialog(true)}>Add Menu Item</Button>
+                </div>                
+
                 <FullCalendar
                     plugins={[dayGridPlugin]}
                     weekends={true}
-                    initialEvents={eventInputs}
+                    events={eventInputs}
                     eventClick={((click) =>editedEvent(click))}
                     displayEventTime
                     displayEventEnd
@@ -108,10 +144,22 @@ function FacultyViewCalendar(this: any, props: any){
                     <AddEditCalendarEvent 
                         eventMode={dialogMode}
                         editableEvent={editEvent}
-                        events={eventInputs}/>
+                        events={eventInputs}
+                        parentCallback={handleCallback}/>
                 </DialogContent>
             </Dialog>
-
+            <Dialog open={openMenuItemDialog}>
+                <DialogTitle id="title">
+                    <h2>Add Menu Item</h2>
+                    <IconButton onClick={() => setOpenMenuItemDialog(false)}>
+                        <CloseIcon/>
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent>
+                    <MenuItemDialog
+                        />
+                </DialogContent>
+            </Dialog>
 
             </div>
         )

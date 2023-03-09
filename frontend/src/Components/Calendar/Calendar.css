@@ -4,3 +4,6 @@ div.fc-event-title {
 #calendar{
     margin: 1rem;
 }
+#facultyAddButtons Button{
+    margin-right: 1rem;
+}

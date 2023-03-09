@@ -51,18 +51,16 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
         let nextId = this.generateId();
         this.state = {
             name: this.editMode ? this.props.editableEvent.name : "Event Name",
-            date: new Date().toISOString(),
+            date: this.editMode ? this.props.editableEvent.startTime : new Date().toISOString(),
             allDay: this.editMode ? this.props.editableEvent.allDay : false,
             startTime: this.editMode ? this.props.editableEvent.startTime : now.getTime(),
             endTime: this.editMode ? this.props.editableEvent.endTime : "",
             id: this.editMode ? this.props.editableEvent.eventId : nextId.toString(),
             recurring: false,
             daysRecur: [0] as Number[],
-            recurranceFreq: "none",
+            recurranceFreq: "daily",
             monthlyRecFreq: 0,
-            
         };
-
         this.setState.bind(this);
     }
 
@@ -101,8 +99,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     }
     handleDateChange(newValue: Dayjs){
         this.setState(() =>({
-                date: newValue?.toDate().toDateString() 
-            
+                date: newValue?.toDate().toDateString()
         }));
     };
 
@@ -113,22 +110,6 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     }
 
     handleDaysRecur(value: any ){
-        let days : string[] = this.state.daysRecur;
-        let index = -1;
-        // days.forEach(day =>{
-        //     if(day === value[value.length - 1]){
-        //         index = 0;
-        //     }
-        // })
-        // if(index != -1){
-        //     days.splice(index, 1);
-        //     console.log(days)
-            
-        // }
-        // else{
-        //     days.push(value[value.length - 1])
-        // }
-
         this.setState(() => ({
             daysRecur: value
         }))
@@ -143,7 +124,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             monthlyRecFreq: value.target.value
         }))
     }
-    handleSubmit (){
+    async handleSubmit (){
         var valid : boolean =  this.validateFields();
 
         if(valid){
@@ -155,7 +136,8 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     allDay: this.state.allDay, 
                     startTime: this.state.date, 
                     name: this.state.name,
-                    description: this.state.description}
+                    description: this.state.description
+                }
             }
             else{
                 event = {
@@ -164,11 +146,18 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     startTime: new Date(this.state.startTime).toISOString(), 
                     name: this.state.name, 
                     endTime: new Date(this.state.endTime).toISOString(),
-                    description: this.state.description}
+                    description: this.state.description
+                }
             }
 
-            EventsService.insertEvent(event);
-
+            var callback = false;
+            await EventsService.insertEvent(event).then((value) =>{
+                if (value.status == 200 || value.status == 204){
+                    callback = true;
+                }
+            });
+            this.props.parentCallback(event, this.props.eventMode);
+            
         }
         
     }
@@ -179,10 +168,11 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                 Every month on the 
                 <TextField 
                     type="number" 
-                    label="recurring day" 
+                    label="day" 
+                    variant="filled"
                     InputProps={{ inputProps: { min: 1, max: 5} }} 
                     disabled={!(this.state.monthlyRecFreq == 0)}/>
-                <Select>
+                <Select value="monday">
                     <MenuItem value="sunday">Sunday</MenuItem>
                     <MenuItem value="monday">Monday</MenuItem>
                     <MenuItem value="tuesday">Tuesday</MenuItem>
@@ -191,7 +181,24 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     <MenuItem value="friday">Friday</MenuItem>
                     <MenuItem value="saturday">Saturday</MenuItem>
                 </Select>
-                of the month.
+                 of the month.
+            </div>
+        )
+    }
+    getWeekSkip(){
+        return (
+            <div> 
+                Every
+                <TextField 
+                        type="number" 
+                        label="day" 
+                        variant="filled"
+                        InputProps={{ inputProps: { min: 2, max: 10} }} 
+                        disabled={!(this.state.monthlyRecFreq == 0)}/>
+                <Select value="week">
+                    <MenuItem value="week">week(s)</MenuItem>
+                    <MenuItem value="month">month(s)</MenuItem>
+                </Select>
             </div>
         )
     }
@@ -202,8 +209,9 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             <div>                
                 Every month on the 
                 <TextField 
+                    variant="filled"
                     type="number" 
-                    label="recurring day" 
+                    label="Date" 
                     InputProps={{ inputProps: { min: 1, max: 31} }} 
                     disabled={!(this.state.monthlyRecFreq == 1)}/>
                 day of the month.
@@ -225,6 +233,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     }
     handleDelete(){
         EventsService.deleteEvent(this.state.id);
+        this.props.parentCallback(null, "delete");
     }
     render(){
         return (
@@ -292,7 +301,6 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     <Select 
                         value={this.state.recurranceFreq}
                         onChange={(val) => this.handleRecurranceFrequency(val)}>
-                        <MenuItem value="none">Do not repeat.</MenuItem>
                         <MenuItem value="daily">Daily</MenuItem>
                         <MenuItem value="weekly">Weekly</MenuItem>
                         <MenuItem value="monthly">Monthly</MenuItem>

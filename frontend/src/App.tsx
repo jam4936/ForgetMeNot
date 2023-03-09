@@ -20,7 +20,6 @@ import Patient from "./Models/Patient";
 import {Configs} from "./Components/Configs/Configs";
 import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
-import TestFaculty from './Components/Calendar/Views/TestFaculty';
 
 function App() {
 

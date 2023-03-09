@@ -33,11 +33,18 @@ const EventsService = {
                 'allDay': event.allDay
             })
         }
-        var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {console.log(response.json)})
+        var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {return response})
+        return temp;
     },
 
     async deleteEvent(eventId: String){
         let temp= await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId), {method: 'DELETE'}).then(result => result.json());
+    },
+
+    async getEventById(eventId: Number){
+        let temp: DynamoEventsResult = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId),{method: 'GET'}).then(result => result.json())
+
+        return temp.Items[0];
     }
 
 }
