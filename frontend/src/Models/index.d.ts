@@ -1,4 +1,4 @@
-import {ModelInit, MutableModel} from "@aws-amplify/datastore";
+import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
 export enum Section {
   ABOUTYOU = "ABOUTYOU",
@@ -39,9 +39,7 @@ export declare class Patient {
   readonly Responses?: (Response | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-
   constructor(init: ModelInit<Patient, PatientMetaData>);
-
   static copyOf(source: Patient, mutator: (draft: MutableModel<Patient, PatientMetaData>) => MutableModel<Patient, PatientMetaData> | void): Patient;
 }
 
@@ -52,9 +50,7 @@ export declare class Response {
   readonly questionID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-
   constructor(init: ModelInit<Response, ResponseMetaData>);
-
   static copyOf(source: Response, mutator: (draft: MutableModel<Response, ResponseMetaData>) => MutableModel<Response, ResponseMetaData> | void): Response;
 }
 
@@ -67,8 +63,6 @@ export declare class Question {
   readonly Responses?: (Response | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-
   constructor(init: ModelInit<Question, QuestionMetaData>);
-
   static copyOf(source: Question, mutator: (draft: MutableModel<Question, QuestionMetaData>) => MutableModel<Question, QuestionMetaData> | void): Question;
 }
