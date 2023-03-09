@@ -231,8 +231,8 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             return false;
         }
     }
-    handleDelete(){
-        EventsService.deleteEvent(this.state.id);
+    async handleDelete(){
+        await EventsService.deleteEvent(this.state.id);
         this.props.parentCallback(null, "delete");
     }
     render(){

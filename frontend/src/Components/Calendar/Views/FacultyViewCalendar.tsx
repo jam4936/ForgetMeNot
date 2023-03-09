@@ -23,35 +23,7 @@ function FacultyViewCalendar(this: any, props: any){
     const handleCallback = async (events: Events, mode: String) =>{
         setOpenCreateDialog(false);
         let tempEvents = await getEvents();
-        setEventInputs(tempEvents);
-        // if(mode === 'edit'){
-        //     var index = 0;
-        //     var found = false;
-        //     eventInputs.forEach((e: EventInput) =>{
-        //         if(e.id === events.eventId.toString()){
-        //             found = true;
-        //             var temp = eventInputs.splice(index, 1);
-        //             setEventInputs(temp);
-        //         }
-        //         index++;
-        //     })
-        // }
-        // else{
-        //     let startTime = new Date(events.startTime);
-        //     let endTime : Date | null = null;
-        //     if(events.endTime){
-        //          endTime = new Date(events?.endTime);
-        //     }
-        //     var temp = {
-        //         title: events.name,
-        //         id: events.eventId,
-        //         start: startTime,
-        //         end: endTime,
-        //         allDay : events.allDay
-        //     } as EventInput;
-        //     setEventInputs((prev) =>({...prev, temp}));
-        // }
-        
+        setEventInputs(tempEvents);        
     }
 
     const editedEvent = (click: EventClickArg) =>{
