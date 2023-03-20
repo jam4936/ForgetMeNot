@@ -12,6 +12,7 @@ const EventsService = {
                 startTime : event.startTime,
                 endTime: event.endTime,
                 description: event.description,
+                date: event.date,
                 eventId: event.eventId,
                 name: event.name,
                 allDay: event.allDay
@@ -29,6 +30,7 @@ const EventsService = {
                 'name': event.name,
                 'startTime': event.startTime,
                 'endTime': event.endTime,
+                'date': event.date,
                 'description': event.description,
                 'allDay': event.allDay
             })

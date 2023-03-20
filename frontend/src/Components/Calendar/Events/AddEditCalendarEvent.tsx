@@ -134,7 +134,8 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                 event = {
                     eventId: this.state.id.toString(), 
                     allDay: this.state.allDay, 
-                    startTime: this.state.date, 
+                    startTime: new Date(this.state.date).toDateString(), 
+                    date: new Date(this.state.date).toLocaleDateString("es-PA"),
                     name: this.state.name,
                     description: this.state.description
                 }
@@ -143,7 +144,8 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                 event = {
                     eventId: this.state.id, 
                     allDay: this.state.allDay, 
-                    startTime: new Date(this.state.startTime).toISOString(), 
+                    startTime: new Date(this.state.startTime).getTime().toString(), 
+                    date: new Date(this.state.date).toLocaleDateString("es-PA"),
                     name: this.state.name, 
                     endTime: new Date(this.state.endTime).toISOString(),
                     description: this.state.description

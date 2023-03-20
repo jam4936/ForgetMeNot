@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import spinner from "../../../Images/loadingspinner.gif";
 import { EventInput } from '@fullcalendar/core';
  import '../Calendar.css';
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 
 function PatientViewCalendar(props: any){
     // const [events, setEvents] = useState([] as Events[]);
@@ -20,7 +21,7 @@ function PatientViewCalendar(props: any){
         let temp = await (await EventsService.getAllEvents()).sort((a: {eventId: string},b: {eventId: string}) => Number(a.eventId) < Number(b.eventId) ? -1 : Number(a.eventId) > Number(b.eventId) ? 1 : 0);
         let events = [] as EventInput[];
         temp.forEach((response: Events) =>{
-            let eventInput
+                let eventInput
                 if(!response.allDay && response.endTime){
                     let startTime = new Date(response.startTime);
                     let endTime = new Date(response?.endTime);
@@ -35,16 +36,39 @@ function PatientViewCalendar(props: any){
                     eventInput = {
                         title: response.name,
                         id: response.eventId,
-                        startTime: new Date(response.startTime)
-                    }
+                        allDay: true,
+                        date: new Date(response.startTime)
+                    } as EventInput;
                 }
-
-                
                 events.push(eventInput);
-        })
+            }
+        )
         return events;
+    };
+
+    const getMenuItems = async () =>{
+        
     }
 
+    const createCard = (value : EventInput) =>{
+        console.log(value.title)
+        return (
+            <div>
+                <Card id="eventCard" variant='elevation'>
+                    <CardContent id="eventContent">
+                        <div id="left">
+                            <Typography variant="h5">{value.title}</Typography>
+                            <Typography variant="subtitle1">{value.allDay ? "All Day" : value.start?.toLocaleString("en-US")}</Typography>
+                        </div>
+                        <div id="right">
+                            <Typography variant="subtitle1">Description</Typography>
+                        </div>
+
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
     if(!dataLoaded){
         getEvents().then((events) =>{
             setEventInputs([...eventInputs, ...events]);
@@ -62,20 +86,23 @@ function PatientViewCalendar(props: any){
         )
     }
     else{
-        console.log(eventInputs);
-        console.log(dataLoaded);
         return(
             <div id="calendar">
-                <FullCalendar
-                    plugins={[dayGridPlugin]}
-                    initialView='dayGridWeek'
-                    weekends={true}
-                    initialEvents={eventInputs}
-                    displayEventTime
-                    displayEventEnd
-                    eventDisplay='list-item'
-                    height={window.screen.height - 250}
-                />
+                <Card id="eventsCard">
+                    <CardHeader title="Today's Events:"/>
+                    <CardContent>
+                        {eventInputs?.map((value) =>{
+                            return createCard(value)})
+                        }
+                    </CardContent>
+                </Card>
+                <Card id="menuCard">
+                    <CardHeader title="Today's Menu: "/>
+                    <CardContent>
+
+                    </CardContent>
+                </Card>
+                
             </div>
         )
     }

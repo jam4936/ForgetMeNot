@@ -9,7 +9,7 @@ import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
-import MenuItemDialog from '../Events/MenuItemDialog';
+import MenuItemDialog from '../Menu/Menu';
 
 function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -30,6 +30,7 @@ function FacultyViewCalendar(this: any, props: any){
         var tempEvent : Events = {
             eventId: click.event.id,
             startTime: click.event.startStr,
+            date: new Date(click.event.startStr).toDateString(),
             endTime: click.event.endStr,
             allDay: click.event.allDay,
             name: click.event.title
@@ -49,12 +50,14 @@ function FacultyViewCalendar(this: any, props: any){
                         eventInput =  {
                             title: response.name,
                             id: response.eventId,
+                            date: response.date,
                             start: startTime,
                             end: endTime,
                         } as EventInput;
                     }
                 else{
                     eventInput = {
+                        backgroundColor: "purple",
                         title: response.name,
                         id: response.eventId,
                         allDay: true,
@@ -107,7 +110,7 @@ function FacultyViewCalendar(this: any, props: any){
 
             <Dialog open={openCreateDialog}>
                 <DialogTitle id="title">
-                    <h2>Create Event</h2>
+                    <h2>{dialogMode === "edit" ? "Edit Event" : "Create Event"}</h2>
                     <IconButton onClick={ () => setOpenCreateDialog(false)}>
                         <CloseIcon/>
                     </IconButton>
@@ -118,18 +121,6 @@ function FacultyViewCalendar(this: any, props: any){
                         editableEvent={editEvent}
                         events={eventInputs}
                         parentCallback={handleCallback}/>
-                </DialogContent>
-            </Dialog>
-            <Dialog open={openMenuItemDialog}>
-                <DialogTitle id="title">
-                    <h2>Add Menu Item</h2>
-                    <IconButton onClick={() => setOpenMenuItemDialog(false)}>
-                        <CloseIcon/>
-                    </IconButton>
-                </DialogTitle>
-                <DialogContent>
-                    <MenuItemDialog
-                        />
                 </DialogContent>
             </Dialog>
 
