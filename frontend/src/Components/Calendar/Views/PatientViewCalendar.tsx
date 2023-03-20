@@ -108,7 +108,7 @@ function PatientViewCalendar(props: any){
     }
     else{
         return(
-            <div id="calendar">
+            <div id="patientView">
                 <Card id="eventsCard">
                     <CardHeader title="Today's Events:"/>
                     <CardContent>

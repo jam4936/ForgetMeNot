@@ -9,7 +9,6 @@ import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
-import MenuItemDialog from '../Menu/Menu';
 
 function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
