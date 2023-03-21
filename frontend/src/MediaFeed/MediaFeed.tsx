@@ -23,13 +23,16 @@ export default function MediaFeed() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
 
-    const [mediaFiles, setMedia] = useState<Media[]>();
+    const [mediaFiles, setMedia] = useState<Media[] | undefined>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [showWeather, setShowWeather] = useState<boolean>(false);
+    const [currentTime, setTime] = useState(0);
 
     let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
+    let startTime = 8;
+    let stopTime = 20;
 
     const navigateToPatientProfile = (patient : Patient) => {
         navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
@@ -44,19 +47,20 @@ export default function MediaFeed() {
     const initializeMedia = async () => {
         await GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.mediaMetadata);
+        setDataLoaded(true)
     }
 
     const updateState = (val:boolean)=>{
         // eslint-disable-next-line react/no-direct-mutation-state
         state=val
         console.log("Horayy: ", val )
-    }   
+    }
 
     function isVisible(index:number){
         if(state){
             console.log('something should be off')
             return false
-           
+
         }
         else{
             return index === currentSlide
@@ -69,21 +73,21 @@ export default function MediaFeed() {
 
     const nextSlide = () => {
         if(state){
-            
+
         }
         else{
             setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
         }
-        
+
     };
 
     const handleSlideCreation = (slide: Media, index: Number) => {
         const re = /(?:\.([^.]+))?$/;
-        
+
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} preload="metadata" autoPlay>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -100,63 +104,77 @@ export default function MediaFeed() {
 
     useEffect(() => {
         initializeMedia()
-        setDataLoaded(true)
     }, [])
 
     useEffect( () => {
         if (mediaFiles) setFeedLength(mediaFiles.length);
     }, [mediaFiles])
 
-    function auto() {
-        slideInterval = setInterval(nextSlide, intervalTime);
-    }
-
     useEffect(() => {
-        auto();
+        const date = new Date();
+        setTime(date.getHours());
+
+        let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
+        if (currentMediaFile){
+            if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
+                let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
+                videoDuration.onloadedmetadata = function() {
+                    slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
+                };
+            }
+            else{
+                slideInterval = setInterval(nextSlide, intervalTime);
+            }
+        }
         return () => clearInterval(slideInterval);
     }, [currentSlide]);
-    
+
     if(dataLoaded) {
         let temp = {updateFN:updateState,debug:false}
         return (
             <>
-            <div id="mediaFeed">
-                <div id="arrowButton">
-                    <IconButton size="large" onClick={() => navigateToPatientProfile(patient)}>
-                        <ArrowBackIcon fontSize="inherit"></ArrowBackIcon>
-                    </IconButton>
-                </div>
-                <div id="feedContainer">
-                    <div className="mediaView">
-                        <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
-                            <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
+                <div id="mediaFeed">
+                    <div id="arrowButton">
+                        <IconButton size="large" onClick={() => navigateToPatientProfile(patient)}>
+                            <ArrowBackIcon fontSize="inherit"></ArrowBackIcon>
                         </IconButton>
-                        <Vision {...temp} {...{showVision:false}}  />
-                        <FullScreen handle={handle}>
-                            {mediaFiles?.map((slide, index) => {
-                                return (
-                                    <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
-                                        {handleSlideCreation(slide,index)}
-                                    </div>
-                                );
-                            })}
-                            <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
-                                <ThermostatIcon fontSize="inherit"></ThermostatIcon>
+                    </div>
+                    <div id="feedContainer">
+                        {currentTime >= startTime && currentTime <= stopTime ? (
+                            <div className="mediaView">
+                                <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
+                                    <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
+                                </IconButton>
+                                <Vision {...temp} {...{showVision:false}}  />
+                                <FullScreen handle={handle}>
+                                    {mediaFiles?.map((slide, index) => {
+                                        return (
+                                            <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
+                                                {handleSlideCreation(slide,index)}
+                                            </div>
+                                        );
+                                    })}
+                                    <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
+                                        <ThermostatIcon fontSize="inherit"></ThermostatIcon>
+                                    </IconButton>
+                                    {showWeather && <Weather></Weather>}
+                                </FullScreen>
+                            </div>
+                        ) : (
+                            <div className="mediaView">
+                            </div>
+                        )}
+                        <div id="feedOptions">
+                            <IconButton size="large" onClick={prevSlide}>
+                                <ArrowCircleLeftIcon fontSize="inherit"></ArrowCircleLeftIcon>
                             </IconButton>
-                            {showWeather && <Weather></Weather>}
-                        </FullScreen>
-                    </div>
-                    <div id="feedOptions">
-                        <IconButton size="large" onClick={prevSlide}>
-                            <ArrowCircleLeftIcon fontSize="inherit"></ArrowCircleLeftIcon>
-                        </IconButton>
-                        <IconButton size="large" onClick={nextSlide}>
-                            <ArrowCircleRightIcon fontSize="inherit"></ArrowCircleRightIcon>
-                        </IconButton>
+                            <IconButton size="large" onClick={nextSlide}>
+                                <ArrowCircleRightIcon fontSize="inherit"></ArrowCircleRightIcon>
+                            </IconButton>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </>
 
         );
     }else{
