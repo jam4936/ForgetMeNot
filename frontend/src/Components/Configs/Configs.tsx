@@ -3,11 +3,14 @@ import './Configs.css'
 import spinner from "../../Images/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
-import {MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+import {MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
 import {MobileTimePicker, LocalizationProvider, TimeValidationError} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
 import dayjs from 'dayjs';
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import IconButton from "@mui/material/IconButton";
 
 export const Configs = () => {
 
@@ -81,11 +84,25 @@ export const Configs = () => {
                 <div id="configs">
                     <h1>Manage the Vision Configs:</h1>
                     <div className="configContainer">
-                        <label id="configLabel">Change the Glance Patience:</label>
+                        <label id="configLabel">
+                            <Tooltip title="Vision Patience signifies how long it takes the system to turn off when the user
+                                            is looking away from the screen." placement="right" enterTouchDelay={0}>
+                                <IconButton size="large">
+                                    <InfoRoundedIcon fontSize="inherit"></InfoRoundedIcon>
+                                </IconButton>
+                            </Tooltip>
+                            Change the Glance Patience:
+                        </label>
                         <Select id="glancePatience" className="select" defaultValue={glancePatience.toString()} onChange={handleGlancePatienceChange.bind(this)} autoWidth={true}>
-                            <MenuItem value="0">Weak</MenuItem>
-                            <MenuItem value="1">Normal</MenuItem>
-                            <MenuItem value="2">Strong</MenuItem>
+                            <Tooltip title="Turns on and off fast" placement="right" enterTouchDelay={0}>
+                                <MenuItem value="0">Weak</MenuItem>
+                            </Tooltip>
+                            <Tooltip title="Turns on fast, turns off over 8 seconds" placement="right" enterTouchDelay={0}>
+                                <MenuItem value="1">Normal</MenuItem>
+                            </Tooltip>
+                            <Tooltip title="Turns on fast, turns off over 20 seconds" placement="right" enterTouchDelay={0}>
+                                <MenuItem value="2">Strong</MenuItem>
+                            </Tooltip>
                         </Select>
                     </div>
                     <div className="configContainer">
