@@ -6,4 +6,7 @@ export default interface Events{
     endTime?: string
     description?: string
     allDay: boolean
+    daysOfWeek? : string[]
+    recurring: boolean
+    recFreq? : string
 }

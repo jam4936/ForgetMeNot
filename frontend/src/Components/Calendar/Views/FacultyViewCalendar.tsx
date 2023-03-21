@@ -26,46 +26,55 @@ function FacultyViewCalendar(this: any, props: any){
     }
 
     const editedEvent = (click: EventClickArg) =>{
-        var tempEvent : Events = {
-            eventId: click.event.id,
-            startTime: click.event.startStr,
-            date: new Date(click.event.startStr).toDateString(),
-            endTime: click.event.endStr,
-            allDay: click.event.allDay,
-            name: click.event.title
-        }
-        setEditEvent(tempEvent);
-        setDialogMode("edit");
-        setOpenCreateDialog(true);
+        EventsService.getEventById(Number(click.event.id)).then((val) =>{
+            var tempEvent : Events = {
+                eventId: click.event.id,
+                startTime: val.startTime,
+                date: new Date(click.event.startStr).toDateString(),
+                endTime: val.endTime,
+                allDay: val.allDay,
+                name: click.event.title,
+                recurring: val.recurring,
+                recFreq: "weekly",
+                daysOfWeek: val.daysOfWeek
+            }
+            setEditEvent(tempEvent);
+            setDialogMode("edit");
+            setOpenCreateDialog(true);
+        });
+
+
     }
     const getEvents = async () =>{
         let temp = await (await EventsService.getAllEvents()).sort((a: {eventId: string},b: {eventId: string}) => Number(a.eventId) < Number(b.eventId) ? -1 : Number(a.eventId) > Number(b.eventId) ? 1 : 0);
         let events = [] as EventInput[];
         temp.forEach((response: Events) =>{
-            let eventInput
-                if(!response.allDay && response.endTime){
-                    let startTime = new Date(response.startTime);
-                    let endTime = new Date(response?.endTime);
-                        eventInput =  {
-                            title: response.name,
-                            id: response.eventId,
-                            date: response.date,
-                            start: startTime,
-                            end: endTime,
-                        } as EventInput;
-                    }
-                else{
-                    eventInput = {
-                        backgroundColor: "purple",
-                        title: response.name,
-                        id: response.eventId,
-                        allDay: true,
-                        date: new Date(response.startTime)
-                    } as EventInput;
-                }
+            let eventInput;
+            if(!response.allDay && response.endTime){
+                let startTime = new Date(response.startTime);
+                let endTime = new Date(response?.endTime);
+                eventInput =  {
+                    title: response.name,
+                    id: response.eventId,
+                    date: response.date,
+                    start: startTime,
+                    end: endTime,
+                    daysOfWeek: response.recurring ? response.daysOfWeek : null
+                } as EventInput;
+            }
+            else{
+                eventInput = {
+                    backgroundColor: "purple",
+                    title: response.name,
+                    id: response.eventId,
+                    allDay: true,
+                    date: new Date(response.startTime),
+                    daysOfWeek: response.recurring ? response.daysOfWeek : null
+                } as EventInput;
+            }
 
                 
-                events.push(eventInput);
+            events.push(eventInput);
         })
         return events;
     }

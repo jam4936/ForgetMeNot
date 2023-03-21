@@ -15,7 +15,9 @@ const EventsService = {
                 date: event.date,
                 eventId: event.eventId,
                 name: event.name,
-                allDay: event.allDay
+                allDay: event.allDay,
+                daysOfWeek: event.daysOfWeek,
+                recurring: event.recurring
             });
         })
         return events;
@@ -32,7 +34,9 @@ const EventsService = {
                 'endTime': event.endTime,
                 'date': event.date,
                 'description': event.description,
-                'allDay': event.allDay
+                'allDay': event.allDay,
+                'daysOfWeek': event.daysOfWeek,
+                'recurring': event.recurring
             })
         }
         var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {return response})
@@ -44,9 +48,9 @@ const EventsService = {
     },
 
     async getEventById(eventId: Number){
-        let temp: DynamoEventsResult = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId),{method: 'GET'}).then(result => result.json())
+        let temp = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId),{method: 'GET'}).then(result => result.json())
 
-        return temp.Items[0];
+        return temp.Item;
     }
 
 }

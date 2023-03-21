@@ -56,9 +56,9 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             startTime: this.editMode ? this.props.editableEvent.startTime : now.getTime(),
             endTime: this.editMode ? this.props.editableEvent.endTime : "",
             id: this.editMode ? this.props.editableEvent.eventId : nextId.toString(),
-            recurring: false,
-            daysRecur: [0] as Number[],
-            recurranceFreq: "daily",
+            recurring: this.editMode ? this.props.editableEvent.recurring : false,
+            daysRecur: this.editMode ? this.props.editableEvent.daysOfWeek : [] as String[],
+            recurranceFreq: this.editMode ? this.props.editableEvent.recFreq : "daily",
             monthlyRecFreq: 0,
         };
         this.setState.bind(this);
@@ -134,21 +134,25 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                 event = {
                     eventId: this.state.id.toString(), 
                     allDay: this.state.allDay, 
-                    startTime: new Date(this.state.date).toDateString(), 
+                    startTime: new Date(this.state.startTime).toISOString(),
                     date: new Date(this.state.date).toLocaleDateString("es-PA"),
                     name: this.state.name,
-                    description: this.state.description
+                    description: this.state.description,
+                    daysOfWeek: this.state.recurring ? this.state.daysRecur : [],
+                    recurring: this.state.recurring
                 }
             }
             else{
                 event = {
                     eventId: this.state.id, 
                     allDay: this.state.allDay, 
-                    startTime: new Date(this.state.startTime).getTime().toString(), 
+                    startTime: new Date(this.state.startTime).toISOString(), 
                     date: new Date(this.state.date).toLocaleDateString("es-PA"),
                     name: this.state.name, 
                     endTime: new Date(this.state.endTime).toISOString(),
-                    description: this.state.description
+                    description: this.state.description,
+                    daysOfWeek: this.state.recurring ? this.state.daysRecur : [],
+                    recurring: this.state.recurring
                 }
             }
 
