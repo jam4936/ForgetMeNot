@@ -1,0 +1,46 @@
+#addEditEvent{
+        display: flex;
+        flex-direction:column;
+        margin: 1rem;
+}
+.MuiFormControl-root.MuiTextField-root{
+        padding-bottom: 1rem;
+        vertical-align: middle;
+    }
+    #formButtons{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        padding-top: 1rem;
+    }   
+    .MuiDialogTitle-root{
+        display: flex;
+        justify-content: space-between;
+    }
+    /* .MuiButtonBase-root.MuiToggleButton-root.MuiToggleButton-sizeSmall{
+        margin: 1rem;
+        border-radius: 2rem;
+    } */
+
+.MuiToggleButton-root.MuiToggleButton-sizeSmall.MuiToggleButton-standard.MuiToggleButtonGroup-grouped{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: 0.75rem;
+}
+.MuiButtonBase-root.MuiToggleButton-root{
+    border-color: #8D9BE2;
+}
+.MuiButtonBase-root.MuiToggleButton-root.Mui-selected{
+    background-color: #8D9BE2;
+    
+}
+
+#recurrance{
+    display: flex;
+    flex-direction: column;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text{
+    background-color: #8D9BE2;
+    color: black;
+}

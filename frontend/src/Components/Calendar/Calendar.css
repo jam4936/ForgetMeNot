@@ -1,0 +1,55 @@
+div.fc-event-title {
+    white-space: normal;
+}
+#calendar{
+    margin: 1rem;
+}
+#facultyAddButtons Button{
+    margin-right: 1rem;
+}
+.fc.fc-daygrid-event{
+    background: #EFF1FB;
+}
+
+#right{
+    margin-left: 1rem;
+    border-left: 1px solid #8D9BE2;
+    padding-left: 1rem;
+}
+#left{
+    width: 30%;
+    border-right: 1px solid #8D9BE2;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded#eventCard{
+    margin: 1rem;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded#eventsCard{
+    margin: 1rem;
+    width: 50%;
+    background-color: #8D9BE2;
+}
+.MuiCardContent-root#eventContent{
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+}
+.MuiCardContent-root#menuContent{
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded#menuItemCard{
+    margin: 1rem;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded#menuCard{
+    width: 50%;
+    margin: 1rem;
+    background-color: #8D9BE2
+}
+#calendar{
+    display: inline-flex;
+    flex-direction: row;
+    width: 95%;
+    
+}

@@ -21,7 +21,7 @@ function UploadPortalStepper() {
                 <h1>
                     Family Upload Portal
                 </h1>
-                {AccordionStepper(patient, allowInput)}
+                {<AccordionStepper patient={patient} allowInput={allowInput}/>}
             </div>
         </>
 );

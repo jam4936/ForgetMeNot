@@ -38,8 +38,7 @@ const UploadResponseService = {
                 'patientID': patientID,
                 'questionID': response.questionId,
                 'response': response.response
-            }),
-            
+            })
         }
         var temp = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/response', responseOptions).then(response => {response.json();});
     }
