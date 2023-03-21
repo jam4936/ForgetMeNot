@@ -1,6 +1,5 @@
 #mediaUpload{
-    padding-left: 1rem;
-    padding-top: 1rem;
+    padding: 1rem;
     margin: 1rem;
     display: flex;
     flex-direction: column;
@@ -16,8 +15,17 @@
     align-items: center;
 }
 
-section {
+.mediaUploadSection {
     padding: 2rem 0;
+    margin: 1rem;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+#sectionTitle{
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    font-size: x-large;
 }
 
 .uploadButton {

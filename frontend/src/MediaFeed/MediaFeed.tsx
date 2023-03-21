@@ -26,12 +26,12 @@ export default function MediaFeed() {
     const [mediaFiles, setMedia] = useState<Media[] | undefined>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [showWeather, setShowWeather] = useState<boolean>(false);
-    const [currentTime, setTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
-    let startTime = 8;
+    let startTime = 16;
     let stopTime = 20;
 
     const navigateToPatientProfile = (patient : Patient) => {
@@ -102,18 +102,26 @@ export default function MediaFeed() {
         }
     };
 
+    //Will fetch the mediaFiles at media feed startup
     useEffect(() => {
         initializeMedia()
     }, [])
 
+    //This effect will ensure the mediaFiles are fetched and the feed length is set
+    //Depends on the mediaFiles state
     useEffect( () => {
         if (mediaFiles) setFeedLength(mediaFiles.length);
     }, [mediaFiles])
 
+    //This effect will track the current time
     useEffect(() => {
-        const date = new Date();
-        setTime(date.getHours());
+        let timer = setInterval(()=>setCurrentTime(new Date()), 1000 )
+        return () => clearInterval(timer);
+    });
 
+    //Effect will track the slide intervals depending on the slideInterval set and if the currentSlide is a video
+    //Depends on currentSlide. Everytime currentSlide changes, this effect is called
+    useEffect(() => {
         let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
         if (currentMediaFile){
             if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
@@ -140,30 +148,33 @@ export default function MediaFeed() {
                         </IconButton>
                     </div>
                     <div id="feedContainer">
-                        {currentTime >= startTime && currentTime <= stopTime ? (
-                            <div className="mediaView">
-                                <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
-                                    <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
-                                </IconButton>
-                                <Vision {...temp} {...{showVision:false}}  />
-                                <FullScreen handle={handle}>
-                                    {mediaFiles?.map((slide, index) => {
-                                        return (
-                                            <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
-                                                {handleSlideCreation(slide,index)}
-                                            </div>
-                                        );
-                                    })}
-                                    <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
-                                        <ThermostatIcon fontSize="inherit"></ThermostatIcon>
-                                    </IconButton>
-                                    {showWeather && <Weather></Weather>}
-                                </FullScreen>
-                            </div>
-                        ) : (
-                            <div className="mediaView">
-                            </div>
-                        )}
+                        <div className="mediaView">
+                            <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
+                                <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
+                            </IconButton>
+                            <Vision {...temp} {...{showVision:false}}  />
+                            <FullScreen handle={handle}>
+                                {currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
+                                    <>
+                                        {mediaFiles?.map((slide, index) => {
+                                            return (
+                                                <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
+                                                    {handleSlideCreation(slide,index)}
+                                                </div>
+                                            );
+                                        })}
+                                        <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
+                                            <ThermostatIcon fontSize="inherit"></ThermostatIcon>
+                                        </IconButton>
+                                        {showWeather && <Weather></Weather>}
+                                    </>
+                                    ) : (
+                                    <div>
+                                    </div>
+                                    )}
+                            </FullScreen>
+                        </div>
+
                         <div id="feedOptions">
                             <IconButton size="large" onClick={prevSlide}>
                                 <ArrowCircleLeftIcon fontSize="inherit"></ArrowCircleLeftIcon>

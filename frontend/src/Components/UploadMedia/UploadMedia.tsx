@@ -6,6 +6,8 @@ import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
 import spinner from "../../Assets/loadingspinner.gif";
+import {IconButton, Tooltip} from "@mui/material";
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const [mediaFiles, setMedia] = useState<Media[]>();
@@ -61,7 +63,51 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     }else {
         return (
             <div id="mediaUpload">
-                <section>
+                <section className="mediaUploadSection">
+                    <div id="sectionTitle">
+                        <div>
+                            <span>
+                                <Tooltip title="A single video that will be displayed to your family member every morning. It is recommended to
+                                                include information about why they are at the facility, and that they are safe. " placement="right" enterTouchDelay={0}>
+                                    <IconButton size="large">
+                                        <InfoRoundedIcon fontSize="inherit"></InfoRoundedIcon>
+                                    </IconButton>
+                                </Tooltip>
+                                Greeting Video
+                            </span>
+                        </div>
+                    </div>
+                    <div className="imageGrid">
+
+                    </div>
+
+                    <br/>
+
+                    <div>
+                        <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
+                        <input
+                            type="file" multiple
+                            accept="image/*,video/mp4,video/x-m4v,video/*"
+                            style={{display: 'none'}}
+                            id="file-input"
+                            onChange={onImageChange}
+                        />
+                    </div>
+                </section>
+                <section className="mediaUploadSection">
+                    <div id="sectionTitle">
+                        <div>
+                            <span>
+                                <Tooltip title="General images and videos that will be displayed to your family member
+                                                via the memory feed." placement="right" enterTouchDelay={0}>
+                                    <IconButton size="large">
+                                        <InfoRoundedIcon fontSize="inherit"></InfoRoundedIcon>
+                                    </IconButton>
+                                </Tooltip>
+                                Memory Feed Media
+                            </span>
+                        </div>
+                    </div>
                     <div className="imageGrid">
                         {mediaFiles?.map((element) => {
                             const re = /(?:\.([^.]+))?$/;
