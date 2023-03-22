@@ -1,4 +1,4 @@
-import { Response } from "../Models";
+import Response from "../Models/Response";
 import DynamoResponse from "../Models/DynamoResponseResult";
 
 

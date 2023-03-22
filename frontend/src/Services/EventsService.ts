@@ -5,46 +5,32 @@ const EventsService = {
     async getAllEvents(){
         let temp: DynamoResponse = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/all' ,{method: 'GET'}).then(result => result.json())
 
-        let events = [] as Events[];
-
-        temp.Items.forEach((event: Events) => {
-            events.push({
-                startTime : event.startTime,
-                endTime: event.endTime,
-                description: event.description,
-                date: event.date,
-                eventId: event.eventId,
-                name: event.name,
-                allDay: event.allDay,
-                daysOfWeek: event.daysOfWeek,
-                recurring: event.recurring
-            });
-        })
-        return events;
-
+        return temp.Items as Events[];
     },
 
     async insertEvent(event: Events){
         var responseOptions = {
             method: 'PUT',
             body: JSON.stringify({
-                'eventId': Number(event.eventId),
-                'name': event.name,
-                'startTime': event.startTime,
-                'endTime': event.endTime,
-                'date': event.date,
-                'description': event.description,
-                'allDay': event.allDay,
-                'daysOfWeek': event.daysOfWeek,
-                'recurring': event.recurring
+                "id": Number(event.id),
+                "title": event.title.toString(),
+                "desc": event.description.toString(),
+                "start": event.start.toString(),
+                "end": event.end,
+                "allDay": event.allDay,
+                "startTime": event.startTime,
+                "endTime": event.endTime,
+                "daysOfWeek": event.daysOfWeek,
+                "recurring": event.recurring,
+                "recFreq": event.recFreq
             })
         }
-        var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {return response})
+        var temp  = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event', responseOptions).then(response => {return response.json()})
         return temp;
     },
 
     async deleteEvent(eventId: String){
-        let temp= await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + Number(eventId), {method: 'DELETE'}).then(result => result.json());
+        let temp= await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/event/' + (eventId), {method: 'DELETE'}).then(result => result.json());
     },
 
     async getEventById(eventId: Number){

@@ -1,6 +1,6 @@
 
 import  AboutYou  from '../Components/AboutYou/AboutYou';
-import { Patient } from '../Models';
+import Patient from '../Models/Patient';
 import Question from '../Models/Question';
 import Response  from '../Models/Response';
 import enzyme, { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
