@@ -30,10 +30,25 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         setDataLoaded(true);
     }
 
-    function onImageChange(e: any) {
+    async function onImageChange(e: any) {
+       
         setImages([...e.target.files]);
+        // await uploadMediaFile(e.target.files);
+        // await initializeMedia();
     }
 
+
+    const deleteCallback = async (id: string) =>{
+        var index : number | undefined = mediaFiles?.findIndex((val) =>{
+            return val.id === id;
+        });
+        if(index){
+            let temp = mediaFiles;
+            temp?.splice(index, 1);
+            // setMedia(temp);
+            await initializeMedia();
+        }
+    }
 
     const initializeMedia = async () => {
         await GetMedia.initializeMedia(patient.id.toString());
@@ -47,10 +62,17 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
             await UploadMediaService.uploadMedia(patient.id.toString(), images[i]);
         }
     }
+    const uploadMediaFile = async (file : File[]) =>{
+        file.forEach(async (f) =>{
+            await UploadMediaService.uploadMedia(patient.id.toString(), f);
+        });
+        
+    }
 
     useEffect(() => {
         initializeData();
     }, [images]);
+
 
     if(!dataLoaded){
         return (
@@ -113,9 +135,9 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
                             const re = /(?:\.([^.]+))?$/;
                             if (re.exec(element.objectKey)![1] === "mp4") {
                                 console.log(element.url)
-                                return <Thumbnail media={element} isVideo={true}></Thumbnail>
+                                return <Thumbnail media={element} isVideo={true} callback={deleteCallback}></Thumbnail>
                             } else {
-                                return <Thumbnail media={element} isVideo={false}></Thumbnail>
+                                return <Thumbnail media={element} isVideo={false} callback={deleteCallback}></Thumbnail>
                             }
                         })}
                     </div>
