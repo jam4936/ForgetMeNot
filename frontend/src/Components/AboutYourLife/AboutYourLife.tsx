@@ -11,20 +11,24 @@ import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif";
 
-export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
-
-    const [questions, setQuestions] = useState<Question[]>();
-    const [responses, setResponses] = useState<Response[]>();
+function AboutYourLife(props: any){
+    const patient = props.patient;
+    const allowInput = props.allowInput;
+    const [questions, setQuestions] = useState([] as Question[]);
+    const [responses, setResponses] = useState([] as Response[]);
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort(((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)));
+       const tempResponses = await GetResponses.initializeResponses(patient.id.toString());
+       tempResponses.sort(((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        setResponses(tempResponses);
 
     }
 
     const initializeQuestions = async () => {
-        await GetQuestions.initializeQuestionsBySection("AboutYourLife");
-        setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        const tempQuestions = await GetQuestions.initializeQuestionsBySection("AboutYourLife");
+        tempQuestions.sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+
+        setQuestions(tempQuestions); 
 
     }
 
@@ -33,10 +37,10 @@ export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
 
     const initializeData = async () => {
         if (!dataLoaded) {
-            //initializes the response
-            await initializeResponses();
             //initializes the questions
             await initializeQuestions();
+            //initializes the response
+            await initializeResponses();
             //prevent a second call
             await setDataLoaded(true);
         }
@@ -120,7 +124,7 @@ export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
         return (
             <div>
                 <div id="aboutYourLife">
-                    <form className="AboutYourLife">
+                    <form data-testid="aboutyourlife" className="AboutYourLife">
                         {questions?.map((element: Question) => {
                             return makeQuestionComponent(element)
                         })}
@@ -136,3 +140,4 @@ export const AboutYourLife = (patient : Patient, allowInput: boolean) => {
         )
     }
 }
+export default AboutYourLife;

@@ -59,7 +59,7 @@ function PatientProfile(){
                         <Typography>Detailed Patient Information</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {AccordionStepper(patient, allowInput)}
+                        {<AccordionStepper patient={patient} allowInput={allowInput}/>}
                     </AccordionDetails>
                 </Accordion>
             </div>

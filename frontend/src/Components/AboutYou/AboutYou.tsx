@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './AboutYou.css';
 import Question from "../../Models/Question";
 import Response from "../../Models/Response"
@@ -11,38 +11,48 @@ import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif"
+function AboutYou(props: any) {
+    const patient = props.patient;
+    const allowInput = props.allowInput;
+    
+    const [questions, setQuestions] = useState([] as Question[]);
 
-export const AboutYou = (patient : Patient, allowInput: boolean) => {
-
-    const [questions, setQuestions] = useState<Question[]>();
-    const [responses, setResponses] = useState<Response[]>();
+    const [responses, setResponses] = useState([] as Response[]);
 
     var personalityTraits : Question[] = [];
     var personalityResponses : Response[] = []
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState(false);
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        const temp = await GetResponses.initializeResponses(patient.id.toString());
+        temp.sort((a: { id: number; },b: { id: number; }) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+        setResponses(temp);
+        
     }
 
     const initializeQuestions = async () => {
-         await GetQuestions.initializeQuestionsBySection("AboutYou");
-         setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        const tempQuestions = await GetQuestions.initializeQuestionsBySection("AboutYou");
+        tempQuestions.sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+
+        setQuestions(tempQuestions); 
     }
 
-    // only call database once
-    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
-
-    const initializeData = async () => {
-        //initializes the response
-        await initializeResponses();
+    async function initializeData() {
         //initializes the questions
         await initializeQuestions();
-        // set data as loaded
-        setDataLoaded(true);
+            // set data as loaded
+            //initializes the response
+        await initializeResponses();
+        
+    
+        setDataLoaded(true); 
+        return dataLoaded;
+        
+    };
+    if(!dataLoaded){
+        initializeData();
     }
-
-    if(!dataLoaded) initializeData();
 
     const onBlurEvent = (value: string, question : Number) => {
         console.log(value)
@@ -56,7 +66,7 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const findResponse = (question: Question) : string =>{
         let response = responses?.find((x) => x.questionID === question.id)?.response;
         let responseObj : Response;
-        if(response != undefined){
+        if(response !== undefined){
             if (question.questionType === "checkbox"){
                 responseObj = {questionID: question.id, response: response, patientID: patient.id, id: Number(String(patient.id) + String(question.id))} as Response;
                 personalityResponses.push(responseObj);
@@ -83,12 +93,12 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const getSelect = (question: Question, response: string) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="selectPrompt">
                     {question.prompt}
                 </label>
-                <Select id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
+                <Select data-testid="selectResponse" id={question.id.toString()} className={question.questionType} defaultValue={ response } disabled={!allowInput}  onChange={(event) => onBlurEvent(event.target.value, question.id)}>
                     <MenuItem value="none" disabled hidden>Select an Option</MenuItem>
-                    {question.selectOptions?.map(element => { return <MenuItem value={element}>{element}</MenuItem> })}
+                    {question.selectOptions?.map(element => { return <MenuItem data-testid="selectOption" value={element}>{element}</MenuItem> })}
                 </Select>
             </div>
         )
@@ -97,10 +107,10 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const getSingleLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="singleLinePrompt">
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
+                <TextField data-testid="singleLineResponse" id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput} className={question.questionType}  onBlur={(event) => onBlurEvent(event.target.value, question.id)} variant="outlined"/>
             </div>
         )
     }
@@ -108,10 +118,10 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
     const getMultiLine = (question: Question, response: string) => {
         return(
             <div id={question.id.toString()} className={question.questionType}>
-                <label>
+                <label data-testid="multiLinePrompt">
                     {question.prompt}
                 </label>
-                <TextField id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput}  className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
+                <TextField data-testid="multiLineResponse"id={question.id.toString() + "_resp"} defaultValue={ response } disabled={!allowInput}  className={question.questionType}  variant="outlined" onBlur={(event) => onBlurEvent(event.target.value, question.id)} rows={4} multiline/>
             </div>
         )
     }
@@ -129,20 +139,20 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
                 personalityTraits.push(question);
         }
     }
-    window.addEventListener("beforeunload", (event) =>{
+    window.addEventListener("beforeunload", () =>{
         UploadResponseService.checkFormDirty(patient.id);
     });
     if(!dataLoaded) {
         return (
-            <div>
+            <div data-testid="loading-screen">
                 <img id="spinner" src={spinner} alt="loading..."/>
             </div>
         )
     }else{
         return (
             <div>
-                <div id="aboutYou">
-                    <form className="AboutYou">
+                <div  id="aboutYou">
+                    <form className="AboutYou" data-testid="testAboutYou">
                         {questions?.map((element: Question) =>{
                             return makeQuestionComponent(element)
                         })}
@@ -152,7 +162,5 @@ export const AboutYou = (patient : Patient, allowInput: boolean) => {
             </div>
         )
     }
-
-
-    //
 }
+export default AboutYou;

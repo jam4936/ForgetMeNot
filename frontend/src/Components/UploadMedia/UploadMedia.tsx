@@ -5,9 +5,14 @@ import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
-
-export const UploadMedia = (patient : Patient, allowInput: boolean) => {
+function UploadMedia(props: any) {
+    let patient = props.patient;
+    let allowInput = props.allowInput;
     const [mediaFiles, setMedia] = useState<Media[]>();
+    // only call database once
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+// export const UploadMedia = (patient : Patient, allowInput: boolean) => {
+//     const [mediaFiles, setMedia] = useState<Media[]>();
     const [images, setImages] = useState([] as any);
 
     const openFileUpload = () => {
@@ -73,3 +78,4 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     )
 
 }
+export default UploadMedia
