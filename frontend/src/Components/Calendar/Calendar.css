@@ -47,7 +47,7 @@ div.fc-event-title {
     margin: 1rem;
     background-color: #8D9BE2
 }
-#calendar{
+#patientView{
     display: inline-flex;
     flex-direction: row;
     width: 95%;

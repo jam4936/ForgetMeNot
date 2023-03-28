@@ -12,43 +12,77 @@ import MenuItems from '../../../Models/MenuItem';
 import MenuItemService from '../../../Services/MenuItemService';
 
 function PatientViewCalendar(props: any){
-    // const [events, setEvents] = useState([] as Events[]);
+    const [events, setEvents] = useState([] as Events[]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
     const [menuItems, setMenuItems] = useState([] as MenuItems[]);
 
     //API Key: AIzaSyCw0sL7BxjdjwIvMRUhLZLp1lIh1zoxUok
 
-   
+
     const getEvents = async () =>{
-        let temp = await (await EventsService.getAllEvents()).sort((a: {eventId: string},b: {eventId: string}) => Number(a.eventId) < Number(b.eventId) ? -1 : Number(a.eventId) > Number(b.eventId) ? 1 : 0);
-        
-        let events = [] as EventInput[];
+        let temp = await (await EventsService.getAllEvents()).sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+        setEvents(temp as Events[])
+        let inputs = [] as EventInput[]
         temp.forEach((response: Events) =>{
-                let eventInput
-                if(!response.allDay && response.endTime){
-                    let startTime = new Date(response.startTime);
-                    let endTime = new Date(response?.endTime);
-                        eventInput =  {
-                            title: response.name,
-                            id: response.eventId,
-                            start: startTime,
-                            end: endTime,
-                        } as EventInput;
-                    }
-                else{
+            let eventInput;
+            if(!response.recurring) {
+                if (!response.allDay) {
                     eventInput = {
-                        title: response.name,
-                        id: response.eventId,
-                        allDay: true,
-                        date: new Date(response.startTime)
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        start: response.start,
+                        startTime: response.startTime,
+                        endTime: response.endTime,
+                    } as EventInput;
+                } else {
+                    eventInput = {
+                        backgroundColor: "purple",
+                        title: response.title,
+                        id: response.id.toString(),
+                        description: response.description,
+                        allDay: response.allDay,
+                        start: response.start,
                     } as EventInput;
                 }
-                events.push(eventInput);
+            } else {
+                if(response.allDay){
+                    eventInput = {
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        allDay: response.allDay,
+                        rrule: {
+                            freq: response.recFreq,
+                            byweekday: response.daysOfWeek,
+                            dtstart: response.start,
+                            until: response.end,
+                        },
+                    }
+                }else{
+                    let start = new Date(response.start + "T" + response.startTime).toISOString()
+                    let timeDiff = (new Date(response.end + response.endTime)).valueOf() - (new Date(response.start + response.startTime)).valueOf()
+                    eventInput = {
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        rrule: {
+                            freq: response.recFreq,
+                            interval: 1,
+                            byweekday: response.daysOfWeek,
+                            dtstart: start,
+                            until: response.end,
+                        },
+                        duration: timeDiff,
+                    }
+                }
             }
-        )
-        return events;
-    };
+
+            inputs.push(eventInput);
+        })
+        return inputs;
+    }
 
     const getMenuItems = async () =>{
         let temp = await (await MenuItemService.getAllMenuItems()).sort((a: {id: Number}, b: {id: Number}) => Number(a.id) < Number(b.id) ? -1 : Number(a.id) > Number(b.id) ? 1 : 0)
@@ -65,13 +99,20 @@ function PatientViewCalendar(props: any){
                         <div id="right">
                             <Typography variant="subtitle1">{value.description}</Typography>
                         </div>
-                        
+
                     </CardContent>
                 </Card>
             </div>
         )
     }
+
     const createCardEvents = (value : EventInput) =>{
+        let desc = ""
+        events.forEach((event) => {
+            if (event.id == Number(value.id)){
+                desc = event.description
+            }
+        })
         return (
             <div>
                 <Card id="eventCard" variant='elevation'>
@@ -81,7 +122,7 @@ function PatientViewCalendar(props: any){
                             <Typography variant="subtitle1">{value.allDay ? "All Day" : value.start?.toLocaleString("en-US")}</Typography>
                         </div>
                         <div id="right">
-                            <Typography variant="subtitle1">Description</Typography>
+                            <Typography variant="subtitle1">{desc}</Typography>
                         </div>
 
                     </CardContent>
@@ -95,8 +136,8 @@ function PatientViewCalendar(props: any){
         });
         getMenuItems();
         setDataLoaded(true);
-       
-        
+
+
     }
     // getEvents()
     if(!dataLoaded){
@@ -108,7 +149,7 @@ function PatientViewCalendar(props: any){
     }
     else{
         return(
-            <div id="calendar">
+            <div id="patientView">
                 <Card id="eventsCard">
                     <CardHeader title="Today's Events:"/>
                     <CardContent>
@@ -137,7 +178,7 @@ function PatientViewCalendar(props: any){
                         })}
                     </CardContent>
                 </Card>
-                
+
             </div>
         )
     }

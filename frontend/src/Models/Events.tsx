@@ -1,9 +1,13 @@
 export default interface Events{
-    eventId: string
-    name: string
-    startTime: string
-    date?: string
-    endTime?: string
-    description?: string
+    id: number
+    title: string
+    description: string
+    start: string
+    end: string
     allDay: boolean
+    startTime: string
+    endTime: string
+    recurring: boolean
+    recFreq: string
+    daysOfWeek : string[]
 }
