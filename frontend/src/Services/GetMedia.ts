@@ -19,7 +19,7 @@ const GetMedia = {
                 console.error(error);
             });
 
-        console.log(signedUrl)
+        // console.log(signedUrl)
         
         const mediaUrl = await fetch(signedUrl, {method: 'GET'}).then(result => result.blob());
 

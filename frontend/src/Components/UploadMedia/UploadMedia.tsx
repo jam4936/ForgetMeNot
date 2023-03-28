@@ -26,28 +26,22 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const initializeData = async() => {
         //initializes the questions
         await initializeMedia();
-        await initializeUpload();
+        // await uploadMediaFile();
         setDataLoaded(true);
     }
 
     async function onImageChange(e: any) {
+       uploadMediaFile(e.target.files);
        
-        setImages([...e.target.files]);
-        // await uploadMediaFile(e.target.files);
+        // setImages([...e.target.files]);
+        // // await uploadMediaFile(e.target.files);
+        // // await initializeMedia();
         // await initializeMedia();
     }
 
 
     const deleteCallback = async (id: string) =>{
-        var index : number | undefined = mediaFiles?.findIndex((val) =>{
-            return val.id === id;
-        });
-        if(index){
-            let temp = mediaFiles;
-            temp?.splice(index, 1);
-            // setMedia(temp);
             await initializeMedia();
-        }
     }
 
     const initializeMedia = async () => {
@@ -55,23 +49,28 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         setMedia(GetMedia.mediaMetadata);
     }
 
-    const initializeUpload = async () => {
-        if (images.length < 1) return;
+    // const initializeUpload = async () => {
+    //     if (images.length < 1) return;
 
-        for(let i = 0; i < images.length; i++){
-            await UploadMediaService.uploadMedia(patient.id.toString(), images[i]);
-        }
-    }
+    //     for(let i = 0; i < images.length; i++){
+    //         await UploadMediaService.uploadMedia(patient.id.toString(), images[i]);
+    //     }
+    // }
     const uploadMediaFile = async (file : File[]) =>{
-        file.forEach(async (f) =>{
-            await UploadMediaService.uploadMedia(patient.id.toString(), f);
-        });
-        
+        for(let i = 0; i < file.length; i++){
+            await UploadMediaService.uploadMedia(patient.id.toString(), file[i]);
+        }
+        await initializeMedia();
+    }
+    // useEffect(() => {
+    //     initializeMedia();
+    // }, [images]);
+
+    if(!dataLoaded){
+        initializeData();
     }
 
-    useEffect(() => {
-        initializeData();
-    }, [images]);
+
 
 
     if(!dataLoaded){
@@ -151,7 +150,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
                             accept="image/*,video/mp4,video/x-m4v,video/*"
                             style={{display: 'none'}}
                             id="file-input"
-                            onChange={onImageChange}
+                            onChange={async () => await onImageChange}
                         />
                     </div>
                 </section>
