@@ -11,21 +11,24 @@ import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
 import spinner from "../../Assets/loadingspinner.gif";
 
-export const DailySchedule = (patient : Patient, allowInput: boolean) => {
-
+function DailySchedule(props: any){
+    let patient = props.patient;
+    let allowInput = props.allowInput;
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-
+        const temp = await GetResponses.initializeResponses(patient.id.toString());
+        temp.sort((a: { id: number; },b: { id: number; }) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+        
+        setResponses(temp);
     }
 
     const initializeQuestions = async () => {
-        await GetQuestions.initializeQuestionsBySection("DailySchedule");
-        setQuestions(GetQuestions.questions.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        const tempQuestions = await GetQuestions.initializeQuestionsBySection("DailySchedule");
+        tempQuestions.sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
 
+        setQuestions(tempQuestions); 
     }
 
     // only call database once
@@ -143,3 +146,4 @@ export const DailySchedule = (patient : Patient, allowInput: boolean) => {
         )
     }
 }
+export default DailySchedule;
