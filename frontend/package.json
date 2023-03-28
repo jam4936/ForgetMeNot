@@ -74,9 +74,5 @@
       "last 1 safari version"
     ]
   },
-  "type": "module",
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
-  }
+  "type": "module"
 }
