@@ -17,7 +17,6 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
 
     const openFileUpload = () => {
         const input = document.getElementById('file-input');
-
         if (input) {
             input.click();
         }
@@ -26,17 +25,11 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const initializeData = async() => {
         //initializes the questions
         await initializeMedia();
-        // await uploadMediaFile();
         setDataLoaded(true);
     }
 
     async function onImageChange(e: any) {
        uploadMediaFile(e.target.files);
-       
-        // setImages([...e.target.files]);
-        // // await uploadMediaFile(e.target.files);
-        // // await initializeMedia();
-        // await initializeMedia();
     }
 
 
@@ -49,22 +42,12 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
         setMedia(GetMedia.mediaMetadata);
     }
 
-    // const initializeUpload = async () => {
-    //     if (images.length < 1) return;
-
-    //     for(let i = 0; i < images.length; i++){
-    //         await UploadMediaService.uploadMedia(patient.id.toString(), images[i]);
-    //     }
-    // }
     const uploadMediaFile = async (file : File[]) =>{
         for(let i = 0; i < file.length; i++){
             await UploadMediaService.uploadMedia(patient.id.toString(), file[i]);
         }
         await initializeMedia();
     }
-    // useEffect(() => {
-    //     initializeMedia();
-    // }, [images]);
 
     if(!dataLoaded){
         initializeData();
