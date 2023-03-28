@@ -4,12 +4,11 @@ import spinner from "../../Images/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
 import {MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
-import {MobileTimePicker, LocalizationProvider, TimeValidationError} from "@mui/x-date-pickers";
+import {MobileTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
 import dayjs from 'dayjs';
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import IconButton from "@mui/material/IconButton";
 
 export const Configs = () => {
@@ -112,13 +111,13 @@ export const Configs = () => {
                     <div className="configContainer">
                         <label id="configLabel">Change the Glance Detection Start Time:</label>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <MobileTimePicker value={dayjs(glanceStartTime, "hh:mm A")} defaultValue={dayjs(glanceStartTime, "hh:mm A")} onChange={(value, context)=>{handleGlanceStartTimeChange(value as dayjs.Dayjs)}} format={"hh:mm A"}></MobileTimePicker>
+                            <MobileTimePicker value={dayjs(glanceStartTime, "hh:mm A")} onChange={(value, context)=>{handleGlanceStartTimeChange(value as dayjs.Dayjs)}} inputFormat={"hh:mm A"} renderInput={(params) =>  <TextField {...params} />}></MobileTimePicker>
                         </LocalizationProvider>
                     </div>
                     <div className="configContainer">
                         <label id="configLabel">Change the Glance Detection Stop Time:</label>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <MobileTimePicker value={dayjs(glanceStopTime, "hh:mm A")} defaultValue={dayjs(glanceStopTime, "hh:mm A")} onChange={(value, context)=>{handleMediaStopTimeChange(value as dayjs.Dayjs)}} format={"hh:mm A"}></MobileTimePicker>
+                            <MobileTimePicker value={dayjs(glanceStopTime, "hh:mm A")} onChange={(value, context)=>{handleMediaStopTimeChange(value as dayjs.Dayjs)}} inputFormat={"hh:mm A"} renderInput={(params) =>  <TextField {...params} />}></MobileTimePicker>
                         </LocalizationProvider>
                     </div>
                 </div>

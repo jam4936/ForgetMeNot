@@ -121,7 +121,7 @@ function FacultyViewCalendar(this: any, props: any){
     else{
         return(
             <div id="calendar">
-                <div id="facultyAddButtons">
+                <div id="facultyAddButtons" className={"facultyAddButtons"}>
                     <Button onClick={() => setCreateMode()}>Create Event</Button>
                 </div>                
 
