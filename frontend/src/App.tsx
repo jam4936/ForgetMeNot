@@ -21,6 +21,7 @@ import {Configs} from "./Components/Configs/Configs";
 import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 import Menu from './Components/Calendar/Menu/Menu';
+import Dev from "./Dev";
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
                 <Route path={'/patientProfile'} element={<PatientProfile/>}/>
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
                 <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                <Route path={'/dev'} element={<Dev/>}/>
                 <Route path={'/configs'} element={<Configs/>}/>
                 <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
                 <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>
@@ -61,7 +63,5 @@ function App() {
         </Router>
   );
 }
-
-//<Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
 
 export default App;

@@ -30,6 +30,7 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="familyForm"> Family Form </NavDropdown.Item>
                         <NavDropdown.Item href="patientInfo"> Patient Information </NavDropdown.Item>
                         <NavDropdown.Item href="questionControl"> Question Control </NavDropdown.Item>
+                        <NavDropdown.Item href="dev"> Dev </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 <Nav>
