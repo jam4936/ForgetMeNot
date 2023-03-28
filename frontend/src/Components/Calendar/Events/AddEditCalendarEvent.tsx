@@ -1,6 +1,6 @@
 import { EventInput } from "@fullcalendar/core";
 import {  Button, Checkbox, FormControlLabel, IconButton, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { LocalizationProvider, DatePicker, TimePicker } from "@mui/x-date-pickers";
+import {LocalizationProvider, DatePicker, MobileTimePicker} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import React from "react";
@@ -276,7 +276,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                             label="All Day"
                         /> 
                     </div> 
-                    <TimePicker
+                    <MobileTimePicker
                         renderInput={(params) =>  <TextField {...params} />}
                         disabled={this.state.allDay}
                         label="Event Start Time"
@@ -284,7 +284,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                         onChange={(newValue) => {this.handleStartTimeChange(newValue)}}
                         ampm={true}
                         inputFormat="hh:mm A"/>
-                    <TimePicker
+                    <MobileTimePicker
                         renderInput={(params) =>  <TextField {...params} />}
                         label="Event End Time"
                         disabled={this.state.allDay}
