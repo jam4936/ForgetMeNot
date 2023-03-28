@@ -6,6 +6,7 @@ import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
 import spinner from "../../Assets/loadingspinner.gif";
+import {ColorRing} from 'react-loader-spinner';
 import {IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
@@ -14,6 +15,7 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     const [images, setImages] = useState([] as any);
     // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+    const [mediaLoading, setMediaLoading] = useState(false);
 
     const openFileUpload = () => {
         const input = document.getElementById('file-input');
@@ -43,10 +45,12 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
     }
 
     const uploadMediaFile = async (file : File[]) =>{
+        setMediaLoading(true);
         for(let i = 0; i < file.length; i++){
             await UploadMediaService.uploadMedia(patient.id.toString(), file[i]);
         }
         await initializeMedia();
+        setMediaLoading(false)
     }
 
     if(!dataLoaded){
@@ -99,6 +103,8 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
                     </div>
                 </section>
                 <section className="mediaUploadSection">
+                <ColorRing colors={["#00BFFF", "balck", "purple", "blue", "green"]} height={80} width={80} visible={mediaLoading} />
+                <div hidden={mediaLoading}>
                     <div id="sectionTitle">
                         <div>
                             <span>
@@ -136,6 +142,8 @@ export const UploadMedia = (patient : Patient, allowInput: boolean) => {
                             onChange={async () => await onImageChange}
                         />
                     </div>
+                </div>
+                    
                 </section>
             </div>
         )

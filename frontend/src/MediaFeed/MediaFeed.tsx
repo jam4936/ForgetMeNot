@@ -117,7 +117,7 @@ export default function MediaFeed() {
     useEffect(() => {
         let timer = setInterval(()=>setCurrentTime(new Date()), 1000 )
         return () => clearInterval(timer);
-    });
+    }, []);
 
     //Effect will track the slide intervals depending on the slideInterval set and if the currentSlide is a video
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
