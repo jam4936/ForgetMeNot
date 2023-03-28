@@ -3,13 +3,13 @@ import Events from '../../../Models/Events';
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import rrulePlugin from '@fullcalendar/rrule'
 import spinner from "../../../Images/loadingspinner.gif";
 import CloseIcon from '@mui/icons-material/Close';
 import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
-import MenuItemDialog from '../Menu/Menu';
 
 function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -27,46 +27,74 @@ function FacultyViewCalendar(this: any, props: any){
     }
 
     const editedEvent = (click: EventClickArg) =>{
-        var tempEvent : Events = {
-            eventId: click.event.id,
-            startTime: click.event.startStr,
-            date: new Date(click.event.startStr).toDateString(),
-            endTime: click.event.endStr,
-            allDay: click.event.allDay,
-            name: click.event.title
-        }
-        setEditEvent(tempEvent);
-        setDialogMode("edit");
-        setOpenCreateDialog(true);
+        EventsService.getEventById(Number(click.event.id)).then((val) =>{
+            var tempEvent = val as Events
+            setEditEvent(tempEvent);
+            setDialogMode("edit");
+            setOpenCreateDialog(true);
+        });
+
+
     }
     const getEvents = async () =>{
-        let temp = await (await EventsService.getAllEvents()).sort((a: {eventId: string},b: {eventId: string}) => Number(a.eventId) < Number(b.eventId) ? -1 : Number(a.eventId) > Number(b.eventId) ? 1 : 0);
+        let temp = await (await EventsService.getAllEvents()).sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
         let events = [] as EventInput[];
         temp.forEach((response: Events) =>{
-            let eventInput
-                if(!response.allDay && response.endTime){
-                    let startTime = new Date(response.startTime);
-                    let endTime = new Date(response?.endTime);
-                        eventInput =  {
-                            title: response.name,
-                            id: response.eventId,
-                            date: response.date,
-                            start: startTime,
-                            end: endTime,
-                        } as EventInput;
-                    }
-                else{
+            let eventInput;
+            if(!response.recurring) {
+                if (!response.allDay) {
+                    eventInput = {
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        start: response.start,
+                        startTime: response.startTime,
+                        endTime: response.endTime,
+                    } as EventInput;
+                } else {
                     eventInput = {
                         backgroundColor: "purple",
-                        title: response.name,
-                        id: response.eventId,
-                        allDay: true,
-                        date: new Date(response.startTime)
+                        title: response.title,
+                        id: response.id.toString(),
+                        description: response.description,
+                        allDay: response.allDay,
+                        start: response.start,
                     } as EventInput;
                 }
-
+            } else {
+                if(response.allDay){
+                    eventInput = {
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        allDay: response.allDay,
+                        rrule: {
+                            freq: response.recFreq,
+                            byweekday: response.daysOfWeek,
+                            dtstart: response.start,
+                            until: response.end,
+                        },
+                    }
+                }else{
+                    let start = new Date(response.start + "T" + response.startTime).toISOString()
+                    let timeDiff = (new Date(response.end + response.endTime)).valueOf() - (new Date(response.start + response.startTime)).valueOf()
+                    eventInput = {
+                        id: response.id.toString(),
+                        title: response.title,
+                        description: response.description,
+                        rrule: {
+                            freq: response.recFreq,
+                            interval: 1,
+                            byweekday: response.daysOfWeek,
+                            dtstart: start,
+                            until: response.end,
+                        },
+                        duration: timeDiff,
+                    }
+                }
+            }
                 
-                events.push(eventInput);
+            events.push(eventInput);
         })
         return events;
     }
@@ -95,11 +123,10 @@ function FacultyViewCalendar(this: any, props: any){
             <div id="calendar">
                 <div id="facultyAddButtons">
                     <Button onClick={() => setCreateMode()}>Create Event</Button>
-                    <Button onClick={() => setOpenMenuItemDialog(true)}>Add Menu Item</Button>
                 </div>                
 
                 <FullCalendar
-                    plugins={[dayGridPlugin]}
+                    plugins={[rrulePlugin, dayGridPlugin]}
                     weekends={true}
                     events={eventInputs}
                     eventClick={((click) =>editedEvent(click))}

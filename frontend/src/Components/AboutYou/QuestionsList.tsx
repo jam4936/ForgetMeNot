@@ -1,4 +1,4 @@
-import { Question } from "../../Models";
+import Question from "../../Models/Question";
 
 export interface IQuestions{
     documents: Question[]
