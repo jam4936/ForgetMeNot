@@ -67,3 +67,8 @@
 .MuiInputBase-input .MuiOutlinedInput-input{
     background-color: white;
 }
+
+.configContainer .MuiButtonBase-root.MuiButton-root.MuiButton-text{
+    background-color: white;
+    color: black;
+}

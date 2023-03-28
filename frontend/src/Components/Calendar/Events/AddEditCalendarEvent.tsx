@@ -1,8 +1,8 @@
 import { EventInput } from "@fullcalendar/core";
 import {  Button, Checkbox, FormControlLabel, IconButton, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { LocalizationProvider, DatePicker, TimePicker } from "@mui/x-date-pickers";
+import {LocalizationProvider, DatePicker, MobileTimePicker} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import React from "react";
 import './EditCalendarEvents.css';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -19,15 +19,15 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
         },
         {
           key: "monday",
-          label: "M"
+          label: "Mo"
         },
         {
           key: "tuesday",
-          label: "T"
+          label: "Tu"
         },
         {
           key: "wednesday",
-          label: "W"
+          label: "We"
         },
         {
           key: "thursday",
@@ -35,7 +35,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
         },
         {
           key: "friday",
-          label: "F"
+          label: "Fr"
         },
         {
           key: "saturday",
@@ -45,21 +45,22 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
       
     constructor(props: any){
         super(props);
-        this.editMode = this.props.eventMode === 'create' ? false : true;
+        this.editMode = this.props.eventMode !== 'create';
             
-        let now = new Date(Date.now());
+        let now = dayjs();
         let nextId = this.generateId();
         this.state = {
-            name: this.editMode ? this.props.editableEvent.name : "Event Name",
-            date: this.editMode ? this.props.editableEvent.startTime : new Date().toISOString(),
+            id: this.editMode ? this.props.editableEvent.id : nextId.toString(),
+            title: this.editMode ? this.props.editableEvent.title : "Event Name",
+            description: this.editMode ? this.props.editableEvent.description : "Event Description",
+            start: this.editMode ? this.props.editableEvent.start : now.format("YYYY-MM-DD"),
+            end: this.editMode ? this.props.editableEvent.end : now.format("YYYY-MM-DD"),
             allDay: this.editMode ? this.props.editableEvent.allDay : false,
-            startTime: this.editMode ? this.props.editableEvent.startTime : now.getTime(),
+            startTime: this.editMode ? this.props.editableEvent.startTime : now.format("HH:mm"),
             endTime: this.editMode ? this.props.editableEvent.endTime : "",
-            id: this.editMode ? this.props.editableEvent.eventId : nextId.toString(),
-            recurring: false,
-            daysRecur: [0] as Number[],
-            recurranceFreq: "daily",
-            monthlyRecFreq: 0,
+            recurring: this.editMode ? this.props.editableEvent.recurring : false,
+            daysOfWeek: this.editMode ? this.props.editableEvent.daysOfWeek : [] as String[],
+            recFreq: this.editMode ? this.props.editableEvent.recFreq : "yearly",
         };
         this.setState.bind(this);
     }
@@ -75,7 +76,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     }
 
     generateId(){
-        let genID = 0;
+        let genID = 1;
         while(this.eventIdExists(genID)){
             genID++;
         }
@@ -83,13 +84,12 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     };
     handleStartTimeChange(newValue : Dayjs | null){
         this.setState(() =>({
-                startTime: newValue?.format("LLL")
+                startTime: newValue?.format("HH:mm")
         }));
     }
     handleEndTimeChange(newValue : Dayjs | null){
         this.setState(() =>({
-                endTime: newValue?.format("LLL")
-            
+                endTime: newValue?.format("HH:mm")
         }));
     }
     handleRecurringEvent(newValue : React.ChangeEvent<HTMLInputElement>){
@@ -97,12 +97,16 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             recurring: newValue.target.checked
         }))
     }
-    handleDateChange(newValue: Dayjs){
+    handleStartChange(newValue: Dayjs){
         this.setState(() =>({
-                date: newValue?.toDate().toDateString()
+                start: newValue?.format("YYYY-MM-DD")
         }));
     };
-
+    handleEndChange(newValue: Dayjs){
+        this.setState(() =>({
+            end: newValue?.format("YYYY-MM-DD")
+        }));
+    };
     handleAllDayChange(event: React.ChangeEvent<HTMLInputElement>){
         this.setState(() =>({
             allDay: event.target.checked
@@ -111,47 +115,82 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
 
     handleDaysRecur(value: any ){
         this.setState(() => ({
-            daysRecur: value
+            daysOfWeek: value
         }))
     }
     handleRecurranceFrequency(val : SelectChangeEvent){
         this.setState(() =>({
-            recurranceFreq : val.target.value
-        }))
-    }
-    handleMonthlyRecurrance(value: React.ChangeEvent<HTMLInputElement>){
-        this.setState(() =>({
-            monthlyRecFreq: value.target.value
+            recFreq : val.target.value
         }))
     }
     async handleSubmit (){
         var valid : boolean =  this.validateFields();
-
         if(valid){
             //all day event
             var event: Events;
-            if(this.state.allDay){
-                event = {
-                    eventId: this.state.id.toString(), 
-                    allDay: this.state.allDay, 
-                    startTime: new Date(this.state.date).toDateString(), 
-                    date: new Date(this.state.date).toLocaleDateString("es-PA"),
-                    name: this.state.name,
-                    description: this.state.description
+            if(!this.state.recurring){
+                if(this.state.allDay){
+                    event = {
+                        id: this.state.id,
+                        title: this.state.title,
+                        description: this.state.description,
+                        start: this.state.start,
+                        end: "",
+                        allDay: true,
+                        startTime: "",
+                        endTime: "",
+                        daysOfWeek: [],
+                        recurring: false,
+                        recFreq: "",
+                    }
+                }
+                else{
+                    event = {
+                        id: this.state.id,
+                        title: this.state.title,
+                        description: this.state.description,
+                        start: this.state.start,
+                        end: "",
+                        allDay: false,
+                        startTime: this.state.startTime,
+                        endTime: this.state.endTime,
+                        daysOfWeek: [],
+                        recurring: false,
+                        recFreq: "",
+                    }
+                }
+            } else {
+                if(this.state.allDay){
+                    event = {
+                        id: this.state.id,
+                        title: this.state.title,
+                        description: this.state.description,
+                        start: this.state.start,
+                        end: this.state.end,
+                        allDay: true,
+                        startTime: "",
+                        endTime: "",
+                        daysOfWeek: this.state.daysOfWeek,
+                        recurring: true,
+                        recFreq: this.state.recFreq,
+                    }
+                }
+                else{
+                    event = {
+                        id: this.state.id,
+                        title: this.state.title,
+                        description: this.state.description,
+                        start: this.state.start,
+                        end: this.state.end,
+                        allDay: false,
+                        startTime: this.state.startTime,
+                        endTime: this.state.endTime,
+                        daysOfWeek: this.state.daysOfWeek,
+                        recurring: true,
+                        recFreq: this.state.recFreq,
+                    }
                 }
             }
-            else{
-                event = {
-                    eventId: this.state.id, 
-                    allDay: this.state.allDay, 
-                    startTime: new Date(this.state.startTime).getTime().toString(), 
-                    date: new Date(this.state.date).toLocaleDateString("es-PA"),
-                    name: this.state.name, 
-                    endTime: new Date(this.state.endTime).toISOString(),
-                    description: this.state.description
-                }
-            }
-
             var callback = false;
             await EventsService.insertEvent(event).then((value) =>{
                 if (value.status == 200 || value.status == 204){
@@ -163,74 +202,31 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
         }
         
     }
-
-    getSpecifyDay() {
-        return (
-            <div>                
-                Every month on the 
-                <TextField 
-                    type="number" 
-                    label="day" 
-                    variant="filled"
-                    InputProps={{ inputProps: { min: 1, max: 5} }} 
-                    disabled={!(this.state.monthlyRecFreq == 0)}/>
-                <Select value="monday">
-                    <MenuItem value="sunday">Sunday</MenuItem>
-                    <MenuItem value="monday">Monday</MenuItem>
-                    <MenuItem value="tuesday">Tuesday</MenuItem>
-                    <MenuItem value="wednesday">Wednesday</MenuItem>
-                    <MenuItem value="thursday">Thursday</MenuItem>
-                    <MenuItem value="friday">Friday</MenuItem>
-                    <MenuItem value="saturday">Saturday</MenuItem>
-                </Select>
-                 of the month.
-            </div>
-        )
-    }
-    getWeekSkip(){
-        return (
-            <div> 
-                Every
-                <TextField 
-                        type="number" 
-                        label="day" 
-                        variant="filled"
-                        InputProps={{ inputProps: { min: 2, max: 10} }} 
-                        disabled={!(this.state.monthlyRecFreq == 0)}/>
-                <Select value="week">
-                    <MenuItem value="week">week(s)</MenuItem>
-                    <MenuItem value="month">month(s)</MenuItem>
-                </Select>
-            </div>
-        )
-    }
-
-    getSpecifyDate(){
-        
-        return (
-            <div>                
-                Every month on the 
-                <TextField 
-                    variant="filled"
-                    type="number" 
-                    label="Date" 
-                    InputProps={{ inputProps: { min: 1, max: 31} }} 
-                    disabled={!(this.state.monthlyRecFreq == 1)}/>
-                day of the month.
-            </div>
-        )
-    }
-
     
     validateFields() {
-        
-        //all day event
-        if(this.state.name != "" && this.state.allDay && this.state.date != null)
-            return true
-        else if(this.state.name != "" && !this.state.allDay && this.state.startTime &&this.state.endTime)
-            return true;
-        else{
-            return false;
+        if (this.state.end != "" && dayjs(this.state.start) > dayjs(this.state.end)){
+            return false
+        }
+        if(this.state.recurring){
+            //all day event thats recurring
+            if(this.state.title != "" && this.state.allDay && this.state.start != "" && this.state.end != "" && this.state.recFreq != "")
+                return true
+                // timed event thats recurring
+            else if(this.state.title != "" && !this.state.allDay && this.state.startTime != "" && this.state.endTime != "" && this.state.start != "" && this.state.end != "" && this.state.recFreq != "")
+                return true;
+            else{
+                return false;
+            }
+        }else{
+            //all day event that isnt recurring
+            if(this.state.title != "" && this.state.allDay && this.state.start != "" && this.state.end != "")
+                return true
+                // timed event that isnt recurring
+            else if(this.state.title != "" && !this.state.allDay && this.state.startTime != "" && this.state.endTime != "" && this.state.start != "" && this.state.end != "")
+                return true;
+            else{
+                return false;
+            }
         }
     }
     async handleDelete(){
@@ -244,7 +240,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     id="formField"
                     label="Event ID"
                     variant="filled"
-                    value={this.editMode ? this.props.editableEvent.eventId : this.generateId() }
+                    value={this.editMode ? this.props.editableEvent.id : this.generateId() }
                     disabled
                     />
                 <TextField
@@ -252,16 +248,23 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     label="Event Name"
                     type="text"
                     variant="filled"
-                    value={this.state.name}
-                    onChange={(newValue) => {this.setState(() => ({name: newValue.target.value}))}}
+                    value={this.state.title}
+                    onChange={(newValue) => {this.setState(() => ({title: newValue.target.value}))}}
                 />
-                
+                <TextField
+                    id="formField"
+                    label="Event Description"
+                    type="text"
+                    variant="filled"
+                    value={this.state.description}
+                    onChange={(newValue) => {this.setState(() => ({description: newValue.target.value}))}}
+                />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <div id="allDay">
                         <DatePicker
-                            label="Event Date"
-                            value={this.state.date}
-                            onChange={(newValue) => {this.handleDateChange(newValue)}}
+                            label="Event Start Date"
+                            value={this.state.start}
+                            onChange={(newValue) => {this.handleStartChange(newValue)}}
                             renderInput={(params) => <TextField {...params} />}
                         />
                         <FormControlLabel
@@ -273,19 +276,19 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                             label="All Day"
                         /> 
                     </div> 
-                    <TimePicker
+                    <MobileTimePicker
                         renderInput={(params) =>  <TextField {...params} />}
                         disabled={this.state.allDay}
                         label="Event Start Time"
-                        value={this.state.startTime}
+                        value={dayjs(this.state.startTime, "HH:mm")}
                         onChange={(newValue) => {this.handleStartTimeChange(newValue)}}
                         ampm={true}
                         inputFormat="hh:mm A"/>
-                    <TimePicker
+                    <MobileTimePicker
                         renderInput={(params) =>  <TextField {...params} />}
                         label="Event End Time"
                         disabled={this.state.allDay}
-                        value={this.state.endTime}
+                        value={dayjs(this.state.endTime,"HH:mm")}
                         onChange={(newValue) => {this.handleEndTimeChange(newValue)}}
                         ampm={true}
                         inputFormat="hh:mm A"
@@ -300,40 +303,39 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     label="Recurring Event"
                 /> 
                 <div id="recurrance" hidden = {!this.state.recurring}>
-                    <Select 
-                        value={this.state.recurranceFreq}
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            label="Repeat Event Until"
+                            value={this.state.end}
+                            onChange={(newValue) => {this.handleEndChange(newValue)}}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                    <Select
+                        disabled={!this.state.recurring}
+                        hidden={!this.state.recurring}
+                        value={this.state.recFreq}
                         onChange={(val) => this.handleRecurranceFrequency(val)}>
                         <MenuItem value="daily">Daily</MenuItem>
                         <MenuItem value="weekly">Weekly</MenuItem>
                         <MenuItem value="monthly">Monthly</MenuItem>
                         <MenuItem value="yearly">Yearly</MenuItem>
-                        <MenuItem value="custom">Custom</MenuItem>
                     </Select>
 
                     {/* This is for weekly recurring events only */}
                     <ToggleButtonGroup
-                        hidden={!(this.state.recurranceFreq == "weekly")}
+                        hidden={(this.state.recFreq != "weekly")}
                         size="small"
-                        value={this.state.daysRecur}
+                        value={this.state.daysOfWeek}
                         arial-label="Days of the week"
                         onChange={(event, value) => this.handleDaysRecur(value)}
                     >
                         {this.DAYS.map((day, index) => (
-                        <ToggleButton key={day.key} value={index} aria-label={day.key}>
+                        <ToggleButton key={day.key} value={day.label} aria-label={day.key}>
                             {day.label}
                         </ToggleButton>
                         ))}
                     </ToggleButtonGroup>
-                    
-                    <RadioGroup 
-                        id="monthlyRecurrance"
-                        value={this.state.monthlyRecFreq}
-                        hidden={!(this.state.recurranceFreq == "monthly")}
-                        onChange={((value) => this.handleMonthlyRecurrance(value))}
-                        >
-                        <FormControlLabel value="0" control={<Radio />} label={this.getSpecifyDay()}/>
-                        <FormControlLabel value="1" control={<Radio />} label={this.getSpecifyDate()} />
-                    </RadioGroup>
                 </div>
 
 
