@@ -61,9 +61,9 @@ export default function Trait(props: any) {
 
     return (
         <div className="trait" id="trait">
-            <div id="oneTrait">
-                <Checkbox value={1} id={"pre_" + trait.prompt} checked={preState} onClick={async () => await setPreState(!preState)}/><label>1</label>
-                <Checkbox value={2} id={"post_"  + trait.prompt} checked={postState} onClick={ async () => await setPostState(!postState)} /><label>2</label>
+            <div id="oneTrait" data-testid="trait">
+                <Checkbox data-testid="pre_trait" value={1} id={"pre_" + trait.prompt} checked={preState} onClick={async () => await setPreState(!preState)}/><label>1</label>
+                <Checkbox data-testid="post_trait" value={2} id={"post_"  + trait.prompt} checked={postState} onClick={ async () => await setPostState(!postState)} /><label>2</label>
                 <label className="traitPrompt">{trait.prompt}</label>
             </div>
         </div>

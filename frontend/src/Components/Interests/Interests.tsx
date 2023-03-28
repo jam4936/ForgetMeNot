@@ -11,21 +11,24 @@ import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif";
 
-export const Interests = (patient : Patient, allowInput: boolean) => {
-
+function Interests(props: any){
+    const patient = props.patient;
+    const allowInput = props.allowInput;
     const [questions, setQuestions] = useState<Question[]>();
     const [responses, setResponses] = useState<Response[]>();
 
     const initializeResponses = async () => {
-        await GetResponses.initializeResponses(patient.id.toString());
-        setResponses(GetResponses.responses.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-
+        const temp = await GetResponses.initializeResponses(patient.id.toString());
+        temp.sort((a: { id: number; },b: { id: number; }) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+        
+        setResponses(temp);
     }
 
     const initializeQuestions = async () => {
-        await GetQuestions.initializeQuestionsBySection("Interests");
-        setQuestions(GetQuestions.questions.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+        const tempQuestions = await GetQuestions.initializeQuestionsBySection("Interests");
+        tempQuestions.sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
 
+        setQuestions(tempQuestions); 
     }
 
     // only call database once
@@ -137,3 +140,4 @@ export const Interests = (patient : Patient, allowInput: boolean) => {
         )
     }
 }
+export default Interests;
