@@ -37,6 +37,10 @@ function Home() {
             <br></br>
             <a href="/menu">- "/menu</a>
             <br></br>
+            <a href="/facultyLanding">- "/facultyLanding</a>
+            <br></br>
+            <a href="/familyLanding">- "/familyLanding</a>
+            <br></br>
         </h1>
     );
 }
