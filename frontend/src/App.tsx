@@ -45,7 +45,6 @@ function App() {
                 <Route path={'/dailySchedule'} element={<DailySchedule patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/aboutYou'} element={<AboutYou patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/createAccount'} element={<CreateAccount/>}/>
                 <Route path={'/interests'} element={<Interests patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/aboutYourLife'} element={<AboutYourLife patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/uploadMedia'} element={<UploadMedia patient={patient} allowInput={allowInput}/>}/>

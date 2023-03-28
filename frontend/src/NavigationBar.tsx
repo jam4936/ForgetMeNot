@@ -19,6 +19,7 @@ export default function NavigationBar() {
                 <Nav className="mr-auto">
                     <Nav.Link href="project">Project</Nav.Link>
                     <Nav.Link href="visionConcept">Vision Concept</Nav.Link>
+                    <Nav.Link href="dev">Dev</Nav.Link>
                     <NavDropdown title="Components" id="collapsible-nav-dropdown">
                         <NavDropdown.Item href="aboutYou">About You</NavDropdown.Item>
                         <NavDropdown.Item href="aboutYourLife">About Your Life</NavDropdown.Item>
@@ -26,11 +27,15 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="dailySchedule">Daily Schedule</NavDropdown.Item>
                         <NavDropdown.Item href="uploadMedia">Upload Media</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
                         <NavDropdown.Item href="familyForm"> Family Form </NavDropdown.Item>
                         <NavDropdown.Item href="patientInfo"> Patient Information </NavDropdown.Item>
+                        <NavDropdown.Item href="patientProfile"> Patient Profile </NavDropdown.Item>
                         <NavDropdown.Item href="questionControl"> Question Control </NavDropdown.Item>
-                        <NavDropdown.Item href="dev"> Dev </NavDropdown.Item>
+                        <NavDropdown.Item href="mediaFeed"> Media Feed </NavDropdown.Item>
+                        <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
+                        <NavDropdown.Item href="patientCalendar"> Patient Calendar </NavDropdown.Item>
+                        <NavDropdown.Item href="facultyCalendar"> Faculty Calendar </NavDropdown.Item>
+                        <NavDropdown.Item href="menu"> Menu </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 <Nav>

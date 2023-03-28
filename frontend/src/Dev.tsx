@@ -31,6 +31,16 @@ function Dev() {
             <br></br>
                 <a href="/questionControl">- "/questionControl</a>
             <br></br>
+                <a href="/mediaFeed">- "/mediaFeed</a>
+            <br></br>
+                <a href="/configs">- "/configs</a>
+            <br></br>
+                <a href="/patientCalendar">- "/patientCalendar</a>
+            <br></br>
+                <a href="/facultyCalendar">- "/facultyCalendar</a>
+            <br></br>
+                <a href="/menu">- "/menu</a>
+            <br></br>
         </h1>
     );
 }
