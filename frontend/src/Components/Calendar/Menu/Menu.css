@@ -1,0 +1,17 @@
+
+#menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#meal{
+    margin: 1rem;
+}
+Button#add{
+    width: 100%;
+    margin-top: 1rem;
+}
+#form{
+    display: inline-flex;
+    flex-direction: column;
+}
