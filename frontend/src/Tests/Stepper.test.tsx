@@ -5,7 +5,7 @@ import AccordionStepper from '../Components/UploadPortalStepper/AccordionStepper
 import Patient from '../Models/Patient';
 import GetQuestions from '../Services/GetQuestions';
 import UploadResponseService from '../Services/UploadResponseService';
-import { when } from 'jest-when';
+// import { when } from 'jest-when';
 import GetResponses from '../Services/GetResponses';
 import AboutYou from '../Components/AboutYou/AboutYou';
 

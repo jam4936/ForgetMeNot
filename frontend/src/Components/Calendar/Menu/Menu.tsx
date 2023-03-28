@@ -3,8 +3,7 @@ import { Button, Card, CardActionArea, CardActions, CardContent, Dialog, DialogC
 import React, { useState } from "react";
 import MenuItems from "../../../Models/MenuItem";
 import MenuItemService from "../../../Services/MenuItemService";
-
-import spinner from "../../../Images/loadingspinner.gif"
+import spinner from "../../../Assets/loadingspinner.gif"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import "./Menu.css";

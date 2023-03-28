@@ -10,7 +10,7 @@ import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
-import spinner from "../../Images/loadingspinner.gif"
+import spinner from "../../Assets/loadingspinner.gif"
 function AboutYou(props: any) {
     const patient = props.patient;
     const allowInput = props.allowInput;

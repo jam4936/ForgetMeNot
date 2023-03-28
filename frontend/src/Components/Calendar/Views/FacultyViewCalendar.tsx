@@ -3,7 +3,7 @@ import Events from '../../../Models/Events';
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import spinner from "../../../Images/loadingspinner.gif";
+import spinner from "../../../Assets/loadingspinner.gif";
 import CloseIcon from '@mui/icons-material/Close';
 import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';

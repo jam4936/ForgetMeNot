@@ -4,7 +4,7 @@ import DynamoResponse from "../../../Models/DynamoResponseResult";
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import spinner from "../../../Images/loadingspinner.gif";
+import spinner from "../../../Assets/loadingspinner.gif";
 import { EventInput } from '@fullcalendar/core';
  import '../Calendar.css';
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
