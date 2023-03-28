@@ -123,7 +123,6 @@ function FacultyViewCalendar(this: any, props: any){
             <div id="calendar">
                 <div id="facultyAddButtons">
                     <Button onClick={() => setCreateMode()}>Create Event</Button>
-                    <Button onClick={() => setOpenMenuItemDialog(true)}>Add Menu Item</Button>
                 </div>                
 
                 <FullCalendar
