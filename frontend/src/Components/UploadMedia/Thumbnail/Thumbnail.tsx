@@ -55,7 +55,15 @@ class Thumbnail extends React.Component <any, any>{
                         <Modal.Title>Edit Description</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.media.url} height="200" alt="upload" id="image" />
+                        <div className="image">
+                            {this.props.isVideo ? (
+                                <video height="200" controls>
+                                    <source src={this.props.media.url} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img src={this.props.media.url} height="200" alt="upload"/>
+                            )}
+                        </div>
                         <form>
                             <div className="form-group">
                                 <label htmlFor="recipient-name" className="col-form-label">Is there anyone significant in this photo?</label>
