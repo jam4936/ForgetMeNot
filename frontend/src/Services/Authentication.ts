@@ -31,6 +31,8 @@ const userPool = new CognitoUserPool(poolData);
 function isAuthenticated() {
     const cognitoUser = userPool.getCurrentUser();
 
+    console.log(cognitoUser)
+
     let isSessionValid = false;
 
     if (cognitoUser) {
@@ -68,6 +70,7 @@ function login(username: string, password: string){
                         .getJwtToken(),
                 },
             });
+            console.log(result.getIdToken())
             console.log('Successfully logged in!')
             window.location.href='/'
         }, onFailure: function (err) {
