@@ -21,6 +21,7 @@ import {Configs} from "./Components/Configs/Configs";
 import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 import Menu from './Components/Calendar/Menu/Menu';
+import FacultyUpload from "./Components/UploadMedia/FacultyUpload";
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
                 <Route path={'/configs'} element={<Configs/>}/>
                 <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
                 <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>
+                <Route path={'/facultyUpload'} element={<FacultyUpload />}/>
                 <Route path={'/menu'} element={<Menu/>}/>
             </Routes>
         </Router>

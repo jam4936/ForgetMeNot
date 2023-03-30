@@ -35,6 +35,8 @@ function Home() {
             <br></br>
             <a href="/facultyCalendar">- "/facultyCalendar</a>
             <br></br>
+            <a href="/facultyUpload">- "/facultyUpload</a>
+            <br></br>
             <a href="/menu">- "/menu</a>
             <br></br>
         </h1>

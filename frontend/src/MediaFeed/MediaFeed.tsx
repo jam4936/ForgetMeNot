@@ -31,7 +31,7 @@ export default function MediaFeed() {
     let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
-    let startTime = 16;
+    let startTime = 8;
     let stopTime = 20;
 
     const navigateToPatientProfile = (patient : Patient) => {
