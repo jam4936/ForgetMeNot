@@ -7,8 +7,8 @@ import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
 
 import spinner from "../../Assets/loadingspinner.gif";
-import {ColorRing} from 'react-loader-spinner';
-import {IconButton, Tooltip} from "@mui/material";
+import {Puff} from 'react-loader-spinner';
+import {Dialog, IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 
@@ -44,7 +44,9 @@ function UploadMedia(props: any) {
 
 
     const deleteCallback = async (id: string) =>{
+        setMediaLoading(true);
             await initializeMedia();
+            setMediaLoading(false);
     }
 
     const initializeMedia = async () => {
@@ -78,7 +80,15 @@ function UploadMedia(props: any) {
         )
     }else {
         return (
-            <div id="mediaUpload">
+            <div>
+
+            <Dialog open={mediaLoading} id="loadingScreenDialog">
+                <Puff   height="80"
+                        width="80"
+                        radius={1}
+                        color="#EFF1FB" visible={mediaLoading} />
+            </Dialog>
+            <div id="mediaUpload" hidden={mediaLoading}>
                 <section className="mediaUploadSection">
                     <div id="sectionTitle">
                         <div>
@@ -112,7 +122,7 @@ function UploadMedia(props: any) {
                     </div>
                 </section>
                 <section className="mediaUploadSection">
-                <ColorRing colors={["#00BFFF", "balck", "purple", "blue", "green"]} height={80} width={80} visible={mediaLoading} />
+                
                 <div hidden={mediaLoading}>
                     <div id="sectionTitle">
                         <div>
@@ -154,6 +164,7 @@ function UploadMedia(props: any) {
                 </div>
                     
                 </section>
+            </div>
             </div>
         )
     }
