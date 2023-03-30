@@ -15,13 +15,8 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 function UploadMedia(props: any) {
     let patient = props.patient;
     let allowInput = props.allowInput;
+
     const [mediaFiles, setMedia] = useState<Media[]>();
-    // only call database once
-    // const [dataLoaded, setDataLoaded] = useState<boolean>(false);
-// export const UploadMedia = (patient : Patient, allowInput: boolean) => {
-//     const [mediaFiles, setMedia] = useState<Media[]>();
-    const [images, setImages] = useState([] as any);
-    // only call database once
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [mediaLoading, setMediaLoading] = useState(false);
 
@@ -38,10 +33,9 @@ function UploadMedia(props: any) {
         setDataLoaded(true);
     }
 
-    async function onImageChange(e: any) {
-       uploadMediaFile(e.target.files);
+    async function onImageChange(e: any, isGreeting?: boolean) {
+       uploadMediaFile(e.target.files, isGreeting);
     }
-
 
     const deleteCallback = async (id: string) =>{
         setMediaLoading(true);
@@ -54,10 +48,10 @@ function UploadMedia(props: any) {
         setMedia(GetMedia.mediaMetadata);
     }
 
-    const uploadMediaFile = async (file : File[]) =>{
+    const uploadMediaFile = async (file : File[], isGreeting?: boolean) =>{
         setMediaLoading(true);
         for(let i = 0; i < file.length; i++){
-            await UploadMediaService.uploadMedia(patient.id.toString(), file[i]);
+            await UploadMediaService.uploadMedia(patient.id.toString(), file[i], isGreeting);
         }
         await initializeMedia();
         setMediaLoading(false)
@@ -66,9 +60,6 @@ function UploadMedia(props: any) {
     if(!dataLoaded){
         initializeData();
     }
-
-
-
 
     if(!dataLoaded){
         return (
@@ -104,8 +95,12 @@ function UploadMedia(props: any) {
                         </div>
                     </div>
                     <div className="imageGrid">
-
-
+                        {mediaFiles?.map((element) => {
+                            const re = /(?:\.([^.]+))?$/;
+                            if (re.exec(element.objectKey)![1] === "mp4" && element.isGreeting) {
+                                return <Thumbnail media={element} isVideo={true} callback={deleteCallback}></Thumbnail>
+                            }
+                        })}
                     </div>
 
                     <br/>
@@ -113,11 +108,11 @@ function UploadMedia(props: any) {
                     <div>
                         <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
                         <input
-                            type="file" multiple
-                            accept="image/*,video/mp4,video/x-m4v,video/*"
+                            type="file"
+                            accept="video/mp4,video/x-m4v,video/*"
                             style={{display: 'none'}}
                             id="file-input"
-                            onChange={onImageChange}
+                            onChange={async (e) => await onImageChange(e,true)}
                         />
                     </div>
                 </section>
@@ -140,11 +135,12 @@ function UploadMedia(props: any) {
                     <div className="imageGrid">
                         {mediaFiles?.map((element) => {
                             const re = /(?:\.([^.]+))?$/;
-                            if (re.exec(element.objectKey)![1] === "mp4") {
-                                console.log(element.url)
-                                return <Thumbnail media={element} isVideo={true} callback={deleteCallback}></Thumbnail>
-                            } else {
-                                return <Thumbnail media={element} isVideo={false} callback={deleteCallback}></Thumbnail>
+                            if (!element.isGreeting){
+                                if (re.exec(element.objectKey)![1] === "mp4") {
+                                    return <Thumbnail media={element} isVideo={true} callback={deleteCallback}></Thumbnail>
+                                } else {
+                                    return <Thumbnail media={element} isVideo={false} callback={deleteCallback}></Thumbnail>
+                                }
                             }
                         })}
                     </div>

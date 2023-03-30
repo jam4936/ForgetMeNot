@@ -4,5 +4,5 @@ export default interface Media{
     id: string
     patientID: number
     url: string
-
+    isGreeting?: boolean
 }
