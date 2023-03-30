@@ -5,7 +5,7 @@ export function isLoggedIn(){
 }
 
 export function isFamily(){
-    if(window.sessionStorage.getItem('role') == 'family'){
+    if(window.sessionStorage.getItem('role') == 'family'|| window.sessionStorage.getItem('role') == 'admin'){
         return false
     }
     else{
@@ -14,7 +14,7 @@ export function isFamily(){
 }
 
 export function isFacility(){
-    if(window.sessionStorage.getItem('role') == 'facility'){
+    if(window.sessionStorage.getItem('role') == 'facility' || window.sessionStorage.getItem('role') == 'admin'){
         return false
     }
     else{
