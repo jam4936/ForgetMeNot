@@ -1,6 +1,6 @@
 import "./NavigationBar.css"
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import {isAuthenticated} from "./Services/Authentication";
+import {isAuthenticated, logout} from "./Services/Authentication";
 
 export default function NavigationBar() {
     return (
@@ -40,7 +40,7 @@ export default function NavigationBar() {
                     </NavDropdown>
                 </Nav>
                 <Nav>
-                    {isAuthenticated() ? (<Nav.Link href="/">Login</Nav.Link>):(<Nav.Link href="login">Login</Nav.Link>)}
+                    {isAuthenticated() ? (<Nav.Link href="/" onClick={logout}>Logout</Nav.Link>):(<Nav.Link href="login">Login</Nav.Link>)}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

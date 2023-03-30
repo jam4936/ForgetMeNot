@@ -70,7 +70,6 @@ function login(username: string, password: string){
                         .getJwtToken(),
                 },
             });
-            console.log(result.getIdToken())
             console.log('Successfully logged in!')
             window.location.href='/'
         }, onFailure: function (err) {

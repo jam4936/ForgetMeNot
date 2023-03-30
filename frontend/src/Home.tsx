@@ -1,5 +1,6 @@
 import * as React from 'react';
 import "./Home.css"
+import {isAuthenticated} from "./Services/Authentication";
 
 function Home() {
 
@@ -7,7 +8,6 @@ function Home() {
         <div className="landing">
             <div className={"leftWindow"}>
                 <div className={"Item1"}>
-                    <button onClick={() => {console.log()}}>Tester</button>
                     <img
                         src="https://cdn.pixabay.com/photo/2017/12/02/16/52/drawing-2993282_960_720.png"
                         width="120"
