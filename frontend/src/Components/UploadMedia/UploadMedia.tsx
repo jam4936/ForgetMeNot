@@ -47,9 +47,9 @@ function UploadMedia(props: any) {
 
     const deleteCallback = async (id: string, isGreeting?: boolean) =>{
         setMediaLoading(true);
-            await initializeMedia();
-            setMediaLoading(false);
-            if(isGreeting){setIsGreetingUploaded(false)}
+        await initializeMedia();
+        setMediaLoading(false);
+        if(isGreeting){setIsGreetingUploaded(false)}
     }
 
     const initializeMedia = async () => {
@@ -84,7 +84,7 @@ function UploadMedia(props: any) {
         return (
             <div>
 
-            <Dialog open={mediaLoading} id="loadingScreenDialog">
+            <Dialog disableScrollLock={true} open={mediaLoading} id="loadingScreenDialog">
                 <Puff   height="80"
                         width="80"
                         radius={1}
