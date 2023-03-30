@@ -17,7 +17,24 @@ const Item = styled(Card)(({ theme }) => ({
   }));
 function FacultyLanding(props: any){
 
-    const questionControl = () =>{
+    const getAdminFuncs = () =>{
+        let test = false;
+        if(test){
+            return(
+                <Grid item xs={4}>
+                    <Link to="/configs">
+                        <Item id="actionItem">
+                            <Typography variant="subtitle1">Configs</Typography>
+                            <QuizTwoToneIcon id="icon"/>
+                        </Item>                                    
+                    </Link>
+                </Grid>
+            )
+        }
+        else{
+            return;
+        }
+        
     }
     return (
         <div id="landing">
@@ -52,6 +69,7 @@ function FacultyLanding(props: any){
                                 </Link>
                                 
                             </Grid>
+                            {getAdminFuncs()}
                             <Grid item xs={4}>
                                 <Link to="/questionControl">
                                     <Item id="actionItem">
@@ -59,8 +77,17 @@ function FacultyLanding(props: any){
                                         <QuizTwoToneIcon id="icon"/>
                                     </Item>                                    
                                 </Link>
-
                             </Grid>
+                            <Grid item xs={4}>
+                                {/* fix route */}
+                                <Link to="/someFunRoute">
+                                    <Item id="actionItem">
+                                        <Typography variant="subtitle1">Upload Orientation Video</Typography>
+                                        <QuizTwoToneIcon id="icon"/>
+                                    </Item>                                    
+                                </Link>
+                            </Grid>
+                            
                         </Grid>
                     </Box>                   
                 </CardContent>
