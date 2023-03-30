@@ -19,6 +19,7 @@ function UploadMedia(props: any) {
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [mediaLoading, setMediaLoading] = useState(false);
+    const [isGreetingUploaded, setIsGreetingUploaded] = useState(false);
 
     const openFileUpload = () => {
         const input = document.getElementById('file-input');
@@ -46,6 +47,7 @@ function UploadMedia(props: any) {
     const initializeMedia = async () => {
         await GetMedia.initializeMedia(patient.id.toString());
         setMedia(GetMedia.mediaMetadata);
+        setIsGreetingUploaded(GetMedia.greetingUploaded);
     }
 
     const uploadMediaFile = async (file : File[], isGreeting?: boolean) =>{
@@ -105,16 +107,20 @@ function UploadMedia(props: any) {
 
                     <br/>
 
-                    <div>
-                        <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
-                        <input
-                            type="file"
-                            accept="video/mp4,video/x-m4v,video/*"
-                            style={{display: 'none'}}
-                            id="file-input"
-                            onChange={async (e) => await onImageChange(e,true)}
-                        />
-                    </div>
+
+                    {!isGreetingUploaded ? (
+                            <div>
+                                <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
+                                <input
+                                    type="file"
+                                    accept="video/mp4,video/x-m4v,video/*"
+                                    style={{display: 'none'}}
+                                    id="file-input"
+                                    onChange={async (e) => await onImageChange(e,true)}
+                                />
+                            </div>
+                        ): (<></>)}
+
                 </section>
                 <section className="mediaUploadSection">
                 

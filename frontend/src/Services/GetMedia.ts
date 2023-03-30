@@ -3,6 +3,7 @@ import Media from "../Models/Media";
 
 const GetMedia = {
     mediaMetadata : [] as Media[],
+    greetingUploaded: false as boolean,
 
     getMediaFile : async function(objectKey: String, patientID: String) {
         const signedUrlOptions = {
@@ -33,6 +34,9 @@ const GetMedia = {
 
         for (let i = 0; i < this.mediaMetadata.length; i++) {
             this.mediaMetadata[i].url = await this.getMediaFile(this.mediaMetadata[i].objectKey,patient);
+            if(this.mediaMetadata[i].isGreeting){
+                this.greetingUploaded = true;
+            }
         }
     }
 };

@@ -34,11 +34,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px dotted black;
+    border: 1px black;
     border-radius: 20px;
     width: 10rem;
-    height: 7rem;
+    height: 6rem;
     font-size: large;
+    background-color: #8D9BE2;
 }
 
 .uploadButton:hover{
