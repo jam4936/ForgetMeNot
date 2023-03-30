@@ -11,6 +11,8 @@ import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
 import spinner from "../../Assets/loadingspinner.gif"
+import {Puff} from 'react-loader-spinner';
+import {Dialog} from "@mui/material";
 function AboutYou(props: any) {
     const patient = props.patient;
     const allowInput = props.allowInput;
@@ -145,21 +147,29 @@ function AboutYou(props: any) {
     if(!dataLoaded) {
         return (
             <div data-testid="loading-screen">
-                <img id="spinner" src={spinner} alt="loading..."/>
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }else{
         return (
             <div>
-                <div  id="aboutYou">
-                    <form className="AboutYou" data-testid="testAboutYou">
-                        {questions?.map((element: Question) =>{
-                            return makeQuestionComponent(element)
-                        })}
-                        <PersonalityTraits traits={personalityTraits} responses={personalityResponses}></PersonalityTraits>
-                    </form>
+                <div hidden={!dataLoaded}>
+                    <div  id="aboutYou">
+                        <form className="AboutYou" data-testid="testAboutYou">
+                            {questions?.map((element: Question) =>{
+                                return makeQuestionComponent(element)
+                            })}
+                            <PersonalityTraits traits={personalityTraits} responses={personalityResponses}></PersonalityTraits>
+                        </form>
+                    </div>
                 </div>
             </div>
+
         )
     }
 }
