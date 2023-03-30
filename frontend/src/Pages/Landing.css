@@ -1,0 +1,16 @@
+#landing{
+    margin: 1rem;
+}
+
+#icon{
+    height: 5rem;
+    width: 5rem;
+}
+
+#actionItem{
+    background-color: #8D9BE2; 
+    border-radius: 15px;
+}
+#card {
+    background-color: #EFF1FB;
+}
