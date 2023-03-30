@@ -153,9 +153,9 @@ export default function MediaFeed() {
                             <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
                                 <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
                             </IconButton>
-                            <Vision {...temp} {...{showVision:false}}  />
+                            <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
+                                {!!! state && currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
