@@ -28,6 +28,13 @@ function UploadMedia(props: any) {
         }
     };
 
+    const openMediaFileUpload = () => {
+        const input = document.getElementById('media-input');
+        if (input) {
+            input.click();
+        }
+    };
+
     const initializeData = async() => {
         //initializes the questions
         await initializeMedia();
@@ -38,10 +45,11 @@ function UploadMedia(props: any) {
        uploadMediaFile(e.target.files, isGreeting);
     }
 
-    const deleteCallback = async (id: string) =>{
+    const deleteCallback = async (id: string, isGreeting?: boolean) =>{
         setMediaLoading(true);
             await initializeMedia();
             setMediaLoading(false);
+            if(isGreeting){setIsGreetingUploaded(false)}
     }
 
     const initializeMedia = async () => {
@@ -52,6 +60,7 @@ function UploadMedia(props: any) {
 
     const uploadMediaFile = async (file : File[], isGreeting?: boolean) =>{
         setMediaLoading(true);
+        console.log("attempting to upload")
         for(let i = 0; i < file.length; i++){
             await UploadMediaService.uploadMedia(patient.id.toString(), file[i], isGreeting);
         }
@@ -107,19 +116,16 @@ function UploadMedia(props: any) {
 
                     <br/>
 
-
-                    {!isGreetingUploaded ? (
-                            <div>
-                                <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
-                                <input
-                                    type="file"
-                                    accept="video/mp4,video/x-m4v,video/*"
-                                    style={{display: 'none'}}
-                                    id="file-input"
-                                    onChange={async (e) => await onImageChange(e,true)}
-                                />
-                            </div>
-                        ): (<></>)}
+                    <div hidden={isGreetingUploaded}>
+                        <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
+                        <input
+                            type="file"
+                            accept="video/mp4,video/x-m4v,video/*"
+                            style={{display: 'none'}}
+                            id="file-input"
+                            onChange={async (e) => await onImageChange(e,true)}
+                        />
+                    </div>
 
                 </section>
                 <section className="mediaUploadSection">
@@ -154,13 +160,13 @@ function UploadMedia(props: any) {
                     <br/>
 
                     <div>
-                        <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Images</button>
+                        <button type="button" className="uploadButton" onClick={openMediaFileUpload}>+ Add Images</button>
                         <input
                             type="file" multiple
                             accept="image/*,video/mp4,video/x-m4v,video/*"
                             style={{display: 'none'}}
-                            id="file-input"
-                            onChange={async () => await onImageChange}
+                            id="media-input"
+                            onChange={async (e) => await onImageChange(e,false)}
                         />
                     </div>
                 </div>

@@ -5,4 +5,5 @@ export default interface Media{
     patientID: number
     url: string
     isGreeting?: boolean
+    isOrientation?: boolean
 }

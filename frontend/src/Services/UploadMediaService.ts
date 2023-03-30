@@ -2,7 +2,7 @@ import uuid from 'react-uuid';
 
 const UploadMediaService = {
 
-    uploadMedia : async function(patient: String, objectKey: File, isGreeting?: boolean) {
+    uploadMedia : async function(patient: String, objectKey: File, isGreeting?: boolean, isOrientation?: boolean) {
         const signedUrlOptions = {
             method: 'POST',
             headers: {'content-type': 'application/json'},
@@ -30,7 +30,8 @@ const UploadMediaService = {
                 'id': uuid(),
                 'objectKey': objectKey.name,
                 'patientID': Number(patient),
-                'isGreeting': isGreeting
+                'isGreeting': isGreeting,
+                'isOrientation': isOrientation
             }),};
 
         await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/media', databaseUploadOptions).catch((error) => {
