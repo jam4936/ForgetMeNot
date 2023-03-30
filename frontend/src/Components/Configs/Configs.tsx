@@ -5,8 +5,9 @@ import './Configs.css'
 import spinner from "../../Assets/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
-import {MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+import {Dialog, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
+import { Puff } from "react-loader-spinner";
 
 export const Configs = () => {
 
@@ -50,7 +51,12 @@ export const Configs = () => {
             <div id="configs">
                 <h1>Manage the Vision Configs:</h1>
                 <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
                 </div>
             </div>
         )

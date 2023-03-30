@@ -10,6 +10,7 @@ import "./Menu.css";
 import AddIcon from '@mui/icons-material/Add';
 import AddEditMenuItem from "./AddEditMenuItem";
 import CloseIcon from '@mui/icons-material/Close';
+import { Puff } from "react-loader-spinner";
 
 function Menu(props: any){
     const [existingMenuItems, setExistingMenuItems] = useState([] as MenuItems[]);
@@ -67,7 +68,12 @@ function Menu(props: any){
     if(!dataLoaded) {
         return (
             <div data-testid="loading-screen">
-                <img id="spinner" src={spinner} alt="loading..."/>
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }else{

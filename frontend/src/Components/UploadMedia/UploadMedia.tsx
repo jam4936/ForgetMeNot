@@ -75,9 +75,12 @@ function UploadMedia(props: any) {
     if(!dataLoaded){
         return (
             <div id="mediaUpload">
-                <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
-                </div>
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }else {

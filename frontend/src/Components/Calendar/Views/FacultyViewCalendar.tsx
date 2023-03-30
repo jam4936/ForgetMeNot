@@ -10,6 +10,7 @@ import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
 import MenuItemDialog from '../Menu/Menu';
+import { Puff } from 'react-loader-spinner';
 
 function FacultyViewCalendar(this: any, props: any){
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -86,7 +87,12 @@ function FacultyViewCalendar(this: any, props: any){
     if(!dataLoaded){
      return (
         <div>
-            <img id="spinner" src={spinner} alt="loading..." />
+            <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+            </Dialog>
         </div>
         )
     }

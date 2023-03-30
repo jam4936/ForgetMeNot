@@ -6,7 +6,6 @@ import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
 
-import spinner from "../../Assets/loadingspinner.gif";
 import {Puff} from 'react-loader-spinner';
 import {Dialog, IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
@@ -65,7 +64,12 @@ function FacultyUpload(props: any) {
         return (
             <div id="mediaUpload">
                 <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
                 </div>
             </div>
         )

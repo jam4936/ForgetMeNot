@@ -5,7 +5,6 @@ import "./MediaFeed.css";
 import Media from "../Models/Media";
 import Vision from "../Vision/Vision";
 import Weather from "../Components/Weather/Weather"
-import spinner from "../Assets/loadingspinner.gif";
 import GetMedia from "../Services/GetMedia";
 import Patient from "../Models/Patient";
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
@@ -14,6 +13,8 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
+import { Dialog } from "@mui/material";
+import { Puff } from "react-loader-spinner";
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -191,7 +192,12 @@ export default function MediaFeed() {
     }else{
         return (
             <div>
-                <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }
