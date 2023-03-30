@@ -23,13 +23,14 @@ export default function MediaFeed() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
-
+    //let state = useState(false)
+    const [state, setState] = useState<boolean>(false);
     const [mediaFiles, setMedia] = useState<Media[] | undefined>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [showWeather, setShowWeather] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState(new Date());
 
-    let state = false;
+    //let state = false;
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
     let startTime = 8;
@@ -53,12 +54,12 @@ export default function MediaFeed() {
 
     const updateState = (val:boolean)=>{
         // eslint-disable-next-line react/no-direct-mutation-state
-        state=val
+        setState(val)
         console.log("Horayy: ", val )
     }
 
     function isVisible(index:number){
-        if(state){
+        if(!state){
             console.log('something should be off')
             return false
 
@@ -155,7 +156,7 @@ export default function MediaFeed() {
                             </IconButton>
                             <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {!!! state && currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
+                                {!!state && currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
