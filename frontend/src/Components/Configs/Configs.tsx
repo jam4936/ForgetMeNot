@@ -10,9 +10,11 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
 import dayjs from 'dayjs';
 import IconButton from "@mui/material/IconButton";
+import {redirectAdmin} from "../../Services/getRole";
 
 export const Configs = () => {
 
+    redirectAdmin()
     const [glanceSensitivity, setGlanceSensitivity] = useState<number>(19);
     const [glancePatience, setGlancePatience] = useState<number>(1);
     const [glanceStartTime, setGlanceStartTime] = useState<string>("08:00 AM");

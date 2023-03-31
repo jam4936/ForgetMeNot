@@ -5,7 +5,9 @@ import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
+import {redirectLoggedIn} from "../../Services/getRole";
 function UploadMedia(props: any) {
+    redirectLoggedIn()
     let patient = props.patient;
     let allowInput = props.allowInput;
     const [mediaFiles, setMedia] = useState<Media[]>();

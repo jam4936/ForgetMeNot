@@ -1,6 +1,8 @@
 import React from 'react';
+import { redirectAdmin } from "./Services/getRole";
 
 function Dev() {
+    redirectAdmin()
     return (
         <h1>
             This is the dev page!

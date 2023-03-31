@@ -8,8 +8,11 @@ import EditQuestion from "./Buttons/EditQuestion";
 import DeleteQuestion from "./Buttons/DeleteQuestion";
 import {TextField} from "@mui/material";
 import AddQuestion from "./Buttons/AddQuestion";
+import {redirectAdmin} from "../../Services/getRole";
 
 export const QuestionControl = () => {
+
+    redirectAdmin()
 
     const [questions, setQuestions] = useState<Question[]>();
 

@@ -4,9 +4,11 @@ import {Modal} from 'react-bootstrap';
 import {MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 import Question from "../../../Models/Question";
 import PutQuestions from "../../../Services/PutQuestions";
+import {redirectAdmin} from "../../../Services/getRole";
 
 class EditQuestion extends React.Component <any, any>{
     constructor(props: any){
+        redirectAdmin()
         super(props)
         this.state={
             show:false,

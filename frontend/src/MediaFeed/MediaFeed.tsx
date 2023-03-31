@@ -11,8 +11,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GetMedia from "../Services/GetMedia";
 import spinner from "../Images/loadingspinner.gif";
 import Media from "../Models/Media";
+import {redirectLoggedIn} from "../Services/getRole";
 
 export default function MediaFeed() {
+    redirectLoggedIn()
     const location = useLocation();
     const navigate = useNavigate()
     const handle = useFullScreenHandle();

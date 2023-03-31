@@ -5,9 +5,10 @@ import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {redirectFacility} from "../../../Services/getRole";
 
 export const PatientCard = (patient : Patient, onclick : MouseEventHandler) => {
-
+    redirectFacility()
     const initials = patient.firstName.charAt(0) + patient.lastName.charAt(0);
 
     const fullName = patient.firstName + " " + patient.lastName;

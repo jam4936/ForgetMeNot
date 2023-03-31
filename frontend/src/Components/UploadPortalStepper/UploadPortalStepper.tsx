@@ -2,8 +2,10 @@ import React from 'react';
 import AccordionStepper from './AccordionStepper/AccordionStepper';
 import "./UploadPortalStepper.css"
 import Patient from "../../Models/Patient"
+import {redirectLoggedIn} from "../../Services/getRole";
 
 function UploadPortalStepper() {
+    redirectLoggedIn()
 
     // this is used for demonstration
     // Eventually the actual ID and patient info will need to be

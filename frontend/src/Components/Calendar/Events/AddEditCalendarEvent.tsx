@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EventsService from "../../../Services/EventsService";
 import Events from "../../../Models/Events";
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
+import {redirectFacility, redirectLoggedIn} from "../../../Services/getRole";
 
 export default class AddEditCalendarEvent extends React.Component<any, any>{
     editMode: boolean | undefined;
@@ -44,6 +45,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
       ];
       
     constructor(props: any){
+        redirectLoggedIn()
         super(props);
         this.editMode = this.props.eventMode !== 'create';
             

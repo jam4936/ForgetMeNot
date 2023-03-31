@@ -11,9 +11,11 @@ import Button from '@mui/material/Button';
 import AccordionStepper from "../UploadPortalStepper/AccordionStepper/AccordionStepper";
 import {useLocation, useNavigate} from "react-router-dom";
 import Patient from "../../Models/Patient";
+import {redirectFacility, redirectLoggedIn} from "../../Services/getRole";
 
 
 function PatientProfile(){
+    redirectFacility()
 
     const location = useLocation();
     const navigate = useNavigate();

@@ -5,8 +5,10 @@ import GetPatients from "../../Services/GetPatients";
 import {useNavigate} from "react-router-dom";
 import {PatientCard} from "./PatientCard/PatientCard";
 import spinner from "../../Images/loadingspinner.gif";
+import {redirectFacility} from "../../Services/getRole";
 
 export const PatientInfo = () => {
+    redirectFacility()
 
     const navigate = useNavigate();
     const navigateToProfile = (patient : Patient) => {

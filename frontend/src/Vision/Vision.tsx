@@ -5,7 +5,7 @@ import GetVisionConfigs from "../Services/GetVisionConfigs";
 import Config from "../Models/Config";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import { isFamily } from '../Services/getRole';
+import {redirectAdmin, redirectLoggedIn} from '../Services/getRole';
 
 class Vision extends React.Component {
     videoElement: any;
@@ -29,9 +29,7 @@ class Vision extends React.Component {
 
 
     constructor(props: {} | Readonly<{}>){
-        window.sessionStorage.setItem('role','bad role')
-        isFamily()
-
+        redirectLoggedIn()
         super(props)
         this.videoElement = React.createRef();
         this.canvasElement = React.createRef();

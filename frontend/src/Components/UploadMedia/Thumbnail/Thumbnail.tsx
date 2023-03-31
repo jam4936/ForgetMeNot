@@ -2,9 +2,11 @@ import React from "react";
 import './Thumbnail.css';
 import Modal from 'react-bootstrap/Modal';
 import DeleteMedia from "../../../Services/DeleteMedia";
+import {redirectLoggedIn} from "../../../Services/getRole";
 
 class Thumbnail extends React.Component <any, any>{
     constructor(props: any){
+        redirectLoggedIn()
         super(props)
         this.state={
             showImageDetails:false,

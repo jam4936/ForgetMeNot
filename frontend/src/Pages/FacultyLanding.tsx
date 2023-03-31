@@ -5,6 +5,7 @@ import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonth';
 import PersonSearchTwoToneIcon from '@mui/icons-material/PersonSearch';
 import QuizTwoToneIcon from '@mui/icons-material/QuizTwoTone';
 import { Link } from "react-router-dom";
+import { redirectFacility } from "../Services/getRole";
 
 const Item = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -36,6 +37,7 @@ function FacultyLanding(props: any){
         }
         
     }
+    redirectFacility()
     return (
         <div id="landing">
             

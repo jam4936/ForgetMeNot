@@ -62,6 +62,7 @@ function App() {
                 <Route path={'/menu'} element={<Menu/>}/>
                 <Route path={'/facultyLanding'} element={<FacultyLanding/>}/>
                 <Route path={'/familyLanding'} element={<FamilyLanding/>}/>
+                <Route path={'/facilityLanding'} element={<FacultyLanding/>}/>
             </Routes>
         </Router>
   );

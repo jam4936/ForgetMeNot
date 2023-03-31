@@ -3,6 +3,7 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import AddPhotoAlternateTwoToneIcon from '@mui/icons-material/AddPhotoAlternateTwoTone';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
+import { redirectFamily } from "../Services/getRole"
 
 const Item = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,6 +15,7 @@ const Item = styled(Card)(({ theme }) => ({
     height: "10rem",
   }));
 function FamilyLanding(props: any){
+    redirectFamily()
     return (
         <div id="landing">
             

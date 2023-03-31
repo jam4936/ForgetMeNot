@@ -11,7 +11,10 @@ import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
 import spinner from "../../Images/loadingspinner.gif"
+import {redirectLoggedIn} from "../../Services/getRole";
+
 function AboutYou(props: any) {
+    redirectLoggedIn()
     const patient = props.patient;
     const allowInput = props.allowInput;
     
