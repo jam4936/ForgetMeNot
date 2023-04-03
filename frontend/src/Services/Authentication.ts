@@ -2,11 +2,9 @@ import * as AWS from 'aws-sdk/global';
 import {
     AuthenticationDetails,
     CognitoUser,
-    CognitoUserAttribute,
     CognitoUserPool,
     CognitoUserSession
 } from 'amazon-cognito-identity-js';
-import jwt_decode from "jwt-decode";
 
 const poolData = {
     UserPoolId: 'us-east-2_fx7Pj61oL',
@@ -59,6 +57,20 @@ function getRole() {
 
 }
 
+function getToken() {
+    const cognitoUser = userPool.getCurrentUser();
+    let token:String = 'Error: Token Not Found';
+
+    if (cognitoUser) {
+        cognitoUser.getSession(function (error: any, session: CognitoUserSession) {
+            if (!error && session.isValid()){
+                token = session.getIdToken().getJwtToken()
+            }
+        });
+    }
+    return token
+}
+
 function login(username: string, password: string){
     const authenticationDetails = new AuthenticationDetails({
         Username: username,
@@ -85,6 +97,7 @@ function login(username: string, password: string){
             });
             console.log('Successfully logged in!')
             window.location.href='/'
+            console.log(result.getIdToken().getJwtToken())
         }, onFailure: function (err) {
             alert(err.message || JSON.stringify(err));
         }
