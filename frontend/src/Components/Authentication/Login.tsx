@@ -1,9 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
 import "./Authentication.css"
-import Email from "./Email/Email";
-import Password from "./Password/Password";
-import LineSeparator from "./LineSeparator/LineSeparator";
-import GoogleSignIn from "./GoogleSignIn/GoogleSignIn"
 import {login} from "../../Services/Authentication";
 
 function Login() {
@@ -11,7 +7,6 @@ function Login() {
     const [password, setPassword] = useState('');
 
     function handleLogin() {
-        console.log('Hellloooooo')
         login(email, password)
     }
 

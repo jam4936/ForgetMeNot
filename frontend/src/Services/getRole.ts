@@ -1,30 +1,16 @@
-import {isAuthenticated} from "./Authentication";
+import {getRole, isAuthenticated} from "./Authentication";
 
 export function isAdmin(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'admin'){
-            return true
-        }
-    }
-    return false
+    return getRole() == 'admin';
+
 }
 
 export function isFamily(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'family'){
-            return true
-        }
-    }
-    return false
+    return getRole() == 'family';
 }
 
 export function isFacility(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'facility'){
-            return true
-        }
-    }
-    return false
+    return getRole() == 'facility'
 }
 
 export function redirectLoggedIn(){
@@ -37,20 +23,13 @@ export function redirectLoggedIn(){
 }
 
 export function redirectFamily(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'family'|| window.sessionStorage.getItem('role') == 'admin'){
-            return true
-        }
-        else{
-            if(window.sessionStorage.getItem('role') == 'facility'){
-                window.location.href = '/facilityLanding';
-            }
-            else {
-                window.location.href = '/';
-            }
-        }
+    if(getRole() == 'family'|| getRole() == 'admin'){
+        return true
     }
-    else {
+    else if (getRole() == 'facility'){
+        window.location.href = '/facilityLanding';
+    }
+    else{
         window.location.href = '/';
     }
     return false
@@ -58,18 +37,11 @@ export function redirectFamily(){
 }
 
 export function redirectFacility(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'facility'|| window.sessionStorage.getItem('role') == 'admin'){
-            return true
-        }
-        else{
-            if(window.sessionStorage.getItem('role') == 'family'){
-                window.location.href = '/familyLanding';
-            }
-            else {
-                window.location.href = '/';
-            }
-        }
+    if(window.sessionStorage.getItem('role') == 'facility'|| window.sessionStorage.getItem('role') == 'admin'){
+        return true
+    }
+    else if (window.sessionStorage.getItem('role') == 'family'){
+        window.location.href = '/familyLanding';
     }
     else {
         window.location.href = '/';
@@ -78,20 +50,13 @@ export function redirectFacility(){
 }
 
 export function redirectAdmin(){
-    if (isAuthenticated()){
-        if(window.sessionStorage.getItem('role') == 'admin'){
-            return true
-        }
-        else{
-            if(window.sessionStorage.getItem('role') == 'facility'){
-                window.location.href = '/facilityLanding';
-            }else if(window.sessionStorage.getItem('role') == 'family'){
-                window.location.href = '/familyLanding';
-            }
-            else {
-                window.location.href = '/';
-            }
-        }
+    if(window.sessionStorage.getItem('role') == 'admin'){
+        return true
+    }
+    else if (window.sessionStorage.getItem('role') == 'facility'){
+        window.location.href = '/facilityLanding';
+    }else if(window.sessionStorage.getItem('role') == 'family'){
+        window.location.href = '/familyLanding';
     }
     else {
         window.location.href = '/';

@@ -6,6 +6,7 @@ import {
     CognitoUserPool,
     CognitoUserSession
 } from 'amazon-cognito-identity-js';
+import jwt_decode from "jwt-decode";
 
 const poolData = {
     UserPoolId: 'us-east-2_fx7Pj61oL',
@@ -30,20 +31,32 @@ const userPool = new CognitoUserPool(poolData);
 
 function isAuthenticated() {
     const cognitoUser = userPool.getCurrentUser();
-
-    console.log(cognitoUser)
-
-    let isSessionValid = false;
+    let valid_session:boolean = false
 
     if (cognitoUser) {
         cognitoUser.getSession(function (error: any, session: CognitoUserSession) {
             if (!error){
-                isSessionValid = session.isValid();
+                valid_session = session.isValid()
             }
         });
     }
 
-    return isSessionValid;
+    return valid_session
+}
+
+function getRole() {
+    const cognitoUser = userPool.getCurrentUser();
+    let role:String = 'None';
+
+    if (cognitoUser) {
+        cognitoUser.getSession(function (error: any, session: CognitoUserSession) {
+            if (!error && session.isValid()){
+                role = session.getIdToken().payload['cognito:groups']
+            }
+        });
+    }
+    return role
+
 }
 
 function login(username: string, password: string){
@@ -85,4 +98,4 @@ function logout(){
     }
 }
 
-export {login, logout, isAuthenticated}
+export {login, logout, isAuthenticated, getRole}
