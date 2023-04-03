@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
-import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
-
-import spinner from "../../Assets/loadingspinner.gif";
 import {Puff} from 'react-loader-spinner';
 import {Dialog, IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
@@ -14,7 +11,6 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 function UploadMedia(props: any) {
     let patient = props.patient;
-    let allowInput = props.allowInput;
 
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
@@ -45,7 +41,7 @@ function UploadMedia(props: any) {
        uploadMediaFile(e.target.files, isGreeting);
     }
 
-    const deleteCallback = async (id: string, isGreeting?: boolean) =>{
+    const deleteCallback = async (id: string, isGreeting?: boolean, isOrientation?: boolean) =>{
         setMediaLoading(true);
         await initializeMedia();
         setMediaLoading(false);
@@ -53,16 +49,15 @@ function UploadMedia(props: any) {
     }
 
     const initializeMedia = async () => {
-        await GetMedia.initializeMedia(patient.id.toString());
+        await GetMedia.initializeMedia(patient.id.toString(), "patient");
         setMedia(GetMedia.mediaMetadata);
         setIsGreetingUploaded(GetMedia.greetingUploaded);
     }
 
     const uploadMediaFile = async (file : File[], isGreeting?: boolean) =>{
         setMediaLoading(true);
-        console.log("attempting to upload")
         for(let i = 0; i < file.length; i++){
-            await UploadMediaService.uploadMedia(patient.id.toString(), file[i], isGreeting);
+            await UploadMediaService.uploadMedia(patient.id.toString(), "patient", file[i], isGreeting);
         }
         await initializeMedia();
         setMediaLoading(false)

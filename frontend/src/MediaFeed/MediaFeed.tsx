@@ -47,7 +47,7 @@ export default function MediaFeed() {
     };
 
     const initializeMedia = async () => {
-        await GetMedia.initializeMedia(patient.id.toString());
+        await GetMedia.initializeMedia(patient.id.toString(), "patient");
         setMedia(GetMedia.mediaMetadata);
         setDataLoaded(true)
     }

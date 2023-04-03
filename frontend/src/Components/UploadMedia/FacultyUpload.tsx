@@ -1,30 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import './UploadMedia.css';
 import Thumbnail from "./Thumbnail/Thumbnail"
-import Patient from "../../Models/Patient";
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
-
 import {Puff} from 'react-loader-spinner';
 import {Dialog, IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 
-function FacultyUpload(props: any) {
-    let patient = props.patient;
-    let allowInput = props.allowInput;
-
+function FacultyUpload() {
     const [mediaFiles, setMedia] = useState<Media[]>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [mediaLoading, setMediaLoading] = useState(false);
+    const [isOrientationUploaded, setIsOrientationUploaded] = useState(false);
 
-    const openFileUpload = () => {
-        const input = document.getElementById('file-input');
+    const openOrientationUpload = () => {
+        const input = document.getElementById('orientation-input');
         if (input) {
             input.click();
         }
     };
+
+    async function onImageChange(e: any) {
+        uploadMediaFile(e.target.files);
+    }
 
     const initializeData = async() => {
         //initializes the questions
@@ -32,25 +32,23 @@ function FacultyUpload(props: any) {
         setDataLoaded(true);
     }
 
-    async function onImageChange(e: any) {
-        uploadMediaFile(e.target.files);
-    }
-
-    const deleteCallback = async (id: string) =>{
+    const deleteCallback = async (id: string, isGreeting?: boolean, isOrientation?: boolean) =>{
         setMediaLoading(true);
         await initializeMedia();
         setMediaLoading(false);
+        if(isOrientation){setIsOrientationUploaded(false)}
     }
 
     const initializeMedia = async () => {
-        await GetMedia.initializeMedia(patient.id.toString());
+        await GetMedia.initializeMedia("0", "facility");
         setMedia(GetMedia.mediaMetadata);
+        setIsOrientationUploaded(GetMedia.orientationUploaded);
     }
 
     const uploadMediaFile = async (file : File[]) =>{
         setMediaLoading(true);
         for(let i = 0; i < file.length; i++){
-            await UploadMediaService.uploadMedia(patient.id.toString(), file[i], undefined, true);
+            await UploadMediaService.uploadMedia("0", "facility", file[i], undefined, true);
         }
         await initializeMedia();
         setMediaLoading(false)
@@ -77,7 +75,7 @@ function FacultyUpload(props: any) {
         return (
             <div>
 
-                <Dialog open={mediaLoading} id="loadingScreenDialog">
+                <Dialog disableScrollLock={true} open={mediaLoading} id="loadingScreenDialog">
                     <Puff height="80"
                           width="80"
                           radius={1}
@@ -112,14 +110,14 @@ function FacultyUpload(props: any) {
 
                         <br/>
 
-                        <div>
-                            <button type="button" className="uploadButton" onClick={openFileUpload}>+ Add Video</button>
+                        <div hidden={isOrientationUploaded}>
+                            <button type="button" className="uploadButton" onClick={openOrientationUpload}>+ Add Video</button>
                             <input
                                 type="file"
                                 accept="video/mp4,video/x-m4v,video/*"
                                 style={{display: 'none'}}
-                                id="file-input"
-                                onChange={async () => await onImageChange}
+                                id="orientation-input"
+                                onChange={async (e) => await onImageChange(e)}
                             />
                         </div>
                     </section>

@@ -23,7 +23,7 @@ class Thumbnail extends React.Component <any, any>{
     async deleteMedia(){
         await DeleteMedia.deleteMediaById(this.props.media.id);
         this.handleDeleteModal();
-        await this.props.callback(this.props.media.id, this.props.media.isGreeting);
+        await this.props.callback(this.props.media.id, this.props.media.isGreeting, this.props.media.isOrientation);
     }
 
     render() {
