@@ -22,6 +22,7 @@ import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 import Menu from './Components/Calendar/Menu/Menu';
 import FacultyUpload from "./Components/UploadMedia/FacultyUpload";
+import Dev from "./Dev";
 
 function App() {
 
@@ -45,7 +46,6 @@ function App() {
                 <Route path={'/dailySchedule'} element={<DailySchedule patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/aboutYou'} element={<AboutYou patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/createAccount'} element={<CreateAccount/>}/>
                 <Route path={'/interests'} element={<Interests patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/aboutYourLife'} element={<AboutYourLife patient={patient} allowInput={allowInput}/>}/>
                 <Route path={'/uploadMedia'} element={<UploadMedia patient={patient} allowInput={allowInput}/>}/>
@@ -54,6 +54,7 @@ function App() {
                 <Route path={'/patientProfile'} element={<PatientProfile/>}/>
                 <Route path={'/questionControl'} element={<QuestionControl/>}/>
                 <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                <Route path={'/dev'} element={<Dev/>}/>
                 <Route path={'/configs'} element={<Configs/>}/>
                 <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
                 <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>

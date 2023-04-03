@@ -1,0 +1,16 @@
+div.fc-event-title {
+    white-space: normal;
+}
+#calendar{
+    margin: 1rem;
+}
+#facultyAddButtons Button{
+    margin-right: 1rem;
+}
+.fc.fc-daygrid-event{
+    background: #EFF1FB;
+}
+
+#calendar{
+    width: 100%;
+}

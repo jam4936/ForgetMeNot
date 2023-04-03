@@ -7,6 +7,7 @@
     "@date-io/date-fns": "^2.16.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fullcalendar/rrule": "^6.1.4",
     "@fullcalendar/core": "^6.1.4",
     "@fullcalendar/daygrid": "^6.1.4",
     "@fullcalendar/react": "^6.1.4",
@@ -32,16 +33,17 @@
     "jest-when": "^3.5.2",
     "moment": "^2.29.4",
     "node-notifier": "^10.0.1",
-    "react": ">=16.8.0",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-checkbox-group": "^5.0.2",
-    "react-dom": ">=16.8.0",
+    "react-dom": "^18.2.0",
     "react-full-screen": "^1.1.1",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "react-uuid": "^2.0.0",
+    "rrule": "^2.7.2",
     "simple-statistics": "^7.7.6",
     "start": "^5.1.0",
     "ts-node": "^10.9.1",
@@ -73,9 +75,5 @@
       "last 1 safari version"
     ]
   },
-  "type": "module",
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
-  }
+  "type": "module"
 }
