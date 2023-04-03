@@ -37,6 +37,7 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
                         <NavDropdown.Item href="patientCalendar"> Patient Calendar </NavDropdown.Item>
                         <NavDropdown.Item href="facultyCalendar"> Faculty Calendar </NavDropdown.Item>
+                        <NavDropdown.Item href="facultyUpload"> Faculty Upload </NavDropdown.Item>
                         <NavDropdown.Item href="menu"> Menu </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>

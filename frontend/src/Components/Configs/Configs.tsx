@@ -1,13 +1,11 @@
 import React, {useState} from "react";
 import './Configs.css'
-import spinner from "../../Assets/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
-import {MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
 import {MobileTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import {Dialog, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+import {Dialog, MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
 import dayjs from 'dayjs';
 import IconButton from "@mui/material/IconButton";

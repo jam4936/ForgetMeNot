@@ -3,15 +3,12 @@ import Events from '../../../Models/Events';
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import spinner from "../../../Assets/loadingspinner.gif";
 import rrulePlugin from '@fullcalendar/rrule'
-import spinner from "../../../Images/loadingspinner.gif";
 import CloseIcon from '@mui/icons-material/Close';
 import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
-import MenuItemDialog from '../Menu/Menu';
 import { Puff } from 'react-loader-spinner';
 
 function FacultyViewCalendar(this: any, props: any){
