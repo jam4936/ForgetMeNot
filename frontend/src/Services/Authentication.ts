@@ -1,10 +1,5 @@
 import * as AWS from 'aws-sdk/global';
-import {
-    AuthenticationDetails,
-    CognitoUser,
-    CognitoUserPool,
-    CognitoUserSession
-} from 'amazon-cognito-identity-js';
+import {AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession} from 'amazon-cognito-identity-js';
 
 const poolData = {
     UserPoolId: 'us-east-2_fx7Pj61oL',
@@ -26,6 +21,25 @@ const userPool = new CognitoUserPool(poolData);
 //         }
 //     })
 // }
+
+
+function getRequestHeaders(method: string, body:object){
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + getToken());
+
+    if (method.toLowerCase() === 'get' || method.toLowerCase() === 'delete'){
+        return {
+            method: method,
+            headers: myHeaders
+        }
+    } else {
+        return {
+            method: method,
+            headers: myHeaders,
+            body: JSON.stringify(body)
+        }
+    }
+}
 
 function isAuthenticated() {
     const cognitoUser = userPool.getCurrentUser();
@@ -113,4 +127,4 @@ function logout(){
     }
 }
 
-export {login, logout, isAuthenticated, getRole}
+export {login, logout, isAuthenticated, getRole, getToken, getRequestHeaders}

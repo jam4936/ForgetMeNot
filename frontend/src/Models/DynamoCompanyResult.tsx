@@ -1,6 +1,6 @@
 import Company from "./Company";
 
-export default class DynamoCompanyResult {
+export class DynamoCompaniesResult {
 
     Items: Company[];
     Count: number;
@@ -14,5 +14,16 @@ export default class DynamoCompanyResult {
         this.Items = items;
         this.Count = count;
         this.ScannedCount = scannedCount;
+    }
+}
+
+export class DynamoCompanyResult{
+
+    Item: Company;
+
+    constructor(
+        item: Company
+    ) {
+        this.Item = item
     }
 }
