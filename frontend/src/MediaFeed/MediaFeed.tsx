@@ -68,14 +68,7 @@ export default function MediaFeed() {
     }
 
     function isVisible(index:number){
-        if(!state){
-            console.log('something should be off')
-            return false
-
-        }
-        else{
-            return index === currentSlide
-        }
+        return index === currentSlide
     }
 
     const prevSlide = () => {
@@ -83,15 +76,7 @@ export default function MediaFeed() {
     };
 
     const nextSlide = () => {
-        console.log("Next Slide")
-        console.log(currentSlide)
-        if(!state){
-
-        }
-        else{
-            setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
-        }
-
+        setCurrentSlide(currentSlide === feedLength - 1 ? 0 : currentSlide + 1);
     };
 
     const handleSlideCreation = (slide: Media, index: Number) => {
@@ -142,6 +127,9 @@ export default function MediaFeed() {
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
     useEffect(() => {
         let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
+        console.log(feedLength)
+        console.log(currentSlide)
+        console.log(currentMediaFile)
         if (currentMediaFile && showFeed){
             if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
                 let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
