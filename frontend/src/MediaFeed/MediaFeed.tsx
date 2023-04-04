@@ -15,6 +15,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { Dialog } from "@mui/material";
 import { Puff } from "react-loader-spinner";
+import GetVisionConfigs from "../Services/GetVisionConfigs";
+import dayjs from "dayjs";
+import Config from "../Models/Config";
+import isBetween from "dayjs/plugin/isBetween";
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -23,18 +27,19 @@ export default function MediaFeed() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [feedLength, setFeedLength] = useState(0);
-    //let state = useState(false)
+
     const [state, setState] = useState<boolean>(false);
+
     const [mediaFiles, setMedia] = useState<Media[] | undefined>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [showWeather, setShowWeather] = useState<boolean>(false);
-    const [currentTime, setCurrentTime] = useState(new Date());
 
-    //let state = false;
+    const [feedStartTime, setFeedStartTime] = useState<string>("08:00 AM");
+    const [feedStopTime, setFeedStopTime] = useState<string>("08:00 PM");
+    const [showFeed, setShowFeed] = useState<boolean>(false);
+
     let slideInterval: string | number | NodeJS.Timer | undefined;
     let intervalTime = 10000;
-    let startTime = 8;
-    let stopTime = 20;
 
     const navigateToPatientProfile = (patient : Patient) => {
         navigate('/patientProfile', {state:{id: patient.id, firstName: patient.firstName, lastName: patient.lastName}});
@@ -47,8 +52,13 @@ export default function MediaFeed() {
     };
 
     const initializeMedia = async () => {
+        console.log("Media Intialized")
         await GetMedia.initializeMedia(patient.id.toString(), "patient");
         setMedia(GetMedia.mediaMetadata);
+        await GetVisionConfigs.getGlanceStartTime();
+        setFeedStartTime( (GetVisionConfigs.configs.at(0) as Config).configValue );
+        await GetVisionConfigs.getGlanceStopTime();
+        setFeedStopTime( (GetVisionConfigs.configs.at(0) as Config).configValue );
         setDataLoaded(true)
     }
 
@@ -74,6 +84,7 @@ export default function MediaFeed() {
     };
 
     const nextSlide = () => {
+        console.log("Next slide activated")
         if(state){
 
         }
@@ -117,16 +128,25 @@ export default function MediaFeed() {
 
     //This effect will track the current time
     useEffect(() => {
-        let timer = setInterval(()=>setCurrentTime(new Date()), 1000 )
-        return () => clearInterval(timer);
+        dayjs.extend(isBetween);
+        let startBound = dayjs(feedStartTime, "hh:mm A");
+        let stopBound = dayjs(feedStopTime, "hh:mm A");
+        if (dayjs().isBetween(startBound, stopBound)) {
+            setShowFeed(true)
+        } else {
+            setShowFeed(false)
+        }
     }, []);
 
     //Effect will track the slide intervals depending on the slideInterval set and if the currentSlide is a video
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
     useEffect(() => {
+        console.log(feedLength)
         let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
-        if (currentMediaFile){
+        console.log(currentMediaFile)
+        if (currentMediaFile && !!state && showFeed){
             if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
+                console.log("Sees its a video")
                 let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
                 videoDuration.onloadedmetadata = function() {
                     slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
@@ -137,9 +157,20 @@ export default function MediaFeed() {
             }
         }
         return () => clearInterval(slideInterval);
-    }, [currentSlide]);
+    }, [dataLoaded,currentSlide]);
 
-    if(dataLoaded) {
+    if(!dataLoaded) {
+        return (
+            <div>
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
+            </div>
+        );
+    }else{
         let temp = {updateFN:updateState,debug:false}
         return (
             <>
@@ -156,7 +187,7 @@ export default function MediaFeed() {
                             </IconButton>
                             <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {!!state && currentTime.getHours() >= startTime && currentTime.getHours() <= stopTime ? (
+                                {!!state && showFeed ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
@@ -170,10 +201,10 @@ export default function MediaFeed() {
                                         </IconButton>
                                         {showWeather && <Weather></Weather>}
                                     </>
-                                    ) : (
+                                ) : (
                                     <div>
                                     </div>
-                                    )}
+                                )}
                             </FullScreen>
                         </div>
 
@@ -188,18 +219,6 @@ export default function MediaFeed() {
                     </div>
                 </div>
             </>
-
-        );
-    }else{
-        return (
-            <div>
-                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
-                    <Puff   height="80"
-                            width="80"
-                            radius={1}
-                            color="#EFF1FB" visible={!dataLoaded} />
-                </Dialog>
-            </div>
         )
     }
 };
