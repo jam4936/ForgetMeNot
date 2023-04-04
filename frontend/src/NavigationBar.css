@@ -1,3 +1,6 @@
 .customNavbar{
     background-color: #8D9BE2;
 }
+.navbar-collapse{
+    justify-content: space-between;
+}
