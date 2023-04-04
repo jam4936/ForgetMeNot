@@ -52,7 +52,6 @@ export default function MediaFeed() {
     };
 
     const initializeMedia = async () => {
-        console.log("Media Intialized")
         await GetMedia.initializeMedia(patient.id.toString(), "patient");
         setMedia(GetMedia.mediaMetadata);
         await GetVisionConfigs.getGlanceStartTime();
@@ -84,7 +83,6 @@ export default function MediaFeed() {
     };
 
     const nextSlide = () => {
-        console.log("Next slide activated")
         if(state){
 
         }
@@ -136,17 +134,14 @@ export default function MediaFeed() {
         } else {
             setShowFeed(false)
         }
-    }, []);
+    }, [dataLoaded,currentSlide]);
 
     //Effect will track the slide intervals depending on the slideInterval set and if the currentSlide is a video
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
     useEffect(() => {
-        console.log(feedLength)
         let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
-        console.log(currentMediaFile)
         if (currentMediaFile && !!state && showFeed){
             if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
-                console.log("Sees its a video")
                 let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
                 videoDuration.onloadedmetadata = function() {
                     slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
@@ -187,7 +182,7 @@ export default function MediaFeed() {
                             </IconButton>
                             <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {!!state && showFeed ? (
+                                {!!state &&showFeed ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
