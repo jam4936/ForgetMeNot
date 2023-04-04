@@ -3,15 +3,18 @@ import { Button, Card, CardActionArea, CardActions, CardContent, Dialog, DialogC
 import React, { useState } from "react";
 import MenuItems from "../../../Models/MenuItem";
 import MenuItemService from "../../../Services/MenuItemService";
-
-import spinner from "../../../Images/loadingspinner.gif"
+import spinner from "../../../Assets/loadingspinner.gif"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import "./Menu.css";
 import AddIcon from '@mui/icons-material/Add';
 import AddEditMenuItem from "./AddEditMenuItem";
 import CloseIcon from '@mui/icons-material/Close';
+
 import {redirectLoggedIn} from "../../../Services/getRole";
+
+import { Puff } from "react-loader-spinner";
+
 
 function Menu(props: any){
     redirectLoggedIn()
@@ -70,7 +73,12 @@ function Menu(props: any){
     if(!dataLoaded) {
         return (
             <div data-testid="loading-screen">
-                <img id="spinner" src={spinner} alt="loading..."/>
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }else{

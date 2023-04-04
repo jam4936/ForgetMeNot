@@ -3,10 +3,12 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import {isAuthenticated, logout} from "./Services/Authentication";
 import {isAdmin, isFamily, isFacility} from "./Services/getRole";
 
+
 export default function NavigationBar() {
     return (
         <Navbar collapseOnSelect expand="lg" className="customNavbar" variant="light">
             <Navbar.Brand href={isFacility() ? "/facultyLanding" : isFamily() ? "/familyLanding" : "/"}>
+
                 <img
                     src="https://cdn.pixabay.com/photo/2017/12/02/16/52/drawing-2993282_960_720.png"
                     width="30"
@@ -18,6 +20,7 @@ export default function NavigationBar() {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
+
                 {!isAdmin() ? <div></div> :
                     <Nav className="mr-auto">
                         <Nav.Link href="questionControl"> Question Control </Nav.Link>

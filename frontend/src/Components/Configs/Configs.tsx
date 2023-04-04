@@ -1,16 +1,19 @@
 import React, {useState} from "react";
 import './Configs.css'
-import spinner from "../../Images/loadingspinner.gif"
 import GetVisionConfigs from "../../Services/GetVisionConfigs";
 import Config from "../../Models/Config";
-import {MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
 import {MobileTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import {Dialog, MenuItem, Select, SelectChangeEvent, TextField, Tooltip} from "@mui/material";
 import PutVisionConfigs from "../../Services/PutVisionConfigs";
 import dayjs from 'dayjs';
 import IconButton from "@mui/material/IconButton";
+
 import {redirectAdmin} from "../../Services/getRole";
+
+import { Puff } from "react-loader-spinner";
+
 
 export const Configs = () => {
 
@@ -75,7 +78,12 @@ export const Configs = () => {
             <div id="configs">
                 <h1>Manage the Vision Configs:</h1>
                 <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
                 </div>
             </div>
         )

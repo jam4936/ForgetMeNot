@@ -13,15 +13,12 @@ class AddQuestion extends React.Component <any, any>{
         this.state={
             show:false,
             showErrorLabel:false,
-            showAddLabel:false,
             typeIsSelect:false,
         }
         this.errorMessage = "";
-        this.addMessage = "";
         this.questions = this.props.questions as Question[];
     }
     private errorMessage: string = "";
-    private addMessage: string = "";
 
     private questions: Question[] = this.props.questions as Question[];
 
@@ -29,54 +26,25 @@ class AddQuestion extends React.Component <any, any>{
         this.setState({show:!this.state.show})
     }
 
-    private confirmAdd: boolean = false;
-    private timeToRefresh: boolean = false;
     private alreadyAdded: boolean = false;
     async handleAdd(){
-        this.doubleClose = false;
-        if (this.confirmAdd && !this.alreadyAdded){
+        if (this.idChosen && this.sectionChosen && this.typeChosen && this.promptChosen && !this.alreadyAdded) {
             await PutQuestions.addQuestion(this.changedId, this.changedType, this.changedPrompt, this.changedSection, this.changedSelectOptions);
-            this.confirmAdd = false;
             this.alreadyAdded = true;
-            this.addMessage = "Question added!"
-            this.setState({showAddLabel: true, showErrorLabel: false})
-            this.timeToRefresh = true;
-        }else if(!this.alreadyAdded){
-            if (this.idChosen && this.sectionChosen && this.typeChosen && this.promptChosen) {
-                this.setState({showAddLabel: true, showErrorLabel: false})
-                this.errorMessage = "";
-                this.addMessage = "Confirm addition of this question?";
-                this.confirmAdd = true;
-            } else {
-                this.setState({showAddLabel: false, showErrorLabel: true})
-                this.errorMessage = "Some fields are invalid!";
-                this.addMessage = "";
-                this.confirmAdd = false;
-                this.doubleClose = false;
-            }
+            this.setState({showErrorLabel: false})
+            this.errorMessage = "";
+            window.location.reload();
+        } else if(!this.alreadyAdded){
+            this.setState({showErrorLabel: true})
+            this.errorMessage = "Some fields are invalid!";
         }
     }
 
-    private doubleClose: boolean = false;
     handleClose(){
-        this.confirmAdd = false;
-        if (!this.doubleClose){
-            this.addMessage = "";
-            this.setState({showErrorLabel: true, showAddLabel: false})
-            this.errorMessage = "Confirm close?";
-            this.doubleClose = true;
-        }else if (this.doubleClose) {
-            this.setState({show:!this.state.show,
-                showErrorLabel: false,
-                showAddLabel: false
-            })
-            this.errorMessage = "";
-            this.doubleClose = false;
-            if (this.timeToRefresh){
-                this.timeToRefresh = false;
-                window.location.reload();
-            }
-        }
+        this.setState({show:!this.state.show,
+            showErrorLabel: false,
+        })
+        this.errorMessage = "";
     }
 
     questionIdExists(checkId: number){
@@ -198,7 +166,6 @@ class AddQuestion extends React.Component <any, any>{
                             }
                             <div className="form-group">
                                 {this.state.showErrorLabel ? <label className="errorMessage">{this.errorMessage}</label>: <div></div>}
-                                {this.state.showAddLabel ? <label className="addMessage">{this.addMessage}</label>: <div></div>}
                             </div>
                         </form>
                     </Modal.Body>
