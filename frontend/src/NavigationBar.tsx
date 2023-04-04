@@ -1,9 +1,11 @@
 import "./NavigationBar.css"
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
+
 export default function NavigationBar() {
     return (
         <Navbar collapseOnSelect expand="lg" className="customNavbar" variant="light">
+            
             <Navbar.Brand href="/">
                 <img
                     src="https://cdn.pixabay.com/photo/2017/12/02/16/52/drawing-2993282_960_720.png"
@@ -35,6 +37,7 @@ export default function NavigationBar() {
                         <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
                         <NavDropdown.Item href="patientCalendar"> Patient Calendar </NavDropdown.Item>
                         <NavDropdown.Item href="facultyCalendar"> Faculty Calendar </NavDropdown.Item>
+                        <NavDropdown.Item href="facultyUpload"> Faculty Upload </NavDropdown.Item>
                         <NavDropdown.Item href="menu"> Menu </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>

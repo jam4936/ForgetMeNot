@@ -1,6 +1,5 @@
 #mediaUpload{
-    padding-left: 1rem;
-    padding-top: 1rem;
+    padding: 1rem;
     margin: 1rem;
     display: flex;
     flex-direction: column;
@@ -16,8 +15,17 @@
     align-items: center;
 }
 
-section {
+.mediaUploadSection {
     padding: 2rem 0;
+    margin: 1rem;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+#sectionTitle{
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    font-size: x-large;
 }
 
 .uploadButton {
@@ -26,15 +34,20 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px dotted black;
+    border: 1px black;
     border-radius: 20px;
     width: 10rem;
-    height: 7rem;
+    height: 6rem;
     font-size: large;
+    background-color: #8D9BE2;
 }
 
 .uploadButton:hover{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+#loadingScreenDialog .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded{
+    background-color: transparent;
+    box-shadow: none;
 }
 

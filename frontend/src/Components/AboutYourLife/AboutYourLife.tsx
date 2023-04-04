@@ -2,14 +2,15 @@
 import { useState } from "react";
 import './AboutYourLife.css';
 import Question from "../../Models/Question";
-import { MenuItem, Select, TextField } from "@mui/material";
+import { Dialog, MenuItem, Select, TextField } from "@mui/material";
 import SendResponse from "../../Models/SendResponse";
 import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../Assets/loadingspinner.gif";
+import { Puff } from "react-loader-spinner";
 
 function AboutYourLife(props: any){
     const patient = props.patient;
@@ -135,7 +136,12 @@ function AboutYourLife(props: any){
     }else {
         return (
             <div>
-                <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
             </div>
         )
     }

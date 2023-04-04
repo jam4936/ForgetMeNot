@@ -2,7 +2,9 @@ export default interface Media{
 
     objectKey: string;
     id: string
-    patientID: number
+    patientID?: number
+    facilityID?: number
     url: string
-
+    isGreeting?: boolean
+    isOrientation?: boolean
 }

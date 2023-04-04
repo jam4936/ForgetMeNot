@@ -1,6 +1,6 @@
 import React from "react";
 import './GoogleSignIn.css';
-import googleLogo from "../../../Images/googleLogo.png";
+import googleLogo from "../../../Assets/googleLogo.png";
 
 class GoogleSignIn extends React.Component <{text: string}, {}>{
 

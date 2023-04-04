@@ -7,13 +7,13 @@ class Thumbnail extends React.Component <any, any>{
     constructor(props: any){
         super(props)
         this.state={
-            showImageDetails:false,
+            showMediaDetails:false,
             showDeleteConfirm:false
         }
     }
 
-    handleImageDetailsModal(){
-        this.setState({showImageDetails:!this.state.showImageDetails})
+    handleMediaDetailsModal(){
+        this.setState({showMediaDetails:!this.state.showMediaDetails})
     }
 
     handleDeleteModal(){
@@ -21,15 +21,22 @@ class Thumbnail extends React.Component <any, any>{
     }
 
     async deleteMedia(){
-        await DeleteMedia.deleteMediaById(this.props.image.id);
-        this.handleDeleteModal()
+        await DeleteMedia.deleteMediaById(this.props.media.id);
+        this.handleDeleteModal();
+        await this.props.callback(this.props.media.id, this.props.media.isGreeting, this.props.media.isOrientation);
     }
 
     render() {
         return (
-            <div key={this.props.image.url} className="thumbnail">
-                <button id="buttonOverlay" onClick={()=>this.handleImageDetailsModal()} >
-                    <img src={this.props.image.url} height="200" alt="upload" />
+            <div key={this.props.media.url} className="thumbnail">
+                <button id="buttonOverlay" onClick={()=>this.handleMediaDetailsModal()} >
+                    {this.props.isVideo ? (
+                        <video height="200" controls>
+                            <source src={this.props.media.url} type="video/mp4" />
+                        </video>
+                    ) : (
+                        <img src={this.props.media.url} height="200" alt="upload" />
+                    )}
                 </button>
                 <button type="button" className="btn btn-circle btn-sm" id="delete" onClick={() => this.handleDeleteModal()}>X</button>
 
@@ -43,12 +50,20 @@ class Thumbnail extends React.Component <any, any>{
                     </Modal.Footer>
                 </Modal>
 
-                <Modal show={this.state.showImageDetails} onHide={()=>this.handleImageDetailsModal()}>
+                <Modal show={this.state.showMediaDetails} onHide={()=>this.handleMediaDetailsModal()}>
                     <Modal.Header>
                         <Modal.Title>Edit Description</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img src={this.props.image.url} height="200" alt="upload" id="image" />
+                        <div className="image">
+                            {this.props.isVideo ? (
+                                <video height="200" controls>
+                                    <source src={this.props.media.url} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img src={this.props.media.url} height="200" alt="upload"/>
+                            )}
+                        </div>
                         <form>
                             <div className="form-group">
                                 <label htmlFor="recipient-name" className="col-form-label">Is there anyone significant in this photo?</label>
@@ -65,8 +80,8 @@ class Thumbnail extends React.Component <any, any>{
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleImageDetailsModal()}>Close</button>
-                        <button type="button" className="btn btn-primary" onClick={()=>this.handleImageDetailsModal()}>Save</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.handleMediaDetailsModal()}>Close</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>this.handleMediaDetailsModal()}>Save</button>
                     </Modal.Footer>
                 </Modal>
             </div>

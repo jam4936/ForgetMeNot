@@ -4,7 +4,9 @@ import Patient from "../../Models/Patient"
 import GetPatients from "../../Services/GetPatients";
 import {useNavigate} from "react-router-dom";
 import {PatientCard} from "./PatientCard/PatientCard";
-import spinner from "../../Images/loadingspinner.gif";
+import spinner from "../../Assets/loadingspinner.gif";
+import { Dialog } from "@mui/material";
+import { Puff } from "react-loader-spinner";
 
 export const PatientInfo = () => {
 
@@ -44,7 +46,12 @@ export const PatientInfo = () => {
             <div id="patientInfo">
                 <h1>Select a Patient Profile:</h1>
                 <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
                 </div>
             </div>
         )
