@@ -98,7 +98,7 @@ export default function MediaFeed() {
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video id={"currentVideo".concat(String(currentSlide))} preload="metadata" autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" preload="metadata" autoPlay>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -107,7 +107,7 @@ export default function MediaFeed() {
         else{
             return (
                 <div>
-                    <img src={slide.url} alt="slide" className="image"/>
+                    <img src={slide.url} alt="slide" className="feedImage"/>
                 </div>
             )
         }
@@ -182,7 +182,7 @@ export default function MediaFeed() {
                             </IconButton>
                             <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {!!state &&showFeed ? (
+                                {!!state && showFeed ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
