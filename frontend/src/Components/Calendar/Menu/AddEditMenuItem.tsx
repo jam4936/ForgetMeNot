@@ -5,9 +5,11 @@ import './Menu.css';
 import SaveIcon from '@mui/icons-material/Save';
 import MenuItems from "../../../Models/MenuItem";
 import MenuItemService from "../../../Services/MenuItemService";
+import {redirectLoggedIn} from "../../../Services/getRole";
 
 export default class AddEditMenuItem extends React.Component <any, any>{
     constructor(props: any){
+        redirectLoggedIn()
         super(props);
         this.state = {
             name : this.props.editableMeal ? this.props.editableMeal.name : "",

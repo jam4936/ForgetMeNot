@@ -9,10 +9,15 @@ import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
+
+import {redirectLoggedIn} from "../../Services/getRole";
+
 import spinner from "../../Assets/loadingspinner.gif";
 import { Puff } from "react-loader-spinner";
 
+
 function DailySchedule(props: any){
+    redirectLoggedIn()
     let patient = props.patient;
     let allowInput = props.allowInput;
     const [questions, setQuestions] = useState<Question[]>();

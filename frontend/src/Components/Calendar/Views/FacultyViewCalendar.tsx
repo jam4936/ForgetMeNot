@@ -9,9 +9,14 @@ import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
+
+import {redirectFacility} from "../../../Services/getRole";
+
 import { Puff } from 'react-loader-spinner';
 
+
 function FacultyViewCalendar(this: any, props: any){
+    redirectFacility()
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);

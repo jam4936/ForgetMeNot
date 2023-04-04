@@ -10,10 +10,14 @@ import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import GetResponses from "../../Services/GetResponses"
 import Patient from "../../Models/Patient";
+
+import {redirectLoggedIn} from "../../Services/getRole";
+
 import spinner from "../../Assets/loadingspinner.gif"
 import {Puff} from 'react-loader-spinner';
 import {Dialog} from "@mui/material";
 function AboutYou(props: any) {
+    redirectLoggedIn()
     const patient = props.patient;
     const allowInput = props.allowInput;
     

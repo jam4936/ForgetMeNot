@@ -8,9 +8,14 @@ import EditQuestion from "./Buttons/EditQuestion";
 import DeleteQuestion from "./Buttons/DeleteQuestion";
 import {Dialog, TextField} from "@mui/material";
 import AddQuestion from "./Buttons/AddQuestion";
+
+import {redirectAdmin} from "../../Services/getRole";
+
 import { Puff } from "react-loader-spinner";
 
 export const QuestionControl = () => {
+
+    redirectAdmin()
 
     const [questions, setQuestions] = useState<Question[]>();
 

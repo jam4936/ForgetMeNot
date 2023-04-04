@@ -9,10 +9,14 @@ import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
 import Patient from "../../Models/Patient";
+
+import {redirectLoggedIn} from "../../Services/getRole";
+
 import spinner from "../../Assets/loadingspinner.gif";
 import { Puff } from "react-loader-spinner";
 
 function AboutYourLife(props: any){
+    redirectLoggedIn()
     const patient = props.patient;
     const allowInput = props.allowInput;
     const [questions, setQuestions] = useState([] as Question[]);

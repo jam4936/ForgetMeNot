@@ -21,7 +21,12 @@ import {Configs} from "./Components/Configs/Configs";
 import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 import Menu from './Components/Calendar/Menu/Menu';
+
+import FacultyLanding from './Pages/FacultyLanding';
+import FamilyLanding from './Pages/FamilyLanding';
+
 import FacultyUpload from "./Components/UploadMedia/FacultyUpload";
+
 import Dev from "./Dev";
 
 function App() {
@@ -60,6 +65,9 @@ function App() {
                 <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>
                 <Route path={'/facultyUpload'} element={<FacultyUpload />}/>
                 <Route path={'/menu'} element={<Menu/>}/>
+                <Route path={'/facultyLanding'} element={<FacultyLanding/>}/>
+                <Route path={'/familyLanding'} element={<FamilyLanding/>}/>
+                <Route path={'/facilityLanding'} element={<FacultyLanding/>}/>
             </Routes>
         </Router>
   );

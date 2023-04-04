@@ -1,7 +1,9 @@
 import React from 'react';
 import "./App.css";
+import { redirectAdmin } from "../src/Services/getRole";
 
 function Project() {
+    redirectAdmin()
     return (
         <div>
             <h1>Orientation for Patients with Dementia</h1>

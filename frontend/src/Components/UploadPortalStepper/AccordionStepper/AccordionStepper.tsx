@@ -8,9 +8,11 @@ import  UploadMedia  from '../../UploadMedia/UploadMedia'
 import UploadResponseService from '../../../Services/UploadResponseService';
 import AboutYou from '../../AboutYou/AboutYou';
 import Patient from "../../../Models/Patient";
+import {redirectLoggedIn} from "../../../Services/getRole";
 
 
 export default function AccordionStepper( props: any) {
+    redirectLoggedIn()
     let patient = props.patient;
     let allowInput = props.allowInput;
     const styles =({
