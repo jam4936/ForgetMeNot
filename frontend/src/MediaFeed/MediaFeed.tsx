@@ -12,10 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-import GetMedia from "../Services/GetMedia";
-
-import Media from "../Models/Media";
 import {redirectLoggedIn} from "../Services/getRole";
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
