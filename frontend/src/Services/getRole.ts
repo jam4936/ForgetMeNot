@@ -2,7 +2,6 @@ import {getRole, isAuthenticated} from "./Authentication";
 
 export function isAdmin(){
     return getRole() == 'admin';
-
 }
 
 export function isFamily(){
@@ -33,32 +32,32 @@ export function redirectFamily(){
         window.location.href = '/';
     }
     return false
-
 }
 
 export function redirectFacility(){
-    if(window.sessionStorage.getItem('role') == 'facility'|| window.sessionStorage.getItem('role') == 'admin'){
+    if(getRole() == 'facility'|| getRole() == 'admin'){
         return true
     }
-    else if (window.sessionStorage.getItem('role') == 'family'){
+    else if (getRole() == 'family'){
         window.location.href = '/familyLanding';
     }
-    else {
+    else{
         window.location.href = '/';
     }
     return false
 }
 
 export function redirectAdmin(){
-    if(window.sessionStorage.getItem('role') == 'admin'){
+    if(getRole() == 'admin'){
         return true
     }
-    else if (window.sessionStorage.getItem('role') == 'facility'){
-        window.location.href = '/facilityLanding';
-    }else if(window.sessionStorage.getItem('role') == 'family'){
+    else if (getRole() == 'family'){
         window.location.href = '/familyLanding';
     }
-    else {
+    else if (getRole() == 'facility'){
+        window.location.href = '/facilityLanding';
+    }
+    else{
         window.location.href = '/';
     }
     return false
