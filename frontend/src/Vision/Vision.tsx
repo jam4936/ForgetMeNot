@@ -24,9 +24,14 @@ class Vision extends React.Component {
     showVision: true;
 
     constructor(props: any){
+
         super(props)
+       
         this.showVision = props.showVision;
         this.stateChange=props.updateFN;
+        if(!this.stateChange){
+            this.stateChange= ()=>{} 
+        }
         this.debug = props.debug;
         this.videoElement = React.createRef();
         this.canvasElement = React.createRef();
@@ -208,6 +213,7 @@ class Vision extends React.Component {
 
             }
             if(this.glanceScore>this.activationNumner){
+                
                 this.stateChange(true)
                 if(this.debug){
                     this.outputElement.current.style.backgroundColor="#00B1E1"
@@ -300,6 +306,7 @@ class Vision extends React.Component {
     }
 
     render() {
+        console.log('is hidden: ' ,this.showVision)
         if (this.showVision){
             return (
                 <body>
