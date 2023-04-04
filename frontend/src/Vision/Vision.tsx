@@ -58,11 +58,11 @@ class Vision extends React.Component {
 
     async getGlanceSensitivity(){
         await GetVisionConfigs.getGlanceSensitivity();
-        this.glanceSensitivity = (GetVisionConfigs.configs.at(0) as Config).configValue;
+        this.glanceSensitivity = Number((GetVisionConfigs.configs.at(0) as Config).configValue);
     }
     async getGlancePatience(){
         await GetVisionConfigs.getGlancePatience();
-        this.glancePatience = (GetVisionConfigs.configs.at(0) as Config).configValue;
+        this.glancePatience = Number((GetVisionConfigs.configs.at(0) as Config).configValue);
         console.log('Patience is: ',this.glancePatience)
         let temp = this.pDict[this.glancePatience]
         this.upperBound = temp.upper;

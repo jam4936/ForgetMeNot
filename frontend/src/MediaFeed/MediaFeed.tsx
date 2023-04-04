@@ -83,7 +83,9 @@ export default function MediaFeed() {
     };
 
     const nextSlide = () => {
-        if(state){
+        console.log("Next Slide")
+        console.log(currentSlide)
+        if(!state){
 
         }
         else{
@@ -98,7 +100,7 @@ export default function MediaFeed() {
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" preload="metadata" autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" hidden={!state} preload="metadata" autoPlay>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -107,7 +109,7 @@ export default function MediaFeed() {
         else{
             return (
                 <div>
-                    <img src={slide.url} alt="slide" className="feedImage"/>
+                    <img src={slide.url} alt="slide" hidden={!state} className="feedImage"/>
                 </div>
             )
         }
@@ -140,7 +142,7 @@ export default function MediaFeed() {
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
     useEffect(() => {
         let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
-        if (currentMediaFile && !!state && showFeed){
+        if (currentMediaFile && showFeed){
             if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
                 let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
                 videoDuration.onloadedmetadata = function() {
@@ -182,7 +184,7 @@ export default function MediaFeed() {
                             </IconButton>
                             <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
-                                {!!state && showFeed ? (
+                                {showFeed ? (
                                     <>
                                         {mediaFiles?.map((slide, index) => {
                                             return (
