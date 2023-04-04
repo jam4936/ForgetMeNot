@@ -9,7 +9,7 @@ export function isFamily(){
 }
 
 export function isFacility(){
-    return getRole() == 'Facility'
+    return getRole() == 'Faculty'
 }
 
 export function redirectLoggedIn(){
@@ -25,8 +25,8 @@ export function redirectFamily(){
     if(getRole() == 'Family'|| getRole() == 'Admin'){
         return true
     }
-    else if (getRole() == 'Facility'){
-        window.location.href = '/facilityLanding';
+    else if (getRole() == 'Faculty'){
+        window.location.href = '/facultyLanding';
     }
     else{
         window.location.href = '/';
@@ -35,7 +35,7 @@ export function redirectFamily(){
 }
 
 export function redirectFacility(){
-    if(getRole() == 'Facility'|| getRole() == 'Admin'){
+    if(getRole() == 'Faculty'|| getRole() == 'Admin'){
         return true
     }
     else if (getRole() == 'Family'){
@@ -54,8 +54,8 @@ export function redirectAdmin(){
     else if (getRole() == 'Family'){
         window.location.href = '/familyLanding';
     }
-    else if (getRole() == 'Facility'){
-        window.location.href = '/facilityLanding';
+    else if (getRole() == 'Faculty'){
+        window.location.href = '/facultyLanding';
     }
     else{
         window.location.href = '/';

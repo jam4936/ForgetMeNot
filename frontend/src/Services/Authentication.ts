@@ -53,7 +53,7 @@ function getRole() {
             }
         });
     }
-    return role
+    return role[0]
 
 }
 
