@@ -3,6 +3,7 @@ import "./Home.css"
 
 import CompanyFunctions from "./Services/Company";
 import {getToken} from "./Services/Authentication";
+import {isAdmin} from "./Services/getRole";
 
 function Home() {
 
@@ -17,7 +18,7 @@ function Home() {
 
     return (
         <div className="landing">
-            <button onClick={checkCompanies}>Click this button for Company </button>
+            {!isAdmin() ? <div></div> : <button onClick={checkCompanies}>Click this button for Company </button>}
             <div className={"leftWindow"}>
                 <div className={"Item1"}>
                     <img

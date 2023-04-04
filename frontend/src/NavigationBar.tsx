@@ -35,7 +35,7 @@ export default function NavigationBar() {
                             <NavDropdown title="Facility" id="collapsible-nav-dropdown">
                                 <NavDropdown.Item href="patientInfo"> Patient Info </NavDropdown.Item>
                                 <NavDropdown.Item href="menu"> Menu </NavDropdown.Item>
-                                <NavDropdown.Item href="facultyCalendar"> Facility Calendar </NavDropdown.Item>
+                                <NavDropdown.Item href="facultyCalendar"> Faculty Calendar </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     }
@@ -50,7 +50,7 @@ export default function NavigationBar() {
                         <Nav className={"mr-auto"}>
                             <Nav.Link href="patientInfo"> Patient Information </Nav.Link>
                             <Nav.Link href="menu"> Menu </Nav.Link>
-                            <Nav.Link href="facultyCalendar"> Facility Calendar </Nav.Link>
+                            <Nav.Link href="facultyCalendar"> Faculty Calendar </Nav.Link>
                         </Nav>
                     }
                 </div>
