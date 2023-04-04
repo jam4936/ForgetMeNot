@@ -98,10 +98,12 @@ function login(username: string, password: string){
             console.log('Successfully logged in!')
             window.location.href='/'
             console.log(result.getIdToken().getJwtToken())
+            console.log(getRole())
         }, onFailure: function (err) {
             alert(err.message || JSON.stringify(err));
         }
     })
+    
 }
 
 function logout(){

@@ -29,7 +29,7 @@ class Vision extends React.Component {
 
 
     constructor(props: {} | Readonly<{}>){
-        redirectLoggedIn()
+        redirectAdmin()
         super(props)
         this.videoElement = React.createRef();
         this.canvasElement = React.createRef();
