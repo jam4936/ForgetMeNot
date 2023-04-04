@@ -4,13 +4,16 @@ import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import rrulePlugin from '@fullcalendar/rrule'
-import spinner from "../../../Images/loadingspinner.gif";
 import CloseIcon from '@mui/icons-material/Close';
 import { EventClickArg, EventInput } from '@fullcalendar/core';
 import '../Calendar.css';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import AddEditCalendarEvent from '../Events/AddEditCalendarEvent';
+
 import {redirectFacility} from "../../../Services/getRole";
+
+import { Puff } from 'react-loader-spinner';
+
 
 function FacultyViewCalendar(this: any, props: any){
     redirectFacility()
@@ -116,7 +119,12 @@ function FacultyViewCalendar(this: any, props: any){
     if(!dataLoaded){
      return (
         <div>
-            <img id="spinner" src={spinner} alt="loading..." />
+            <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+            </Dialog>
         </div>
         )
     }

@@ -3,12 +3,15 @@ import GetQuestions from "../../Services/GetQuestions";
 import React, {useState} from "react";
 import Question from "../../Models/Question";
 import './QuestionControl.css'
-import spinner from "../../Images/loadingspinner.gif"
+import spinner from "../../Assets/loadingspinner.gif"
 import EditQuestion from "./Buttons/EditQuestion";
 import DeleteQuestion from "./Buttons/DeleteQuestion";
-import {TextField} from "@mui/material";
+import {Dialog, TextField} from "@mui/material";
 import AddQuestion from "./Buttons/AddQuestion";
+
 import {redirectAdmin} from "../../Services/getRole";
+
+import { Puff } from "react-loader-spinner";
 
 export const QuestionControl = () => {
 
@@ -83,7 +86,12 @@ export const QuestionControl = () => {
             <div id="questionControl">
                 <h1>Manage the Questions:</h1>
                 <div>
-                    <img id="spinner" src={spinner} alt="loading..." />
+                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                    <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+                </Dialog>
                 </div>
             </div>
         )

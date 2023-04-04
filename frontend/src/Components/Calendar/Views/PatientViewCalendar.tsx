@@ -4,13 +4,16 @@ import DynamoResponse from "../../../Models/DynamoResponseResult";
 import EventsService from "../../../Services/EventsService"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import spinner from "../../../Images/loadingspinner.gif";
+import spinner from "../../../Assets/loadingspinner.gif";
 import { EventInput } from '@fullcalendar/core';
  import '../Calendar.css';
-import { Card, CardContent, CardHeader, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Dialog, Typography } from '@mui/material';
 import MenuItems from '../../../Models/MenuItem';
 import MenuItemService from '../../../Services/MenuItemService';
+
 import {redirectLoggedIn} from "../../../Services/getRole";
+
+import { Puff } from 'react-loader-spinner';
 
 function PatientViewCalendar(props: any){
     redirectLoggedIn()
@@ -145,7 +148,12 @@ function PatientViewCalendar(props: any){
     if(!dataLoaded){
      return (
         <div>
-            <img id="spinner" src={spinner} alt="loading..." />
+            <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                <Puff   height="80"
+                            width="80"
+                            radius={1}
+                            color="#EFF1FB" visible={!dataLoaded} />
+            </Dialog>
         </div>
         )
     }
