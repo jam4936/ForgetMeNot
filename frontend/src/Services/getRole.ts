@@ -1,15 +1,15 @@
 import {getRole, isAuthenticated} from "./Authentication";
 
 export function isAdmin(){
-    return getRole() == 'Admin';
+    return getRole() == 'admin';
 }
 
 export function isFamily(){
-    return getRole() == 'Family';
+    return getRole() == 'family';
 }
 
 export function isFacility(){
-    return getRole() == 'Faculty'
+    return getRole() == 'faculty'
 }
 
 export function redirectLoggedIn(){
@@ -22,10 +22,10 @@ export function redirectLoggedIn(){
 }
 
 export function redirectFamily(){
-    if(getRole() == 'Family'|| getRole() == 'Admin'){
+    if(getRole() == 'family'|| getRole() == 'admin'){
         return true
     }
-    else if (getRole() == 'Faculty'){
+    else if (getRole() == 'faculty'){
         window.location.href = '/facultyLanding';
     }
     else{
@@ -35,10 +35,10 @@ export function redirectFamily(){
 }
 
 export function redirectFacility(){
-    if(getRole() == 'Faculty'|| getRole() == 'Admin'){
+    if(getRole() == 'faculty'|| getRole() == 'admin'){
         return true
     }
-    else if (getRole() == 'Family'){
+    else if (getRole() == 'family'){
         window.location.href = '/familyLanding';
     }
     else{
@@ -48,13 +48,13 @@ export function redirectFacility(){
 }
 
 export function redirectAdmin(){
-    if(getRole() == 'Admin'){
+    if(getRole() == 'admin'){
         return true
     }
-    else if (getRole() == 'Family'){
+    else if (getRole() == 'family'){
         window.location.href = '/familyLanding';
     }
-    else if (getRole() == 'Faculty'){
+    else if (getRole() == 'faculty'){
         window.location.href = '/facultyLanding';
     }
     else{

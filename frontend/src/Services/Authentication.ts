@@ -67,7 +67,7 @@ function getRole() {
             }
         });
     }
-    return role[0]
+    return role[0].toLowerCase()
 
 }
 
