@@ -3,7 +3,9 @@ import "./Landing.css";
 import RestaurantTwoToneIcon from '@mui/icons-material/Restaurant';
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonth';
 import PersonSearchTwoToneIcon from '@mui/icons-material/PersonSearch';
+import SettingsIcon from '@mui/icons-material/Settings';
 import QuizTwoToneIcon from '@mui/icons-material/QuizTwoTone';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import { Link } from "react-router-dom";
 import {isAdmin, redirectFacility} from "../Services/getRole";
 
@@ -57,7 +59,7 @@ function FacultyLanding(props: any){
                                     <Link to="/configs">
                                         <Item id="actionItem">
                                             <Typography variant="subtitle1">Configs</Typography>
-                                            <QuizTwoToneIcon id="icon"/>
+                                            <SettingsIcon id="icon"/>
                                         </Item>
                                     </Link>
                                 </Grid>
@@ -72,16 +74,17 @@ function FacultyLanding(props: any){
                                     </Link>
                                 </Grid>
                             }
-                            <Grid item xs={4}>
-                                {/* fix route */}
-                                <Link to="/someFunRoute">
-                                    <Item id="actionItem">
-                                        <Typography variant="subtitle1">Upload Orientation Video</Typography>
-                                        <QuizTwoToneIcon id="icon"/>
-                                    </Item>                                    
-                                </Link>
-                            </Grid>
-                            
+                            {!isAdmin() ? <div></div> :
+                                <Grid item xs={4}>
+                                    {/* fix route */}
+                                    <Link to="/facultyUpload">
+                                        <Item id="actionItem">
+                                            <Typography variant="subtitle1">Upload Orientation Video</Typography>
+                                            <OndemandVideoIcon id="icon"/>
+                                        </Item>
+                                    </Link>
+                                </Grid>
+                            }
                         </Grid>
                     </Box>                   
                 </CardContent>

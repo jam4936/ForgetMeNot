@@ -21,11 +21,10 @@ export default function NavigationBar() {
                 <div>
                     {!isAdmin() ? <div></div> :
                         <Nav className="mr-auto">
-                            <Nav.Link href="questionControl"> Question Control </Nav.Link>
-                            <NavDropdown title="Senior Project" id="collapsible-nav-dropdown">
-                                <NavDropdown.Item href="project"> Project </NavDropdown.Item>
-                                <NavDropdown.Item href="visionConcept"> Vision Concept </NavDropdown.Item>
-                                <NavDropdown.Item href="dev"> Dev </NavDropdown.Item>
+                            <NavDropdown title="Admin" id="collapsible-nav-dropdown">
+                                <NavDropdown.Item href="questionControl"> Question Control </NavDropdown.Item>
+                                <NavDropdown.Item href="configs"> Vision Configs </NavDropdown.Item>
+                                <NavDropdown.Item href="facultyUpload"> Orientation Video </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Family" id="collapsible-nav-dropdown">
                                 <NavDropdown.Item href="familyForm"> Family Form </NavDropdown.Item>
@@ -36,6 +35,11 @@ export default function NavigationBar() {
                                 <NavDropdown.Item href="patientInfo"> Patient Info </NavDropdown.Item>
                                 <NavDropdown.Item href="menu"> Menu </NavDropdown.Item>
                                 <NavDropdown.Item href="facultyCalendar"> Faculty Calendar </NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="Senior Project" id="collapsible-nav-dropdown">
+                                <NavDropdown.Item href="project"> Project </NavDropdown.Item>
+                                <NavDropdown.Item href="visionConcept"> Vision Concept </NavDropdown.Item>
+                                <NavDropdown.Item href="dev"> Dev </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     }
