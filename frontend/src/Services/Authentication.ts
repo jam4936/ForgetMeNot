@@ -1,26 +1,28 @@
 import * as AWS from 'aws-sdk/global';
 import {AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession} from 'amazon-cognito-identity-js';
-
+import { Auth } from "aws-amplify";
 const poolData = {
     UserPoolId: 'us-east-2_fx7Pj61oL',
     ClientId: '5rokje451stq4idb8rkb8aell6'
 };
 const userPool = new CognitoUserPool(poolData);
 
+
 // function signup(username:string, password:string, attributes: { [s: string]: string; } | ArrayLike<unknown>){
-//     var attributeList:CognitoUserAttribute[] = [];
-//
-//     for (const [key, value] of Object.entries(attributes)){
-//         attributeList.push(new CognitoUserAttribute({Name: key, Value: value}))
-//     }
-//
-//     userPool.signUp(username, password, attributeList, null, function (
-//         err, result) {
-//         if (err) {
-//             alert(err.message || JSON.stringify(err));
-//         }
-//     })
+//     // var attributeList:CognitoUserAttribute[] = [];
+
+//     // for (const [key, value] of Object.entries(attributes)){
+//     //     attributeList.push(new CognitoUserAttribute({Name: key, Value: value}))
+//     // }
+
+//     // userPool.signUp(username, password, attributeList, null, function (
+//     //     err, result) {
+//     //     if (err) {
+//     //         alert(err.message || JSON.stringify(err));
+//     //     }
+//     // })
 // }
+
 
 
 function getRequestHeaders(method: string, body:object){

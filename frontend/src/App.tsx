@@ -39,7 +39,9 @@ function App() {
     const patient : Patient = {
         id: 0,
         firstName: "Test",
-        lastName: "Demonstration"
+        lastName: "Demonstration",
+        dob: "1955-01-01",
+        companyId: 11212
     }
 
 
