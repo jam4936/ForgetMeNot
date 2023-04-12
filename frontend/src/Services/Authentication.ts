@@ -26,18 +26,28 @@ const userPool = new CognitoUserPool(poolData);
 
 
 function getRequestHeaders(method: string, body:object){
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + getToken());
+    // method: 'post', 
+    // headers: new Headers({
+    //     'Authorization': 'Basic '+btoa('username:password'), 
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    // }), 
+    // body: 'A=1&B=2'
 
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + getToken())
+    
+    // myHeaders.append("Access-Control-Max-Age", "0");
+    
     if (method.toLowerCase() === 'get' || method.toLowerCase() === 'delete'){
         return {
             method: method,
-            headers: myHeaders
+            headers: new Headers({'Authorization': 'Bearer' + getToken()})
         }
     } else {
         return {
             method: method,
-            headers: myHeaders,
+            headers: new Headers({'Authorization': 'Bearer ' + getToken()}),
             body: JSON.stringify(body)
         }
     }
@@ -66,6 +76,7 @@ function getRole() {
         cognitoUser.getSession(function (error: any, session: CognitoUserSession) {
             if (!error && session.isValid()){
                 role = session.getIdToken().payload['cognito:groups']
+                console.log('role: ' + role);
             }
         });
     }
@@ -76,15 +87,19 @@ function getRole() {
 function getToken() {
     const cognitoUser = userPool.getCurrentUser();
     let token:String = 'Error: Token Not Found';
-
+    // console.log(
+    // Auth.currentAuthenticatedUser().then((user) =>{
+    //     return user.session.getIdToken().getJwtToken();
+    // }));
     if (cognitoUser) {
         cognitoUser.getSession(function (error: any, session: CognitoUserSession) {
             if (!error && session.isValid()){
-                token = session.getIdToken().getJwtToken()
+                token = session.getIdToken().getJwtToken();
+                console.log(session.getIdToken().payload);
             }
         });
     }
-    return token
+    return token.toString();
 }
 
 function login(username: string, password: string){

@@ -4,8 +4,10 @@ import {getRequestHeaders} from "./Authentication";
 
 const CompanyFunctions = {
     getCompanies: async function() {
-        let companies: DynamoCompaniesResult = await fetch("https://c1855ips20.execute-api.us-east-2.amazonaws.com/auth/company", getRequestHeaders('GET', {}))
-            .then(response => response.json())
+        const headers = getRequestHeaders('GET', {});
+        console.log(headers);
+        let companies: DynamoCompaniesResult = await fetch("https://c1855ips20.execute-api.us-east-2.amazonaws.com/TestStage/company", headers)
+            .then(response =>{console.log(response.status);  console.log(response.headers);return response.json();} )
             .catch(error => console.log('error', error));
 
         return companies

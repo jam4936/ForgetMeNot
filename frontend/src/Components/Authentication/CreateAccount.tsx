@@ -3,6 +3,8 @@ import { Button, Dialog, FormControl, TextField, Typography } from '@mui/materia
 import "./CreateAccount.css";
 import GetPatients from '../../Services/GetPatients';
 import { Patient } from '../../Models';
+import Company from '../../Services/Company';
+import CompanyFunctions from '../../Services/Company';
 
 class CreateAccount extends React.Component<any, any>{
     constructor(props: any) {
@@ -28,11 +30,10 @@ class CreateAccount extends React.Component<any, any>{
                 patientName: false,
                 patientDob: false,
             },
-
-
         }
+        
     }
-
+    
     async validateForm(){
         var fname : Boolean = !this.state.form.fName;
         var lname : Boolean = !this.state.form.lName;
@@ -82,6 +83,12 @@ class CreateAccount extends React.Component<any, any>{
                 }
     }
 
+    async getAllCompanies(){
+        let companies = await Company.getCompanies().then((company) =>{
+            return company.Items;
+        });
+        console.log(companies);
+    }
     
     async handlePasswords(change: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
         //checks which password field to set the state for
@@ -101,6 +108,7 @@ class CreateAccount extends React.Component<any, any>{
         }
     }
     render() {
+        let companies = this.getAllCompanies();
         return (
             <div>
 
@@ -207,6 +215,7 @@ class CreateAccount extends React.Component<any, any>{
         );
     }
 }
+
         // email, password, facility is loved one in
 
         // fname, lname, email, phonenumber (optional), birthdate, password, 
