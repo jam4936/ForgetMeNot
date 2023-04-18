@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route,Routes, Navigate} from "react-router-dom";
+
 import Home from "./Home";
 import Project from "./Project";
 import Vision from "./Vision/Vision"
@@ -21,8 +22,14 @@ import {Configs} from "./Components/Configs/Configs";
 import PatientViewCalendar from './Components/Calendar/Views/PatientViewCalendar';
 import FacultyViewCalendar from './Components/Calendar/Views/FacultyViewCalendar';
 import Menu from './Components/Calendar/Menu/Menu';
+
+import FacultyLanding from './Pages/FacultyLanding';
+import FamilyLanding from './Pages/FamilyLanding';
+
 import FacultyUpload from "./Components/UploadMedia/FacultyUpload";
+
 import Dev from "./Dev";
+import {isAdmin, isFacility, isFamily} from "./Services/getRole";
 
 function App() {
 
@@ -32,35 +39,69 @@ function App() {
     const patient : Patient = {
         id: 0,
         firstName: "Test",
-        lastName: "Demonstration"
+        lastName: "Demonstration",
+        dob: "1955-01-01",
+        companyId: 11212
     }
 
 
     return (
         <Router>
             <NavigationBar></NavigationBar>
-            <Routes>
-                <Route path={'/'} element={<Home/>}/>
-                <Route path={'/project'} element={<Project/>}/>
-                <Route path={'/visionConcept'} element={<Vision {...{debug:false}}/>}/>
-                <Route path={'/dailySchedule'} element={<DailySchedule patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/aboutYou'} element={<AboutYou patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/interests'} element={<Interests patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/aboutYourLife'} element={<AboutYourLife patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/uploadMedia'} element={<UploadMedia patient={patient} allowInput={allowInput}/>}/>
-                <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
-                <Route path={'/patientInfo'} element={<PatientInfo/>}/>
-                <Route path={'/patientProfile'} element={<PatientProfile/>}/>
-                <Route path={'/questionControl'} element={<QuestionControl/>}/>
-                <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
-                <Route path={'/dev'} element={<Dev/>}/>
-                <Route path={'/configs'} element={<Configs/>}/>
-                <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
-                <Route path={'/facultyCalendar'} element={<FacultyViewCalendar />}/>
-                <Route path={'/facultyUpload'} element={<FacultyUpload />}/>
-                <Route path={'/menu'} element={<Menu/>}/>
-            </Routes>
+            {isAdmin() ?
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/project'} element={<Project/>}/>
+                    <Route path={'/visionConcept'} element={<Vision {...{debug: false}}/>}/>
+                    <Route path={'/dailySchedule'} element={<DailySchedule patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/aboutYou'} element={<AboutYou patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/interests'} element={<Interests patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/aboutYourLife'} element={<AboutYourLife patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/uploadMedia'} element={<UploadMedia patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
+                    <Route path={'/patientInfo'} element={<PatientInfo/>}/>
+                    <Route path={'/patientProfile'} element={<PatientProfile/>}/>
+                    <Route path={'/questionControl'} element={<QuestionControl/>}/>
+                    <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                    <Route path={'/dev'} element={<Dev/>}/>
+                    <Route path={'/configs'} element={<Configs/>}/>
+                    <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
+                    <Route path={'/facultyCalendar'} element={<FacultyViewCalendar/>}/>
+                    <Route path={'/facultyUpload'} element={<FacultyUpload/>}/>
+                    <Route path={'/menu'} element={<Menu/>}/>
+                    <Route path={'/facultyLanding'} element={<FacultyLanding/>}/>
+                    <Route path={'/familyLanding'} element={<FamilyLanding/>}/>
+                    <Route path={'*'} element={<Navigate to="/"/>}/>
+                </Routes> : isFacility() ?
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/patientInfo'} element={<PatientInfo/>}/>
+                    <Route path={'/patientProfile'} element={<PatientProfile/>}/>
+                    <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                    <Route path={'/facultyCalendar'} element={<FacultyViewCalendar/>}/>
+                    <Route path={'/facultyUpload'} element={<FacultyUpload/>}/>
+                    <Route path={'/menu'} element={<Menu/>}/>
+                    <Route path={'/facultyLanding'} element={<FacultyLanding/>}/>
+                    <Route path={'*'} element={<Navigate to="/facultyLanding"/>}/>
+                </Routes> : isFamily() ?
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/uploadMedia'} element={<UploadMedia patient={patient} allowInput={allowInput}/>}/>
+                    <Route path={'/familyForm'} element={<UploadPortalStepper/>}/>
+                    <Route path={'/mediaFeed'} element={<MediaFeed/>}/>
+                    <Route path={'/patientCalendar'} element={<PatientViewCalendar/>}/>
+                    <Route path={'/familyLanding'} element={<FamilyLanding/>}/>
+                    <Route path={'*'} element={<Navigate to="/familyLanding"/>}/>
+                </Routes> :
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'*'} element={<Navigate to="/"/>}/>
+                </Routes>
+            }
         </Router>
   );
 }

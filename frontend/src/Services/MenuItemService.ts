@@ -1,5 +1,6 @@
 import DynamoMenuItemResult from "../Models/DynamoMenuItemResult";
 import MenuItem from "../Models/MenuItem";
+import { getRequestHeaders } from "./Authentication";
 
 const MenuItemService = {
     async getAllMenuItems(){
@@ -9,6 +10,12 @@ const MenuItemService = {
 
     },
 
+    async authMenuItems(){
+        let temp: DynamoMenuItemResult = await fetch(      `https://c1855ips20.execute-api.us-east-2.amazonaws.com/TestStage/menuItems` ,getRequestHeaders('GET', {})).then(result => result.json())
+
+        return temp.Items;
+    },
+    
     async insertMenuItem(item : MenuItem){
         var responseOptions = {
             method : 'PUT',

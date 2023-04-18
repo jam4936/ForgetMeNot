@@ -3,10 +3,12 @@ import Question from "../../../Models/Question";
 import Response from "../../../Models/Response"
 import './PersonalityTraits.css';
 import Trait from "./Trait";
+import {redirectLoggedIn} from "../../../Services/getRole";
 
 class PersonalityTraits extends React.Component <any, any>{
 
     constructor(props: any){
+        redirectLoggedIn()
         super(props)        
         if(window.innerWidth > 1024){
             this.state = {

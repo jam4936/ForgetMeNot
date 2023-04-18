@@ -5,9 +5,11 @@ import Question from "../../../Models/Question";
 import DeleteQuestions from "../../../Services/DeleteQuestions";
 import GetResponses from "../../../Services/GetResponses";
 import DeleteResponses from "../../../Services/DeleteResponses";
+import {redirectAdmin} from "../../../Services/getRole";
 
 class DeleteQuestion extends React.Component <any, any>{
     constructor(props: {} | Readonly<{}>){
+        redirectAdmin()
         super(props)
         this.state={
             show:false,

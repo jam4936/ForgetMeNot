@@ -10,9 +10,13 @@ import { EventInput } from '@fullcalendar/core';
 import { Card, CardContent, CardHeader, Dialog, Typography } from '@mui/material';
 import MenuItems from '../../../Models/MenuItem';
 import MenuItemService from '../../../Services/MenuItemService';
+
+import {redirectLoggedIn} from "../../../Services/getRole";
+
 import { Puff } from 'react-loader-spinner';
 
 function PatientViewCalendar(props: any){
+    redirectLoggedIn()
     const [events, setEvents] = useState([] as Events[]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);

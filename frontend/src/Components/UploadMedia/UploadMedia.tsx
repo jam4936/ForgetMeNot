@@ -4,12 +4,15 @@ import Thumbnail from "./Thumbnail/Thumbnail"
 import GetMedia from "../../Services/GetMedia";
 import Media from "../../Models/Media";
 import UploadMediaService from "../../Services/UploadMediaService";
+
+import {redirectLoggedIn} from "../../Services/getRole";
+
 import {Puff} from 'react-loader-spinner';
 import {Dialog, IconButton, Tooltip} from "@mui/material";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
-
 function UploadMedia(props: any) {
+    redirectLoggedIn()
     let patient = props.patient;
 
     const [mediaFiles, setMedia] = useState<Media[]>();

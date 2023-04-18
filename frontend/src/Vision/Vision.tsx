@@ -3,6 +3,12 @@ import './styles.css'
 import * as faceapi from 'face-api.js'
 import GetVisionConfigs from "../Services/GetVisionConfigs";
 import Config from "../Models/Config";
+
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import {redirectAdmin, redirectLoggedIn} from '../Services/getRole';
+
+
 class Vision extends React.Component {
     videoElement: any;
     canvasElement: any;
@@ -24,6 +30,8 @@ class Vision extends React.Component {
     showVision: true;
 
     constructor(props: any){
+
+        redirectLoggedIn()
 
         super(props)
        

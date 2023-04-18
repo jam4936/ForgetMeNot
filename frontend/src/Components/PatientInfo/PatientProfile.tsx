@@ -11,9 +11,11 @@ import Button from '@mui/material/Button';
 import AccordionStepper from "../UploadPortalStepper/AccordionStepper/AccordionStepper";
 import {useLocation, useNavigate} from "react-router-dom";
 import Patient from "../../Models/Patient";
+import {redirectFacility, redirectLoggedIn} from "../../Services/getRole";
 
 
 function PatientProfile(){
+    redirectFacility()
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -27,7 +29,9 @@ function PatientProfile(){
     const patient: Patient = {
         id: location.state != null ? location.state.id : 0,
         firstName: location.state != null ? location.state.firstName : "Test",
-        lastName: location.state != null ? location.state.lastName : "Demonstration"
+        lastName: location.state != null ? location.state.lastName : "Demonstration",
+        dob: location.state != null ? location.state.dob : "1955-01-01",
+        companyId: location.state != null ? location.state.lastName : 11212,
     };
 
     const patientInitials = patient.firstName!.charAt(0) + patient.lastName!.charAt(0);

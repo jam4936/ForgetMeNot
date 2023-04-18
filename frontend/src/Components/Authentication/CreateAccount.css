@@ -1,0 +1,11 @@
+.CreateAccountForm{
+    display: flex;
+    flex-direction: column;
+}
+/* .MuiInputBase-root{
+    margin: 1rem;
+} */
+
+.MuiFormControl-root.MuiTextField-root{
+    margin: 0.5rem;
+}

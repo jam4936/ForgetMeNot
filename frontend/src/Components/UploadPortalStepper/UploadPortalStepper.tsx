@@ -2,8 +2,10 @@ import React from 'react';
 import AccordionStepper from './AccordionStepper/AccordionStepper';
 import "./UploadPortalStepper.css"
 import Patient from "../../Models/Patient"
+import {redirectLoggedIn} from "../../Services/getRole";
 
 function UploadPortalStepper() {
+    redirectLoggedIn()
 
     // this is used for demonstration
     // Eventually the actual ID and patient info will need to be
@@ -11,7 +13,9 @@ function UploadPortalStepper() {
     const patient: Patient = {
         id: 0,
         firstName: "Test",
-        lastName: "Demonstration"
+        lastName: "Demonstration",
+        dob: "1955-01-01",
+        companyId: 11212
     }
     const allowInput: boolean = true;
 

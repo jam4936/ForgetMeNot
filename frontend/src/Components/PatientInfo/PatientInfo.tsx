@@ -4,11 +4,16 @@ import Patient from "../../Models/Patient"
 import GetPatients from "../../Services/GetPatients";
 import {useNavigate} from "react-router-dom";
 import {PatientCard} from "./PatientCard/PatientCard";
+
+import {redirectFacility} from "../../Services/getRole";
+
 import spinner from "../../Assets/loadingspinner.gif";
 import { Dialog } from "@mui/material";
 import { Puff } from "react-loader-spinner";
 
+
 export const PatientInfo = () => {
+    redirectFacility()
 
     const navigate = useNavigate();
     const navigateToProfile = (patient : Patient) => {

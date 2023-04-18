@@ -13,6 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {redirectLoggedIn} from "../Services/getRole";
+
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { Dialog } from "@mui/material";
 import { Puff } from "react-loader-spinner";
@@ -24,7 +26,9 @@ import OrientationSlides from "./OrientationSlides";
 
 //THIS NEEDS TO BE CONVERTED TO A CLASS COMPONENT
 //THIS IS AN ABSOLUTE MESS OF USE EFFECTS AND STATES
+
 export default function MediaFeed() {
+    redirectLoggedIn()
     const location = useLocation();
     const navigate = useNavigate()
     const handle = useFullScreenHandle();
@@ -57,7 +61,9 @@ export default function MediaFeed() {
     const patient: Patient = {
         id: location.state != null ? location.state.id : 0,
         firstName: location.state != null ? location.state.firstName : "Test",
-        lastName: location.state != null ? location.state.lastName : "Demonstration"
+        lastName: location.state != null ? location.state.lastName : "Demonstration",
+        dob: location.state != null ? location.state.dob : "1955-01-01",
+        companyId: location.state != null ? location.state.dob : 11212,
     };
 
     const initializeMediaFeed = async () => {

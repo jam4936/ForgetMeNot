@@ -10,9 +10,14 @@ import "./Menu.css";
 import AddIcon from '@mui/icons-material/Add';
 import AddEditMenuItem from "./AddEditMenuItem";
 import CloseIcon from '@mui/icons-material/Close';
+
+import {redirectLoggedIn} from "../../../Services/getRole";
+
 import { Puff } from "react-loader-spinner";
 
+
 function Menu(props: any){
+    redirectLoggedIn()
     const [existingMenuItems, setExistingMenuItems] = useState([] as MenuItems[]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [addEditDialogOpen, setAddEditDialogOpen] = useState(false);

@@ -2,6 +2,7 @@ import React from "react";
 import '../Authentication.css';
 
 class Email extends React.Component {
+
     render() {
         return (
             <div className="form-group">
