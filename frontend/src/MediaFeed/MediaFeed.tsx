@@ -22,6 +22,8 @@ import Config from "../Models/Config";
 import isBetween from "dayjs/plugin/isBetween";
 import OrientationSlides from "./OrientationSlides";
 
+//THIS NEEDS TO BE CONVERTED TO A CLASS COMPONENT
+//THIS IS AN ABSOLUTE MESS OF USE EFFECTS AND STATES
 export default function MediaFeed() {
     const location = useLocation();
     const navigate = useNavigate()
@@ -83,8 +85,6 @@ export default function MediaFeed() {
     }
 
     function isVisible(index:number){
-        console.log("Checking index: " + index)
-        console.log("Current Slide: " + currentSlide)
         return index === currentSlide
     }
 
@@ -102,7 +102,7 @@ export default function MediaFeed() {
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage"  preload="metadata" autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" hidden={!state} preload="metadata" autoPlay>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -111,7 +111,7 @@ export default function MediaFeed() {
         else{
             return (
                 <div>
-                    <img src={slide.url} alt="slide"  className="feedImage"/>
+                    <img src={slide.url} alt="slide" hidden={!state} className="feedImage"/>
                 </div>
             )
         }
@@ -144,8 +144,8 @@ export default function MediaFeed() {
     //This effect will track the current time
     useEffect(() => {
         if (configComplete) {
-            const startBound = dayjs("12:35 AM", "hh:mm A");
-            const stopBound = dayjs("11:59 PM", "hh:mm A");
+            const startBound = dayjs(feedStartTime, "hh:mm A");
+            const stopBound = dayjs(feedStopTime, "hh:mm A");
 
             // This effect hook will run every second after `dataLoaded` is set to `true`
             const intervalId = setInterval(() => {
@@ -204,6 +204,7 @@ export default function MediaFeed() {
             </div>
         );
     }else{
+        let temp = {updateFN:updateState,debug:false}
         return (
             <>
                 <div id="mediaFeed">
@@ -217,6 +218,7 @@ export default function MediaFeed() {
                             <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
                                 <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
                             </IconButton>
+                            <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
                                 {showFeed ? (
                                     <div>
