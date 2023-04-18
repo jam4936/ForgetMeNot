@@ -1,13 +1,20 @@
 import React, {ChangeEvent, useState} from 'react';
 import "./Authentication.css"
 import {login} from "../../Services/Authentication";
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import CreateAccount from './CreateAccount';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [createAccount, setCreateAccount] = useState(false);
 
     function handleLogin() {
         login(email, password)
+    }
+    const openCreateAccount = () =>{
+        setCreateAccount(true);
     }
 
     return (
@@ -32,10 +39,22 @@ function Login() {
                         Forgot <a href="#">password?</a>
                     </p>
                     <p id="createAccount">Not registered yet? </p>
-                    <a id="createAccount" href="createAccount"> Create Account</a>
+                    <a id="createAccount" href="#" onClick={openCreateAccount}> Create Account</a>
                 </div>
             </div>
+            <Dialog open={createAccount}>
+                <DialogTitle id="title">
+                    <h2>Create Account</h2>
+                        <IconButton onClick={ () => setCreateAccount(false)}>
+                        <CloseIcon/>
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent>
+                    <CreateAccount></CreateAccount>
+                </DialogContent>
+            </Dialog>
         </div>
+
     )
 }
 

@@ -1,13 +1,39 @@
 import Company from "../Models/Company";
-import DynamoCompanyResult from "../Models/DynamoCompanyResult";
+import {DynamoCompaniesResult, DynamoCompanyResult} from "../Models/DynamoCompanyResult";
+import {getRequestHeaders} from "./Authentication";
 
-const Company = {
-    companies: [] as Company[],
-    initializeCompanies: async function() {
-        let companies: DynamoCompanyResult = await fetch('https://30z74xmi3i.execute-api.us-east-2.amazonaws.com/patient/all', {method: 'GET'}).then(result => result.json())
+const CompanyFunctions = {
+    getCompanies: async function() {
+        const headers = getRequestHeaders('GET', {});
+        console.log(headers);
+        let companies: DynamoCompaniesResult = await fetch("https://c1855ips20.execute-api.us-east-2.amazonaws.com/TestStage/company", headers)
+            .then(response =>{console.log(response.status);  console.log(response.headers);return response.json();} )
+            .catch(error => console.log('error', error));
 
-        this.companies = companies.Items;
+        return companies
+    },
+    getCompany: async function(companyID: number) {
+        let company: DynamoCompanyResult = await fetch(`https://c1855ips20.execute-api.us-east-2.amazonaws.com/auth/company/${companyID}`, getRequestHeaders('GET', {}))
+            .then(response => response.json())
+            .catch(error => console.log('error', error));
+
+        return company.Item
+    },
+    createCompany: async function (company: {}){
+        return await fetch("https://c1855ips20.execute-api.us-east-2.amazonaws.com/auth/company", getRequestHeaders('POST', company))
+            .then(response => response.json())
+            .catch(error => console.log('error', error))
+    },
+    updateCompany: async function(company: Company){
+        return await fetch(`https://c1855ips20.execute-api.us-east-2.amazonaws.com/auth/company/${company.id}`, getRequestHeaders('PUT', company))
+            .then(response => response.json())
+            .catch(error => console.log('error', error))
+    },
+    deleteCompany: async function(companyID: number) {
+        return await fetch(`https://c1855ips20.execute-api.us-east-2.amazonaws.com/auth/company/${companyID}`, getRequestHeaders('DELETE', {}))
+            .then(response => response.json())
+            .catch(error => console.log('error', error));
     }
 }
 
-export default Company
+export default CompanyFunctions

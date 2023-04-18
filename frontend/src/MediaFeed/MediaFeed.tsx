@@ -12,10 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-import GetMedia from "../Services/GetMedia";
-
-import Media from "../Models/Media";
 import {redirectLoggedIn} from "../Services/getRole";
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
@@ -56,7 +52,9 @@ export default function MediaFeed() {
     const patient: Patient = {
         id: location.state != null ? location.state.id : 0,
         firstName: location.state != null ? location.state.firstName : "Test",
-        lastName: location.state != null ? location.state.lastName : "Demonstration"
+        lastName: location.state != null ? location.state.lastName : "Demonstration",
+        dob: location.state != null ? location.state.dob : "1955-01-01",
+        companyId: location.state != null ? location.state.dob : 11212,
     };
 
     const initializeMedia = async () => {

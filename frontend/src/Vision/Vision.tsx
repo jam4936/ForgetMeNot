@@ -31,9 +31,7 @@ class Vision extends React.Component {
 
     constructor(props: any){
 
-
-    constructor(props: {} | Readonly<{}>){
-        redirectAdmin()
+        redirectLoggedIn()
 
         super(props)
        

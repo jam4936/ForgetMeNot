@@ -1,11 +1,31 @@
 import * as React from 'react';
 import "./Home.css"
-import {isAuthenticated} from "./Services/Authentication";
+
+import CompanyFunctions from "./Services/Company";
+import {getToken} from "./Services/Authentication";
+import {isAdmin} from "./Services/getRole";
+import MenuItemService from './Services/MenuItemService';
 
 function Home() {
 
+    function checkCompanies(){
+        // console.log(CompanyFunctions.getCompanies())
+        console.log(getToken())
+        console.log(CompanyFunctions.getCompanies())
+        // console.log(CompanyFunctions.createCompany({id: 1151, address: 'Testing the address in the button', name: 'Test name'}))
+        // console.log(CompanyFunctions.updateCompany({id: 1151, address: 'Testing the address in the button Test 2', name: 'Test name'}))
+        // console.log(CompanyFunctions.deleteCompany(1151))
+    }
+
+    function checkMenu(){
+        console.log(getToken());
+        console.log(MenuItemService.authMenuItems());
+    }
+
     return (
         <div className="landing">
+            {!isAdmin() ? <div></div> : <button onClick={checkCompanies}>Click this button for Company </button>}
+            {!isAdmin() ? <div></div> : <button onClick={checkMenu}>Click for menu</button>}
             <div className={"leftWindow"}>
                 <div className={"Item1"}>
                     <img
