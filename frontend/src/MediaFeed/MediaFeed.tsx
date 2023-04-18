@@ -102,7 +102,7 @@ export default function MediaFeed() {
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" hidden={!state} preload="metadata" autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" hidden={!state} autoPlay onEnded={nextSlide}>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -178,17 +178,12 @@ export default function MediaFeed() {
 
             let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
             if (currentMediaFile && showFeed){
-                if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
-                    let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
-                    videoDuration.onloadedmetadata = function() {
-                        slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
-                    };
-                }
-                else{
+                if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] !== "mp4"){
                     slideInterval = setInterval(nextSlide, intervalTime);
+
+                    return () => clearInterval(slideInterval);
                 }
             }
-            return () => clearInterval(slideInterval);
         }
     }, [configComplete,currentSlide]);
 
