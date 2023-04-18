@@ -51,5 +51,8 @@ div.fc-event-title {
     display: inline-flex;
     flex-direction: row;
     width: 95%;
-    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

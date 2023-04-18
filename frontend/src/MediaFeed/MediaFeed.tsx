@@ -5,6 +5,7 @@ import "./MediaFeed.css";
 import Media from "../Models/Media";
 import Vision from "../Vision/Vision";
 import Weather from "../Components/Weather/Weather"
+import PatientViewCalendar from "../Components/Calendar/Views/PatientViewCalendar"
 import GetMedia from "../Services/GetMedia";
 import Patient from "../Models/Patient";
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
@@ -19,6 +20,7 @@ import GetVisionConfigs from "../Services/GetVisionConfigs";
 import dayjs from "dayjs";
 import Config from "../Models/Config";
 import isBetween from "dayjs/plugin/isBetween";
+import OrientationSlides from "./OrientationSlides";
 
 export default function MediaFeed() {
     const location = useLocation();
@@ -30,12 +32,17 @@ export default function MediaFeed() {
 
     const [state, setState] = useState<boolean>(false);
 
-    const [mediaFiles, setMedia] = useState<Media[] | undefined>();
+    const [mediaFiles, setMedia] = useState<Media[]>([]);
+    const [orientationVideo, setOrientationVideo] = useState<Media>();
+    const [greetingVideo, setGreetingVideo] = useState<Media>();
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+    const [configComplete, setConfigComplete] = useState<boolean>(false);
+
     const [showWeather, setShowWeather] = useState<boolean>(false);
 
     const [feedStartTime, setFeedStartTime] = useState<string>("08:00 AM");
     const [feedStopTime, setFeedStopTime] = useState<string>("08:00 PM");
+    const [isMorning, setIsMorning] = useState<boolean>(false);
     const [showFeed, setShowFeed] = useState<boolean>(false);
 
     let slideInterval: string | number | NodeJS.Timer | undefined;
@@ -51,13 +58,21 @@ export default function MediaFeed() {
         lastName: location.state != null ? location.state.lastName : "Demonstration"
     };
 
-    const initializeMedia = async () => {
+    const initializeMediaFeed = async () => {
+        console.log("Initializing Media")
+        //Fetch the media files from the patient, and the orientation video from the facility
         await GetMedia.initializeMedia(patient.id.toString(), "patient");
         setMedia(GetMedia.mediaMetadata);
+        await GetMedia.initializeMedia(patient.id.toString(), "facility");
+        setMedia(mediaFiles => mediaFiles.concat(GetMedia.mediaMetadata));
+
+        //Set up the glance start and stop times
         await GetVisionConfigs.getGlanceStartTime();
         setFeedStartTime( (GetVisionConfigs.configs.at(0) as Config).configValue );
         await GetVisionConfigs.getGlanceStopTime();
         setFeedStopTime( (GetVisionConfigs.configs.at(0) as Config).configValue );
+
+        //Set data loaded to true
         setDataLoaded(true)
     }
 
@@ -68,6 +83,8 @@ export default function MediaFeed() {
     }
 
     function isVisible(index:number){
+        console.log("Checking index: " + index)
+        console.log("Current Slide: " + currentSlide)
         return index === currentSlide
     }
 
@@ -85,7 +102,7 @@ export default function MediaFeed() {
         if (index === currentSlide && re.exec(slide.objectKey)![1] === "mp4") {
             return (
                 <div>
-                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage" hidden={!state} preload="metadata" autoPlay>
+                    <video id={"currentVideo".concat(String(currentSlide))} className="feedImage"  preload="metadata" autoPlay>
                         <source src={slide.url} type="video/mp4" />
                     </video>
                 </div>
@@ -94,7 +111,7 @@ export default function MediaFeed() {
         else{
             return (
                 <div>
-                    <img src={slide.url} alt="slide" hidden={!state} className="feedImage"/>
+                    <img src={slide.url} alt="slide"  className="feedImage"/>
                 </div>
             )
         }
@@ -102,61 +119,91 @@ export default function MediaFeed() {
 
     //Will fetch the mediaFiles at media feed startup
     useEffect(() => {
-        initializeMedia()
+        initializeMediaFeed()
     }, [])
 
     //This effect will ensure the mediaFiles are fetched and the feed length is set
-    //Depends on the mediaFiles state
+    //Depends on the dataLoaded state
     useEffect( () => {
-        if (mediaFiles) setFeedLength(mediaFiles.length);
-    }, [mediaFiles])
+        if (dataLoaded){
+            //Extract and delete just the orientation and greeting videos from the fetched media files
+            setOrientationVideo(mediaFiles.find((media) => media.isOrientation === true));
+
+            setGreetingVideo(mediaFiles.find((media) => media.isGreeting === true));
+
+            setConfigComplete(true)
+        }
+    }, [dataLoaded])
+
+    useEffect( () => {
+        if (configComplete){
+            setMedia(mediaFiles => mediaFiles.filter((media) => media.isGreeting !== true && media.isOrientation !== true));
+        }
+    }, [configComplete])
 
     //This effect will track the current time
     useEffect(() => {
-        dayjs.extend(isBetween);
-        let startBound = dayjs(feedStartTime, "hh:mm A");
-        let stopBound = dayjs(feedStopTime, "hh:mm A");
-        if (dayjs().isBetween(startBound, stopBound)) {
-            setShowFeed(true)
-        } else {
-            setShowFeed(false)
+        if (configComplete) {
+            const startBound = dayjs("12:35 AM", "hh:mm A");
+            const stopBound = dayjs("11:59 PM", "hh:mm A");
+
+            // This effect hook will run every second after `dataLoaded` is set to `true`
+            const intervalId = setInterval(() => {
+                dayjs.extend(isBetween);
+                if (dayjs().isBetween(startBound, stopBound)) {
+                    if(dayjs().hour() === startBound.hour() && dayjs().minute() === startBound.minute()){
+                        console.log("Is morning")
+                        setIsMorning(true)
+                    }
+                    else{
+                        console.log("Is not morning")
+                        setIsMorning(false)
+                    }
+                    setShowFeed(true)
+                } else {
+                    setShowFeed(false)
+                }
+            }, 1000);
+
+            // Cleanup function to cancel the interval when the component unmounts
+            return () => clearInterval(intervalId);
         }
-    }, [dataLoaded,currentSlide]);
+    }, [configComplete]);
 
     //Effect will track the slide intervals depending on the slideInterval set and if the currentSlide is a video
     //Depends on currentSlide. Everytime currentSlide changes, this effect is called
     useEffect(() => {
-        let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
-        console.log(feedLength)
-        console.log(currentSlide)
-        console.log(currentMediaFile)
-        if (currentMediaFile && showFeed){
-            if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
-                let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
-                videoDuration.onloadedmetadata = function() {
-                    slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
-                };
-            }
-            else{
-                slideInterval = setInterval(nextSlide, intervalTime);
-            }
-        }
-        return () => clearInterval(slideInterval);
-    }, [dataLoaded,currentSlide]);
+        if(configComplete){
+            setFeedLength(mediaFiles.length)
 
-    if(!dataLoaded) {
+            let currentMediaFile = mediaFiles ? mediaFiles[currentSlide] : null
+            if (currentMediaFile && showFeed){
+                if (/(?:\.([^.]+))?$/.exec(currentMediaFile.objectKey)![1] === "mp4"){
+                    let videoDuration = (document.getElementById("currentVideo" + currentSlide) as HTMLVideoElement)
+                    videoDuration.onloadedmetadata = function() {
+                        slideInterval = setInterval(nextSlide, videoDuration.duration*1000);
+                    };
+                }
+                else{
+                    slideInterval = setInterval(nextSlide, intervalTime);
+                }
+            }
+            return () => clearInterval(slideInterval);
+        }
+    }, [configComplete,currentSlide]);
+
+    if(!configComplete) {
         return (
             <div>
-                <Dialog disableScrollLock={true} open={!dataLoaded} id="loadingScreenDialog">
+                <Dialog disableScrollLock={true} open={!configComplete} id="loadingScreenDialog">
                     <Puff   height="80"
                             width="80"
                             radius={1}
-                            color="#EFF1FB" visible={!dataLoaded} />
+                            color="#EFF1FB" visible={!configComplete} />
                 </Dialog>
             </div>
         );
     }else{
-        let temp = {updateFN:updateState,debug:false}
         return (
             <>
                 <div id="mediaFeed">
@@ -170,22 +217,30 @@ export default function MediaFeed() {
                             <IconButton size="large" id="enterFullscreen" onClick={handle.enter}>
                                 <OpenInFullIcon fontSize="inherit"></OpenInFullIcon>
                             </IconButton>
-                            <Vision {...temp} {...{showVision:true}}  />
                             <FullScreen handle={handle}>
                                 {showFeed ? (
-                                    <>
-                                        {mediaFiles?.map((slide, index) => {
-                                            return (
-                                                <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
-                                                    {handleSlideCreation(slide,index)}
-                                                </div>
-                                            );
-                                        })}
-                                        <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
-                                            <ThermostatIcon fontSize="inherit"></ThermostatIcon>
-                                        </IconButton>
-                                        {showWeather && <Weather></Weather>}
-                                    </>
+                                    <div>
+                                        {isMorning ? (
+                                            <>
+                                                <OrientationSlides orientation={orientationVideo} greeting={greetingVideo}></OrientationSlides>
+                                            </>
+                                        ) : (
+                                            <div>
+                                                {mediaFiles?.map((slide, index) => {
+                                                    return (
+                                                        <div className={isVisible(index) ? "slide current" : "slide"} key={index}>
+                                                            {handleSlideCreation(slide,index)}
+                                                        </div>
+                                                    );
+                                                })}
+                                                <IconButton size="large" onClick={() => {setShowWeather(prevCheck => !prevCheck)}}>
+                                                    <ThermostatIcon fontSize="inherit"></ThermostatIcon>
+                                                </IconButton>
+                                                {showWeather && <Weather></Weather>}
+                                            </div>
+                                        )}
+
+                                    </div>
                                 ) : (
                                     <div>
                                     </div>
