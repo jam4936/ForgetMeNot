@@ -36,21 +36,29 @@ export default function Trait(props: any) {
         updateResponse();
     }, [postState]);
     const updateResponse = () =>{
-
         let updatedValue = parseInt(resp.response); 
         
-        if(!preState && !postState){
+        // TRUE means it is checked
+        // FLASE means not checked 
+        /*
+         * 0 = Never had this personality
+         * 1 = Personality before disease
+         * 2 = Personality post disease
+         * 3 = Personality both before and after disease
+         */
+        if(!preState && !postState){ 
             updatedValue = 0;
         }
-        else if(preState && !postState){
+        else if(preState && !postState){ 
             updatedValue = 1;
         }
-        else if(!preState && postState){
+        else if(!preState && postState){ 
             updatedValue = 2;
         }
         else{
             updatedValue = 3;
         }
+        // checks to make sure value is not the same as it originally was then sends change to Upload Response Service
         if(updatedValue != resp.response){
             var change = { questionId: trait.id, response: updatedValue.toString()} as SendResponse
             UploadResponseService.setFormDirty(change, updatedValue.toString());

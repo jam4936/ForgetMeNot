@@ -8,17 +8,15 @@ import UploadResponseService from "../../Services/UploadResponseService";
 import GetQuestions from "../../Services/GetQuestions";
 import Response from "../../Models/Response";
 import GetResponses from "../../Services/GetResponses";
-import Patient from "../../Models/Patient";
-
 import {redirectLoggedIn} from "../../Services/getRole";
-
-import spinner from "../../Assets/loadingspinner.gif";
 import { Puff } from "react-loader-spinner";
 
 function AboutYourLife(props: any){
     redirectLoggedIn()
+    /* *************Function Variables************* */
     const patient = props.patient;
     const allowInput = props.allowInput;
+
     const [questions, setQuestions] = useState([] as Question[]);
     const [responses, setResponses] = useState([] as Response[]);
 
@@ -63,6 +61,7 @@ function AboutYourLife(props: any){
 
     }
 
+    //uses the question id to find the response of a question
     const findResponse = (question: Question) : string =>{
         let response = responses?.find((x) => x.questionID === question.id)?.response;
         if(response != undefined){
@@ -75,6 +74,7 @@ function AboutYourLife(props: any){
         return "";
     }
 
+    //Creates select question component
     const getSelect = (question: Question) =>{
         return(
             <div id={question.id.toString()} className={question.questionType}>

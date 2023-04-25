@@ -18,33 +18,38 @@ import { Puff } from "react-loader-spinner";
 
 function Menu(props: any){
     redirectLoggedIn()
+    /* *************Function States************* */
     const [existingMenuItems, setExistingMenuItems] = useState([] as MenuItems[]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [addEditDialogOpen, setAddEditDialogOpen] = useState(false);
-    const [editMode, setEditMode] = useState(false);
     const [addMealType, setAddMealType] = useState(0);
     const [editableMeal, setEditableMeal] = useState(null as MenuItems | null);
 
+
+    // Retrieves existing menu items from the database using MenuItemService
     const getExistingMenuItems = async () =>{
         await MenuItemService.getAllMenuItems().then((val) =>{
             setExistingMenuItems(val);
         });
-
-
     };
 
+    //If the data is not loaded yet, load it and set DataLoaded to true
     if(!dataLoaded){
         getExistingMenuItems();
         setDataLoaded(true);
     }
 
+    //Calls the deleteMenuItem in MenuItemService with the itemID to have it deleted from the db then refreshes the menuItems
     const handleDelete = async (item : MenuItems) =>{
         await MenuItemService.deleteMenuItem(item.id);
         await getExistingMenuItems();
     }
+    //callback function to close the dialog
     const handleCallback = async(items : MenuItems) =>{
         setAddEditDialogOpen(false);
     }
+
+    // Creates card component for each individual menu item
     const getCard = (item : MenuItems) =>{
         return (
             <div>
@@ -70,6 +75,7 @@ function Menu(props: any){
             </div>
         )
     }
+    //renders the page
     if(!dataLoaded) {
         return (
             <div data-testid="loading-screen">

@@ -17,6 +17,7 @@ import { Puff } from 'react-loader-spinner';
 
 function FacultyViewCalendar(this: any, props: any){
     redirectFacility()
+    /* *************Function States************* */
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
     const [openCreateDialog, setOpenCreateDialog] = useState(false);
@@ -25,12 +26,14 @@ function FacultyViewCalendar(this: any, props: any){
     const [dialogMode, setDialogMode] = useState("create");
     const [nextId, setNextId] = useState(0);
 
+    // callback function for child component to call back to 
     const handleCallback = async (events: Events, mode: String) =>{
         setOpenCreateDialog(false);
         let tempEvents = await getEvents();
         setEventInputs(tempEvents);        
     }
 
+    // sends new event information to the database to edit event
     const editedEvent = (click: EventClickArg) =>{
         EventsService.getEventById(Number(click.event.id)).then((val) =>{
             var tempEvent = val as Events
@@ -41,13 +44,15 @@ function FacultyViewCalendar(this: any, props: any){
 
 
     }
+
+    //Retrieves events using the EventService
     const getEvents = async () =>{
         let temp = await (await EventsService.getAllEvents()).sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
         let events = [] as EventInput[];
         temp.forEach((response: Events) =>{
             let eventInput;
-            if(!response.recurring) {
-                if (!response.allDay) {
+            if(!response.recurring) { //Non recurring events
+                if (!response.allDay) { //Non all day events
                     eventInput = {
                         id: response.id.toString(),
                         title: response.title,
@@ -56,7 +61,7 @@ function FacultyViewCalendar(this: any, props: any){
                         startTime: response.startTime,
                         endTime: response.endTime,
                     } as EventInput;
-                } else {
+                } else { //All day events
                     eventInput = {
                         backgroundColor: "purple",
                         title: response.title,
@@ -66,8 +71,8 @@ function FacultyViewCalendar(this: any, props: any){
                         start: response.start,
                     } as EventInput;
                 }
-            } else {
-                if(response.allDay){
+            } else { //recurring events
+                if(response.allDay){ //all day events
                     eventInput = {
                         id: response.id.toString(),
                         title: response.title,
@@ -80,7 +85,7 @@ function FacultyViewCalendar(this: any, props: any){
                             until: response.end,
                         },
                     }
-                }else{
+                }else{ //non all day events
                     let start = new Date(response.start + "T" + response.startTime).toISOString()
                     let timeDiff = (new Date(response.end + response.endTime)).valueOf() - (new Date(response.start + response.startTime)).valueOf()
                     eventInput = {
@@ -98,12 +103,13 @@ function FacultyViewCalendar(this: any, props: any){
                     }
                 }
             }
-                
+            //pushes the newly created event to the EventInput list 
             events.push(eventInput);
         })
         return events;
     }
 
+    //if not loaded then load the events
     if(!dataLoaded){
         getEvents().then((events) =>{
             setEventInputs([...eventInputs, ...events]);
@@ -111,11 +117,15 @@ function FacultyViewCalendar(this: any, props: any){
         });
 
     }
+
+    // sets the openCreateDialog to true so that the dialog appears
     const setCreateMode = () =>{
         setOpenCreateDialog(true); 
         setDialogMode("create");
         setEditEvent(null as unknown as Events);
     }
+
+    //render
     if(!dataLoaded){
      return (
         <div>

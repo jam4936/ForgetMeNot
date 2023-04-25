@@ -17,22 +17,21 @@ import { Puff } from 'react-loader-spinner';
 
 function PatientViewCalendar(props: any){
     redirectLoggedIn()
+    /* *************Function States************* */
     const [events, setEvents] = useState([] as Events[]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [eventInputs, setEventInputs] = useState([] as EventInput[]);
     const [menuItems, setMenuItems] = useState([] as MenuItems[]);
 
-    //API Key: AIzaSyCw0sL7BxjdjwIvMRUhLZLp1lIh1zoxUok
-
-
+    //Retrieves existing events using EventService
     const getEvents = async () =>{
         let temp = await (await EventsService.getAllEvents()).sort((a: {id: number},b: {id: number}) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
         setEvents(temp as Events[])
         let inputs = [] as EventInput[]
         temp.forEach((response: Events) =>{
             let eventInput;
-            if(!response.recurring) {
-                if (!response.allDay) {
+            if(!response.recurring) { //Non recurring events
+                if (!response.allDay) { //Non all day events
                     eventInput = {
                         id: response.id.toString(),
                         title: response.title,
@@ -41,7 +40,7 @@ function PatientViewCalendar(props: any){
                         startTime: response.startTime,
                         endTime: response.endTime,
                     } as EventInput;
-                } else {
+                } else { //All day events
                     eventInput = {
                         backgroundColor: "purple",
                         title: response.title,
@@ -51,8 +50,8 @@ function PatientViewCalendar(props: any){
                         start: response.start,
                     } as EventInput;
                 }
-            } else {
-                if(response.allDay){
+            } else { //recurring events
+                if(response.allDay){ //all day events
                     eventInput = {
                         id: response.id.toString(),
                         title: response.title,
@@ -65,7 +64,7 @@ function PatientViewCalendar(props: any){
                             until: response.end,
                         },
                     }
-                }else{
+                }else{ //Non all day events
                     let start = new Date(response.start + "T" + response.startTime).toISOString()
                     let timeDiff = (new Date(response.end + response.endTime)).valueOf() - (new Date(response.start + response.startTime)).valueOf()
                     eventInput = {
@@ -89,6 +88,7 @@ function PatientViewCalendar(props: any){
         return inputs;
     }
 
+    //gets the existing menu items using MenuItemService
     const getMenuItems = async () =>{
         let temp = await (await MenuItemService.getAllMenuItems()).sort((a: {id: Number}, b: {id: Number}) => Number(a.id) < Number(b.id) ? -1 : Number(a.id) > Number(b.id) ? 1 : 0)
         setMenuItems(temp)
@@ -111,6 +111,7 @@ function PatientViewCalendar(props: any){
         )
     }
 
+    //Creates card components for each event
     const createCardEvents = (value : EventInput) =>{
         let desc = ""
         events.forEach((event) => {

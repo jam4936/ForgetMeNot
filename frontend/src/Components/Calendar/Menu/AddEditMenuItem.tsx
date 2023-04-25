@@ -18,6 +18,8 @@ export default class AddEditMenuItem extends React.Component <any, any>{
             mealType: this.props.editableMeal ? this.props.editableMeal.mealType : this.props.mealType
         }
     }
+
+    //Checks if the event id exists and returns a boolean
     eventIdExists(checkId: number){
         let idExists = false;
         this.props.existingMenuItems.forEach((item : MenuItems) => {
@@ -28,6 +30,7 @@ export default class AddEditMenuItem extends React.Component <any, any>{
         return idExists;
     }
 
+    //Generates a new ID for an event by checking each number until there is a free one
     generateId(){
         let genID = 0;
         while(this.eventIdExists(genID)){
@@ -35,6 +38,8 @@ export default class AddEditMenuItem extends React.Component <any, any>{
         }
         return genID;
     };
+
+    //Validates that name and description is provided
     validateForm() {
         if(!this.state.name || !this.state.description){
             return false;
@@ -44,6 +49,7 @@ export default class AddEditMenuItem extends React.Component <any, any>{
         }
     }
 
+    //Submits a new event by creating MenuItems and sending the item to the MenuItemService
     async handleSubmit(){
         if(this.validateForm()){
             const newMeal : MenuItems = {
@@ -59,6 +65,7 @@ export default class AddEditMenuItem extends React.Component <any, any>{
                 t.splice(index, 1);
             }
             t.push(newMeal);
+            //calls back to parent class
             this.props.parentCallback(t);
         }
     }

@@ -9,7 +9,8 @@ class PersonalityTraits extends React.Component <any, any>{
 
     constructor(props: any){
         redirectLoggedIn()
-        super(props)        
+        super(props)    
+        //checks size of window to size the personality trait checkbox columns    
         if(window.innerWidth > 1024){
             this.state = {
                 isTablet: true,
@@ -30,6 +31,9 @@ class PersonalityTraits extends React.Component <any, any>{
         }
     }
     
+    /*
+     *Checks if the screen is being resized and sets the state accordingly
+     */
     componentDidMount(): void {
         window.addEventListener('resize', () =>{
             this.setState({
@@ -39,6 +43,9 @@ class PersonalityTraits extends React.Component <any, any>{
         }, false);
     }
     
+    /*
+     *takes in the given question and response and creates a custom Trait object
+     */
     displayTrait(element: Question, response: Response){
         return <Trait response={response} trait={element}/>;
     }

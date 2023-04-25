@@ -30,7 +30,9 @@ div.checkboxNum{
     flex-direction: row;
     height: 1.5rem;
 }
-/*computer view*/
+/*Computer view
+ * Dynamically changes number of grid columns based off of window size
+ */
 @media screen and (min-width: 1024px){
     div.allTraits{
         display: grid;
@@ -39,7 +41,7 @@ div.checkboxNum{
     }
 }
 
-/*Tablet view*/
+/*Tablet view */
 @media screen and (min-width: 530px) and (max-width: 1024px){
     div.allTraits{
         display: grid;
