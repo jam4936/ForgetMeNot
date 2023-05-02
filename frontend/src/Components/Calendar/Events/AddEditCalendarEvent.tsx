@@ -111,7 +111,8 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
     };
     handleAllDayChange(event: React.ChangeEvent<HTMLInputElement>){
         this.setState(() =>({
-            allDay: event.target.checked
+            allDay: event.target.checked,
+            end: this.state.start,
         }))
     }
 
@@ -137,7 +138,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                         title: this.state.title,
                         description: this.state.description,
                         start: this.state.start,
-                        end: "",
+                        end: this.state.start,
                         allDay: true,
                         startTime: "",
                         endTime: "",
@@ -147,18 +148,19 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
                     }
                 }
                 else{
+                    let enddate = dayjs(this.state.start).add(1, 'day')
                     event = {
                         id: this.state.id,
                         title: this.state.title,
                         description: this.state.description,
                         start: this.state.start,
-                        end: "",
+                        end: enddate.format('YYYY-MM-DD'),
                         allDay: false,
                         startTime: this.state.startTime,
                         endTime: this.state.endTime,
                         daysOfWeek: [],
-                        recurring: false,
-                        recFreq: "",
+                        recurring: true,
+                        recFreq: "daily",
                     }
                 }
             } else {
@@ -214,7 +216,7 @@ export default class AddEditCalendarEvent extends React.Component<any, any>{
             if(this.state.title != "" && this.state.allDay && this.state.start != "" && this.state.end != "" && this.state.recFreq != "")
                 return true
                 // timed event thats recurring
-            else if(this.state.title != "" && !this.state.allDay && this.state.startTime != "" && this.state.endTime != "" && this.state.start != "" && this.state.end != "" && this.state.recFreq != "")
+            else if(this.state.title != "" && !this.state.allDay && this.state.startTime != "" && this.state.endTime != "" && this.state.start != "" && this.state.end != "" && this.state.recFreq != "" && (dayjs(this.state.start) < dayjs(this.state.end)))
                 return true;
             else{
                 return false;

@@ -60,6 +60,7 @@ function FacultyViewCalendar(this: any, props: any){
                         start: response.start,
                         startTime: response.startTime,
                         endTime: response.endTime,
+                        end: response.end,
                     } as EventInput;
                 } else { //All day events
                     eventInput = {
@@ -69,6 +70,7 @@ function FacultyViewCalendar(this: any, props: any){
                         description: response.description,
                         allDay: response.allDay,
                         start: response.start,
+                        end: response.end,
                     } as EventInput;
                 }
             } else { //recurring events
